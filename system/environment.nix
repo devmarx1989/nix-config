@@ -1,4 +1,4 @@
-{ environment, ... }:
+{ environment, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
     nvidia-cuda-toolkit     # for nvcc and CUDA SDK
