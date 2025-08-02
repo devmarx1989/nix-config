@@ -11,9 +11,30 @@
   imports = [
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    max-jobs = "auto";  # Uses all available CPU cores
+    cores = 0;          # 0 means "use all cores" for individual build steps
+    experimental-features = [ "nix-command" "flakes" ];
+    use-sqlite-wal = true;
+    auto-optimise-store = true;
+  };
+
+  nixpkgs.config = {
+  # Allow unfree packages
+    allowUnfree = true;
+    allowParallelBuilding = true;
+  };
+
   wsl.enable = true;
   wsl.defaultUser = "devmarx";
+
+  security.doas = {
+    enable = true;
+    extraRules = [
+      { groups = [ "wheel"]; noPass = true; keepEnv = true; }
+    ];
+  };
+  security.rtkit.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
