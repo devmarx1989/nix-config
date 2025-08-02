@@ -25,6 +25,7 @@
     cores = 0;          # 0 means "use all cores" for individual build steps
     experimental-features = [ "nix-command" "flakes" ];
     use-sqlite-wal = true;
+    trusted-users = [ "root" "devmarx" ];
     auto-optimise-store = true;
     substituters = [
       "https://cuda-maintainers.cachix.org"
