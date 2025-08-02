@@ -14,7 +14,7 @@
     let
       system = "x86_64-linux";
     in {
-      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.houseofmarx = nixpkgs.lib.nixosSystem {
         inherit system;
 
         modules = [
