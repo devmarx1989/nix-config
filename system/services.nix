@@ -1,19 +1,20 @@
 { services, ...}:
 {
-  services.bind = {
+  services.coredns = {
     enable = true;
-    listenOn = [
-      "::1"
-      "127.0.0.1"
-      "localhost"
-    ];
 
-    listenOnIpv6 = [ "::1" ];
-    forwarders = [ "192.168.1.1" "1.1.1.1" "8.8.8.8" ];
-    cacheNetworks = [
-      "127.0.0.0/24"
-      "::1/128"
-    ];
+    config = ''
+      . {
+          bind 0.0.0.0
+          bind [::]
+          forward . 1.1.1.1
+          cache {
+              success 360000
+              denial 30
+          }
+          log
+      }
+    '';
   };
   services.openssh.enable = true;
   services.expressvpn.enable = true;
