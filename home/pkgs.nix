@@ -10,6 +10,7 @@
     delta
     docker
     file
+    fortune
     docker-compose
     fd
     ffmpeg-full

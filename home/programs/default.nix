@@ -14,6 +14,4 @@
       end
       ";
   };
-  programs.nix-ld.enable = true;
-  programs.mtr.enable = true;
 }
