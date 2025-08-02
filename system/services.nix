@@ -6,8 +6,8 @@
     config = ''
       . {
           bind 0.0.0.0
-          bind [::]
-          forward . 1.1.1.1
+          bind ::
+          forward . 1.1.1.1 8.8.8.8
           cache {
               success 360000
               denial 30
