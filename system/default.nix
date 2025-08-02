@@ -26,6 +26,13 @@
     experimental-features = [ "nix-command" "flakes" ];
     use-sqlite-wal = true;
     auto-optimise-store = true;
+    substituters = [
+      "https://cuda-maintainers.cachix.org"
+    ];
+    trusted-public-keys = [
+      # public key printed by `cachix use cuda-maintainers`
+      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+    ];
   };
 
   nixpkgs.config = {
