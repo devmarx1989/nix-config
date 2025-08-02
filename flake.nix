@@ -13,8 +13,9 @@
   outputs = { self, nixpkgs, home-manager, nixvim, nixos-wsl, ... }:
     let
       system = "x86_64-linux";
+      hostname = "houseofmarx";
     in {
-      nixosConfigurations.houseofmarx = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
 
         modules = [
