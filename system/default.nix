@@ -9,7 +9,7 @@
 
 {
   imports = [
-    ./fonts.nix
+    #./fonts.nix
     ./network.nix
     ./programs.nix
     ./security.nix
