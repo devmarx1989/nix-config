@@ -4,7 +4,7 @@
     enable = true;
 
     config = ''
-      . {
+      .:1001 {
           bind 0.0.0.0
           bind ::
           forward . 1.1.1.1 8.8.8.8
