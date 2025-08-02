@@ -10,6 +10,7 @@
 {
   imports = [
     #./fonts.nix
+    ./hardware.nix
     ./network.nix
     ./programs.nix
     ./security.nix
