@@ -24,6 +24,7 @@
     helix
     hexyl
     htop
+    internetarchive
     jq
     kaggle
     litecli
