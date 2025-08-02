@@ -1,43 +1,51 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    amass
     bat
     cacert
     clang
-    llvm
-    lld
-    lldb
     curl
     delta
     docker
-    file
-    fortune
     docker-compose
     fd
+    feroxbuster
     ffmpeg-full
+    file
     fishPlugins.bobthefish
     fishPlugins.foreign-env
+    fortune
     helix
     hexyl
     htop
     jq
+    lld
+    lldb
+    llvm
+    masscan
     mediainfo
     neofetch
     nh
     nix-index
     nix-output-monitor
+    nmap
     nushell
     nushellPlugins.highlight
     pandoc
-    ponysay
     pnpm
+    ponysay
     ruff
+    rustscan
     rye
     sccache
+    sn0int
+    sniffglue
     uv
     wget
     yt-dlp
     zdns
+    zmap
   ];
 
 }
