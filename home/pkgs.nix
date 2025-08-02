@@ -6,6 +6,7 @@
     cacert
     clang
     cointop
+    coursier
     curl
     delta
     docker
@@ -15,13 +16,17 @@
     feroxbuster
     ffmpeg-full
     file
+    files-to-prompt
     fishPlugins.bobthefish
     fishPlugins.foreign-env
     fortune
+    gh
     helix
     hexyl
     htop
     jq
+    kaggle
+    litecli
     lld
     lldb
     llvm
@@ -41,9 +46,14 @@
     nmap
     nushell
     nushellPlugins.highlight
+    nyancat
+    p7zip
     pandoc
+    pastel
+    pgcli
     pnpm
     ponysay
+    pup
     ruff
     rustscan
     rye
@@ -51,12 +61,18 @@
     sn0int
     sniffglue
     stack
+    tealdeer
+    translate-shell
+    translatelocally
     tree
+    unixtools.netstat
+    uutils-coreutils
     uv
     wget
     yt-dlp
     zdns
     zmap
+    zpaq
   ];
 
 }
