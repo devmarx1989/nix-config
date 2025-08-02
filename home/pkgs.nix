@@ -20,6 +20,7 @@
     helix
     hexyl
     htop
+    jq
     mediainfo
     neofetch
     nh
