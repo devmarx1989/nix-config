@@ -36,6 +36,7 @@
     sccache
     uv
     wget
+    yt-dlp
     zdns
   ];
 
