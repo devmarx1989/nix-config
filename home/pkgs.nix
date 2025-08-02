@@ -4,6 +4,7 @@
     amass
     aria2
     bat
+    cachix
     cacert
     clang
     cointop
