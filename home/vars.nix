@@ -16,6 +16,7 @@
     PYTHONIOENCODING = "UTF-8";
     RUSTC_WRAPPER = "sccache";
     RUST_BACKTRACE = "full";
+    RYE_UV_BINARY = "${pkgs.uv}/bin/uv";
     SBT_OPTS = "-Xms16G -Xmx32G";
     SCCACHE_CACHE_SIZE = "100G";
     TZ = "America/Los_Angeles";
