@@ -13,6 +13,7 @@
     ./network.nix
     ./programs.nix
     ./security.nix
+    ./services.nix
     ./time.nix
     ./users.nix
   ];
