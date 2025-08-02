@@ -17,4 +17,5 @@
   };
   services.openssh.enable = true;
   services.expressvpn.enable = true;
+  services.resolved.enable = true;
 }
