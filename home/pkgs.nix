@@ -27,8 +27,10 @@
     pandoc
     ponysay
     pnpm
+    ruff
     rye
     sccache
+    uv
     wget
   ];
 
