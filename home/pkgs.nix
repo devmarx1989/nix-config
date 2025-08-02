@@ -4,8 +4,8 @@
     amass
     aria2
     bat
-    cachix
     cacert
+    cachix
     clang
     cointop
     coursier
@@ -18,12 +18,12 @@
     feroxbuster
     ffmpeg-full
     file
-    glow
     files-to-prompt
     fishPlugins.bobthefish
     fishPlugins.foreign-env
     fortune
     gh
+    glow
     helix
     hexyl
     htop
@@ -66,9 +66,18 @@
     sniffglue
     stack
     tealdeer
+    tectonic
+    texliveFull
+    tiv
+    topiary
     translate-shell
     translatelocally
     tree
+    tree-sitter
+    typst
+    typst-live
+    typstfmt
+    typstyle
     unixtools.netstat
     uutils-coreutils
     uv
