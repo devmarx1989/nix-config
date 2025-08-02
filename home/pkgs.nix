@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     bat
+    cacert
     clang
     llvm
     lld

@@ -9,6 +9,10 @@
 
 {
   imports = [
+    ./fonts.nix
+    ./network.nix
+    ./programs.nix
+    ./security.nix
   ];
 
   nix.settings = {
@@ -27,20 +31,47 @@
 
   wsl.enable = true;
   wsl.defaultUser = "devmarx";
+    # Graphics drivers
+  virtualisation.docker = {
+     enable = true;
+     enableOnBoot = true;
+  };
+  # Set your time zone.
+  time.timeZone = "America/Mexico_City";
 
-  security.doas = {
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.extraLocaleSettings = {
+    LC_ADDRESS = "en_US.UTF-8";
+    LC_IDENTIFICATION = "en_US.UTF-8";
+    LC_MEASUREMENT = "en_US.UTF-8";
+    LC_MONETARY = "en_US.UTF-8";
+    LC_NAME = "en_US.UTF-8";
+    LC_NUMERIC = "en_US.UTF-8";
+    LC_PAPER = "en_US.UTF-8";
+    LC_TELEPHONE = "en_US.UTF-8";
+    LC_TIME = "en_US.UTF-8";
+  };
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.groups.devmarx = {};
+
+  users.users.devmarx = {
+    description = "/dev/marx";
     enable = true;
-    extraRules = [
-      { groups = [ "wheel"]; noPass = true; keepEnv = true; }
+    extraGroups = [ "networkmanager" "wheel" "docker" "video" "audio" "wireshark" ];
+    group = "devmarx";
+    home = "/home/devmarx";
+    isSystemUser = true;
+    shell = pkgs.fish;
+    packages = with pkgs; [
+    #  thunderbird
     ];
   };
-  security.rtkit.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
-  programs.mtr.enable = true;
-  programs.nix-ld.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
