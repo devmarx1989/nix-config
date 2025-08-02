@@ -1,4 +1,4 @@
-{ config, security, ...}:
+{ security }:
 {
   security.doas = {
     enable = true;
