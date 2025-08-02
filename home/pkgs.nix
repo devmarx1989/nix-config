@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     amass
-    aria2c
+    aria2
     bat
     cacert
     clang
