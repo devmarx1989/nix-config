@@ -18,6 +18,7 @@
     feroxbuster
     ffmpeg-full
     file
+    glow
     files-to-prompt
     fishPlugins.bobthefish
     fishPlugins.foreign-env
