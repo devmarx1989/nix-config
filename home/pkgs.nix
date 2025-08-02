@@ -5,10 +5,12 @@
     bat
     cacert
     clang
+    cointop
     curl
     delta
     docker
     docker-compose
+    dust
     fd
     feroxbuster
     ffmpeg-full
@@ -24,9 +26,16 @@
     lldb
     llvm
     masscan
+    mcfly-fzf
     mediainfo
+    mold
+    monaspace
+    msitools
+    musl
     neofetch
+    newsboat
     nh
+    nickel
     nix-index
     nix-output-monitor
     nmap
@@ -41,6 +50,8 @@
     sccache
     sn0int
     sniffglue
+    stack
+    tree
     uv
     wget
     yt-dlp
