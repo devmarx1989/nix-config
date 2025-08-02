@@ -1,7 +1,6 @@
 { environment, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    nvidia-cuda-toolkit     # for nvcc and CUDA SDK
     nvidia-vaapi-driver     # optional: for hardware video decoding
     glxinfo                 # to test OpenGL
     vulkan-tools            # to test Vulkan support
