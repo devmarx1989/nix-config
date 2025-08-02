@@ -2,13 +2,12 @@
   description = "NixOS + WSL + Home Manager + NixVim";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    home-manager.url = "github:nix-community/home-manager";
-    nixvim.url = "github:nix-community/nixvim";
-
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs = { self, nixpkgs, home-manager, nixvim, nixos-wsl, ... }:
@@ -20,9 +19,8 @@
 
         modules = [
           nixos-wsl.nixosModules.wsl
-          ./configuration.nix
+          ./system/default.nix
           home-manager.nixosModules.home-manager
-
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
