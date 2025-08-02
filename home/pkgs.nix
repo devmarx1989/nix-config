@@ -9,6 +9,7 @@
     curl
     delta
     docker
+    file
     docker-compose
     fd
     ffmpeg-full

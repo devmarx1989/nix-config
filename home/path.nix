@@ -1,16 +1,16 @@
 { pkgs, ... }:
 {
   home.sessionPath = [
-    "~/.rye/shims"
-    "~/.proto/shims"
-    "~/.cargo/bin"
-    "~/.ghcup/bin"
-    "~/.local/bin"
-    "~/.local/share/coursier/bin"
-    "~/.local/share/pnpm"
-    "~/.rye/shims"
-    "~/Bin"
-    "~/Go/bin"
-    "~/bin"
+    "$HOME/.rye/shims"
+    "$HOME/.proto/shims"
+    "$HOME/.cargo/bin"
+    "$HOME/.ghcup/bin"
+    "$HOME/.local/bin"
+    "$HOME/.local/share/coursier/bin"
+    "$HOME/.local/share/pnpm"
+    "$HOME/.rye/shims"
+    "$HOME/Bin"
+    "$HOME/Go/bin"
+    "$HOME/bin"
   ];
 }
