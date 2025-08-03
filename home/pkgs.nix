@@ -15,6 +15,7 @@
     docker-compose
     dust
     fd
+    feh
     feroxbuster
     ffmpeg-full
     file
