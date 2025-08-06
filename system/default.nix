@@ -9,13 +9,17 @@
 
 {
   imports = [
+    ./boot.nix
     ./fonts.nix
     ./environment.nix
     ./hardware.nix
+    ./hardware-configuration.nix
     ./network.nix
+    ./nixpkgs.nix
     ./programs.nix
     ./security.nix
     ./services.nix
+    ./systemd.nix
     ./time.nix
     ./users.nix
   ];
@@ -25,7 +29,7 @@
     cores = 0;          # 0 means "use all cores" for individual build steps
     experimental-features = [ "nix-command" "flakes" ];
     use-sqlite-wal = true;
-    trusted-users = [ "root" "devmarx" ];
+    trusted-users = [ "root" "dev-marx" ];
     auto-optimise-store = true;
     substituters = [
       "https://cuda-maintainers.cachix.org"
@@ -42,8 +46,6 @@
     allowParallelBuilding = true;
   };
 
-  wsl.enable = true;
-  wsl.defaultUser = "devmarx";
     # Graphics drivers
   virtualisation.docker = {
      enable = true;
@@ -59,5 +61,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
