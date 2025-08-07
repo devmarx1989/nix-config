@@ -9,7 +9,7 @@ in
   users.users.${user} = {
     description = "/dev/marx";
     enable = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" "video" "audio" "wireshark" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "video" "audio" "wireshark" "render" ];
     group = user;
     home = "/home/dev-marx";
     isNormalUser = true;
