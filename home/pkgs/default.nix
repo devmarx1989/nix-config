@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./ai.nix
+    ./db.nix
+  ];
   home.packages = with pkgs; [
     amass
     aria2
@@ -33,7 +37,6 @@
     internetarchive
     jq
     kaggle
-    litecli
     lld
     lldb
     llvm
@@ -48,18 +51,15 @@
     musl
     neofetch
     newsboat
-    nh
     nickel
-    nix-index
-    nix-output-monitor
     nmap
     nushell
     nushellPlugins.highlight
+    nixos-generators
     nyancat
     p7zip
     pandoc
     pastel
-    pgcli
     pnpm
     ponysay
     pup
@@ -88,6 +88,7 @@
     uv
     wget
     yt-dlp
+    xan
     zdns
     zmap
     zpaq
