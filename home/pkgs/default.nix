@@ -3,6 +3,7 @@
   imports = [
     ./ai.nix
     ./db.nix
+    ./nix.nix
   ];
   home.packages = with pkgs; [
     amass
