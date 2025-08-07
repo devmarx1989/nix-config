@@ -50,32 +50,9 @@
     };
 
     # Add extra service advertisements (example: SSH and SFTP)
-    extraServiceFiles = [
-      (pkgs.writeText "ssh.service" ''
-        <?xml version="1.0" standalone='no'?>
-        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-        <service-group>
-          <name replace-wildcards="yes">%h SSH</name>
-          <service>
-            <type>_ssh._tcp</type>
-            <port>22</port>
-          </service>
-        </service-group>
-      '')
-      (pkgs.writeText "sftp.service" ''
-        <?xml version="1.0" standalone='no'?>
-        <!DOCTYPE service-group SYSTEM "avahi-service.dtd">
-        <service-group>
-          <name replace-wildcards="yes">%h SFTP</name>
-          <service>
-            <type>_sftp-ssh._tcp</type>
-            <port>22</port>
-          </service>
-        </service-group>
-      '')
-    ];
-
-    # Extra domains to browse for services
+    extraServiceFiles = {
+      ssh = "${pkgs.avahi}/etc/avahi/services/ssh.service";
+    }; # Extra domains to browse for services
     browseDomains = [ "local" "example.local" ];
 
     # Override the default domain (optional)

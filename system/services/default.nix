@@ -2,6 +2,7 @@
 {
   imports = [
     ./avahi.nix
+    ./ollama.nix
   ];
 
   security.rtkit.enable = true;
