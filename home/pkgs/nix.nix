@@ -4,5 +4,6 @@
     nh
     nix-index
     nix-output-monitor
+    nixos-generators
   ];
 }

@@ -55,7 +55,6 @@
     nmap
     nushell
     nushellPlugins.highlight
-    nixos-generators
     nyancat
     p7zip
     pandoc

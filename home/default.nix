@@ -4,7 +4,7 @@
   imports = [
     ./alias.nix
     ./path.nix
-    ./pkgs.nix
+    ./pkgs/default.nix
     ./programs/default.nix
     ./vars.nix
   ];
