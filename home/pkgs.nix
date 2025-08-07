@@ -23,6 +23,7 @@
     fishPlugins.bobthefish
     fishPlugins.foreign-env
     fortune
+    microsoft-edge
     gh
     glow
     helix
