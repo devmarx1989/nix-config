@@ -14,16 +14,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    alejandra.url = "github:kamadorueda/alejandra";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, alejandra, ... }:
+  outputs = { nixpkgs, home-manager, nixvim, ... }:
     let
       system   = "x86_64-linux";
       hostname = "house-of-marx";
       user     = "dev-marx";
       myPkgs = {
-        inherit alejandra;
       };
 
       myAttr = builtins.listToAttrs (builtins.map (name: {
