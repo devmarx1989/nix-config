@@ -6,6 +6,7 @@
     bat
     cacert
     cachix
+    calibre
     clang
     cointop
     coursier
@@ -14,6 +15,7 @@
     docker
     docker-compose
     dust
+    expressvpn
     fd
     feh
     feroxbuster
@@ -23,7 +25,6 @@
     fishPlugins.bobthefish
     fishPlugins.foreign-env
     fortune
-    microsoft-edge
     gh
     glow
     helix
@@ -37,8 +38,10 @@
     lldb
     llvm
     masscan
+    mcfly
     mcfly-fzf
     mediainfo
+    microsoft-edge
     mold
     monaspace
     msitools
