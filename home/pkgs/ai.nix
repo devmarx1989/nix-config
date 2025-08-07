@@ -1,8 +1,12 @@
 { home, pkgs, ... }:
 {
   home.packages = with pkgs; [
-    lmstudio
-    pinokio
     #aider-chat-full
+    llama-cpp
+    lmstudio
+    ollama-cuda
+    pinokio
+    whisper-cpp
+    whisperx
   ];
 }

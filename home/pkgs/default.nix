@@ -86,8 +86,9 @@
     uutils-coreutils
     uv
     wget
-    yt-dlp
+    wl-clipboard-x11
     xan
+    yt-dlp
     zdns
     zmap
     zpaq

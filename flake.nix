@@ -61,7 +61,7 @@
 
         extraSpecialArgs = {
           myPkgs = myAttr;
-        }
+        };
       };
     };
 }
