@@ -19,7 +19,7 @@
   fileSystems."/drive" =
     { device = "/dev/disk/by-label/drive";
       fsType = "ntfs3";
-      options = [ "rw" "uid=1000" "gid=100" "umask=0022" ]
+      options = [ "rw" "uid=1000" "gid=100" "umask=0022" ];
     };
 
   fileSystems."/store" =

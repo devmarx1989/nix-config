@@ -1,4 +1,4 @@
-{ hardware, ...}:
+{ hardware, lib, config, ...}:
 {
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.nvidia = {
