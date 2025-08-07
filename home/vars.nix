@@ -19,7 +19,7 @@
     RYE_UV_BINARY = "${pkgs.uv}/bin/uv";
     SBT_OPTS = "-Xms16G -Xmx32G";
     SCCACHE_CACHE_SIZE = "100G";
-    TZ = "America/Los_Angeles";
+    TZ = "America/Mexico_City";
     VDIFF_TOOL = "delta";
     VISUAL = "nvim";
     WASMER_DIR = "~/Wasmer";
