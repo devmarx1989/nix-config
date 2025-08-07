@@ -13,14 +13,13 @@
     openFirewall = true;
 
     # Store Ollama models and config in a custom location
-    home = "/store/AI/Apps/ollama";
+    home = "/drive/AI/Apps/ollama";
 
     # Use CUDA (NVIDIA GPU acceleration)
     acceleration = "cuda";
 
     # Pre-pull this model and load it on startup
-    models = [ "gpt-oss:20b" ];
-    loadModels = true;
+    loadModels = [ "gpt-oss:20b" ];
 
     # Optional: additional environment variables
     environmentVariables = {
