@@ -1,7 +1,6 @@
 { hardware, ...}:
 {
   hardware.nvidia = {
-    enabled = true;
     modesetting.enable = true;
     powerManagement.enable = true;
     nvidiaSettings = true;

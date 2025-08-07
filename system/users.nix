@@ -1,11 +1,12 @@
-{ users, pkgs, ... }:
+{ users, pkgs, lib, ... }:
 let
  user = "dev-marx";
+in
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.${user} = {};
   
-  users.users.devmarx = {
+  users.users.${user} = {
     description = "/dev/marx";
     enable = true;
     extraGroups = [ "networkmanager" "wheel" "docker" "video" "audio" "wireshark" ];

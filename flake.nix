@@ -1,32 +1,31 @@
 {
-  description = "NixOS + WSL + Home Manager + NixVim";
+  description = "NixOS + Home Manager + NixVim";
 
   inputs = {
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, nixos-wsl, ... }:
+  outputs = { self, nixpkgs, home-manager, nixvim, ... }:
     let
-      system = "x86_64-linux";
-      hostname = "houseofmarx";
+      system   = "x86_64-linux";
+      hostname = "house-of-marx";
+      user     = "dev-marx";
     in {
       nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
 
         modules = [
-          nixos-wsl.nixosModules.wsl
           ./system/default.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.devmarx = {
+            home-manager.users.${user} = {
               imports = [
                 nixvim.homeManagerModules.nixvim
                 ./home/default.nix

@@ -8,8 +8,8 @@
     ./programs/default.nix
     ./vars.nix
   ];
-  home.username = "devmarx";
-  home.homeDirectory = "/home/devmarx";
+  home.username = "dev-marx";
+  home.homeDirectory = "/home/dev-marx";
   home.shell.enableFishIntegration = true;
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
 }
