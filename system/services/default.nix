@@ -1,16 +1,18 @@
 { services, ...}:
 {
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # Enable the GNOME Desktop Environment.
+  security.rtkit.enable = true;
   services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
-  
-   # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "dev-marx";
+  services.displayManager.gdm.enable = true;
+  services.expressvpn.enable = true;
+  services.ntp.enable = false;
+  services.openssh.enable = true;
+  services.printing.enable = true;
+  services.pulseaudio.enable = false;
+  services.resolved.enable = true;
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -18,9 +20,6 @@
     variant = "";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.ntp.enable = false;
   services.timesyncd = {
     enable = true;
     servers = [
@@ -31,9 +30,6 @@
     ];
   };
 
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -65,7 +61,4 @@
       }
     '';
   };
-  services.openssh.enable = true;
-  services.expressvpn.enable = true;
-  services.resolved.enable = true;
 }

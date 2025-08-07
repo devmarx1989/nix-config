@@ -19,7 +19,7 @@
     ./nixpkgs.nix
     ./programs.nix
     ./security.nix
-    ./services.nix
+    ./services/default.nix
     ./systemd.nix
     ./time.nix
     ./users.nix

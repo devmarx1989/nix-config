@@ -2,19 +2,40 @@
   description = "NixOS + Home Manager + NixVim";
 
   inputs = {
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    nixvim.url = "github:nix-community/nixvim";
+
+    home-manager = {
+      url = "github:NixOS/nixpkgs/nixos-unstable";
+      input.home-manager.follows = "nixpkgs";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    alejandra.url = "github:kamadorueda/alejandra";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... }:
+  outputs = { self, nixpkgs, home-manager, nixvim, alejandra, ... }:
     let
       system   = "x86_64-linux";
       hostname = "house-of-marx";
       user     = "dev-marx";
+      myPkgs = {
+        inherit alejandra;
+      };
+
+      myAttr = builtins.listToAttrs (builtins.map (name: {
+        inherit name;
+        value = myPkgs.${name}.packages.${system}.default;
+      }) (builtins.attrNames myPkgs));
     in {
+      ###########################################################################
+      ## 2.1 ▸ Stand‑alone packages
+      ###########################################################################
+      packages.${system} = myAttr;
+
       nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
 
@@ -37,6 +58,10 @@
         specialArgs = {
           inherit home-manager nixvim;
         };
+
+        extraSpecialArgs = {
+          myPkgs = myAttr;
+        }
       };
     };
 }
