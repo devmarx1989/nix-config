@@ -57,9 +57,6 @@
 
         specialArgs = {
           inherit home-manager nixvim;
-        };
-
-        extraSpecialArgs = {
           myPkgs = myAttr;
         };
       };
