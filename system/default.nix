@@ -10,6 +10,7 @@
 {
   imports = [
     ./boot.nix
+    ./fileSystems.nix
     ./fonts.nix
     ./environment.nix
     ./hardware.nix
