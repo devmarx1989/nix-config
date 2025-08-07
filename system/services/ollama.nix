@@ -13,7 +13,7 @@
     openFirewall = true;
 
     # Store Ollama models and config in a custom location
-    home = lib.mkForce "/drive/AI/Apps/ollama";
+    home = lib.mkDefault "/drive/AI/Apps/ollama";
 
     # Use CUDA (NVIDIA GPU acceleration)
     acceleration = "cuda";
