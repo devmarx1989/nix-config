@@ -1,5 +1,9 @@
 { services, ...}:
 {
+  imports = [
+    ./avahi.nix
+  ];
+
   security.rtkit.enable = true;
   services.desktopManager.gnome.enable = true;
   services.displayManager.autoLogin.enable = true;

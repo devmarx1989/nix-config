@@ -3,6 +3,6 @@
   home.packages = with pkgs; [
     lmstudio
     pinokio
-    aider-chat-full
+    #aider-chat-full
   ];
 }
