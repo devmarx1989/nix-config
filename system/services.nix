@@ -5,8 +5,8 @@
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
   
    # Enable automatic login for the user.
   services.displayManager.autoLogin.enable = true;
@@ -20,6 +20,16 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.ntp.enable = false;
+  services.timesyncd = {
+    enable = true;
+    servers = [
+      "0.mx.pool.ntp.org"
+      "1.mx.pool.ntp.org"
+      "2.mx.pool.ntp.org"
+      "3.mx.pool.ntp.org"
+    ];
+  };
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
