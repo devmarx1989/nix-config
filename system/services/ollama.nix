@@ -13,7 +13,7 @@
     openFirewall = true;
 
     # Store Ollama models and config in a custom location
-    home = lib.mkDefault "/drive/AI/Apps/ollama";
+    home = "/drive/AI/Apps/ollama";
 
     # Use CUDA (NVIDIA GPU acceleration)
     acceleration = "cuda";
@@ -31,8 +31,6 @@
   users.users.ollama = {
     isSystemUser = true;
     group = "ollama";
-    home = "/store/AI/Apps/ollama";
-    createHome = true;
   };
 
   users.groups.ollama = {};
