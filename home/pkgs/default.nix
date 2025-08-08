@@ -2,16 +2,19 @@
 {
   imports = [
     ./ai.nix
+    ./anime.nix
     ./api.nix
     ./c.nix
     ./db.nix
     ./media.nix
     ./myPkgs.nix
     ./mpv.nix
+    ./network.nix
     ./nix.nix
     ./pkg.nix
     ./python.nix
     ./sec.nix
+    ./sim.nix
     ./terminal.nix
     ./text.nix
   ];

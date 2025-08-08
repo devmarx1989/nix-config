@@ -6,14 +6,15 @@
     curl
     expressvpn
     masscan
-    nmap
-    unixtools.netstat
-    rustcan
-    pup
-    wget
-    zdns
     newsboat
-    zmap
+    nmap
+    pup
+    subliminal
+    rustcan
+    unixtools.netstat
+    wget
     yt-dlp
+    zdns
+    zmap
   ];
 }

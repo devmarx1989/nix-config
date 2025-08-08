@@ -11,5 +11,7 @@
     sequoia-wot
     sn0int
     sniffglue
+    wordlists
+    xxHash
   ];
 }
