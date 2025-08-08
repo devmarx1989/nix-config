@@ -44,6 +44,9 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              myPkgs = myAttr;
+            };
 
             home-manager.users.${user} = {
               imports = [
@@ -56,7 +59,6 @@
 
         specialArgs = {
           inherit home-manager nixvim;
-          myPkgs = myAttr;
         };
       };
     };
