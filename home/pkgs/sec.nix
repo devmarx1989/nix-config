@@ -2,7 +2,7 @@
 {
   home.packages = with pkgs; [
     sequoia-sq
-    sequoia-sqpop
+    sequoia-sqop
     sequoia-sqv
     sequoia-wot
   ];
