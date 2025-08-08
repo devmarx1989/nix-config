@@ -5,6 +5,8 @@
     lld
     lldb
     llvm
+    mold
     musl
+    yasm
   ];
 }

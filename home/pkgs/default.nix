@@ -2,8 +2,12 @@
 {
   imports = [
     ./ai.nix
+    ./api.nix
     ./c.nix
     ./db.nix
+    ./media.nix
+    ./myPkgs.nix
+    ./mpv.nix
     ./nix.nix
     ./pkg.nix
     ./python.nix
@@ -11,48 +15,33 @@
     ./text.nix
   ];
   home.packages = with pkgs; [
-    amass
-    aria2
     bat
     cacert
     cachix
     calibre
     cointop
     coursier
-    curl
     delta
     docker
     docker-compose
     dust
-    expressvpn
     fd
-    feh
-    feroxbuster
-    ffmpeg-full
     file
     files-to-prompt
     fishPlugins.bobthefish
     fishPlugins.foreign-env
     fortune
-    gh
     glow
     helix
     htop
-    internetarchive
     jq
-    kaggle
-    masscan
     mcfly
     mcfly-fzf
-    mediainfo
     microsoft-edge
-    mold
     monaspace
     msitools
     neofetch
-    newsboat
     nickel
-    nmap
     nushell
     nushellPlugins.highlight
     nyancat
@@ -62,7 +51,6 @@
     pnpm
     ponysay
     pup
-    rustscan
     sccache
     stack
     tealdeer
@@ -70,14 +58,9 @@
     translate-shell
     translatelocally
     tree
-    unixtools.netstat
     uutils-coreutils
-    wget
     wl-clipboard-x11
     xan
-    yt-dlp
-    zdns
-    zmap
     zpaq
   ];
 

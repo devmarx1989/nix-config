@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    lapce
     tectonic
     texliveFull
     topiary
