@@ -8,7 +8,7 @@
     newsboat
     nmap
     pup
-    rustcan
+    rustscan
     unixtools.netstat
     wget
     yt-dlp
