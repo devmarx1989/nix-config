@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./ai.nix
     ./anime.nix
@@ -43,5 +42,4 @@
     translatelocally
     wl-clipboard-x11
   ];
-
 }

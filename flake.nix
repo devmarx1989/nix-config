@@ -17,49 +17,54 @@
     alejandra.url = "github:kamadorueda/alejandra";
   };
 
-  outputs = { nixpkgs, home-manager, nixvim, alejandra, ... }:
-    let
-      system   = "x86_64-linux";
-      hostname = "house-of-marx";
-      user     = "dev-marx";
-      myPkgs = {
-        inherit alejandra;
-      };
-      myAttr = builtins.listToAttrs (builtins.map (name: {
-        inherit name;
-        value = myPkgs.${name}.packages.${system}.default;
-      }) (builtins.attrNames myPkgs));
-    in {
-      ###########################################################################
-      ## 2.1 ▸ Stand‑alone packages
-      ###########################################################################
-      packages.${system} = myAttr;
+  outputs = {
+    nixpkgs,
+    home-manager,
+    nixvim,
+    alejandra,
+    ...
+  }: let
+    system = "x86_64-linux";
+    hostname = "house-of-marx";
+    user = "dev-marx";
+    myPkgs = {
+      inherit alejandra;
+    };
+    myAttr = builtins.listToAttrs (builtins.map (name: {
+      inherit name;
+      value = myPkgs.${name}.packages.${system}.default;
+    }) (builtins.attrNames myPkgs));
+  in {
+    ###########################################################################
+    ## 2.1 ▸ Stand‑alone packages
+    ###########################################################################
+    packages.${system} = myAttr;
 
-      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
-        inherit system;
+    nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
+      inherit system;
 
-        modules = [
-          ./system/default.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              myPkgs = myAttr;
-            };
+      modules = [
+        ./system/default.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            myPkgs = myAttr;
+          };
 
-            home-manager.users.${user} = {
-              imports = [
-                nixvim.homeManagerModules.nixvim
-                ./home/default.nix
-              ];
-            };
-          }
-        ];
+          home-manager.users.${user} = {
+            imports = [
+              nixvim.homeManagerModules.nixvim
+              ./home/default.nix
+            ];
+          };
+        }
+      ];
 
-        specialArgs = {
-          inherit home-manager nixvim;
-        };
+      specialArgs = {
+        inherit home-manager nixvim;
       };
     };
+  };
 }

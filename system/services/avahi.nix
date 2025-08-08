@@ -1,6 +1,8 @@
-{ services, pkgs, ... }:
-
 {
+  services,
+  pkgs,
+  ...
+}: {
   services.avahi = {
     enable = true;
 
@@ -8,8 +10,8 @@
     #package = pkgs.avahi;
 
     # Allow Avahi to bind to all interfaces
-    allowInterfaces = [ ];
-    denyInterfaces = [ ];
+    allowInterfaces = [];
+    denyInterfaces = [];
     allowPointToPoint = true;
 
     # Use both IPv4 and IPv6
@@ -46,7 +48,7 @@
     extraServiceFiles = {
       ssh = "${pkgs.avahi}/etc/avahi/services/ssh.service";
     }; # Extra domains to browse for services
-    browseDomains = [ "local" "example.local" ];
+    browseDomains = ["local" "example.local"];
 
     # Override the default domain (optional)
     domainName = "local";
@@ -55,4 +57,3 @@
     cacheEntriesMax = 4096;
   };
 }
-

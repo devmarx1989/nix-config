@@ -1,6 +1,9 @@
-{ config, pkgs, nixvim, ... }:
-
 {
+  config,
+  pkgs,
+  nixvim,
+  ...
+}: {
   imports = [
     ./alias.nix
     ./path.nix

@@ -1,5 +1,8 @@
-{ services, lib, ... }:
 {
+  services,
+  lib,
+  ...
+}: {
   services.ollama = {
     enable = true;
 
@@ -19,11 +22,11 @@
     acceleration = "cuda";
 
     # Pre-pull this model and load it on startup
-    loadModels = [ "gpt-oss:20b" ];
+    loadModels = ["gpt-oss:20b"];
 
     # Optional: additional environment variables
     environmentVariables = {
-      OLLAMA_LOG_LEVEL = "info";  # or "debug"
+      OLLAMA_LOG_LEVEL = "info"; # or "debug"
     };
   };
 
@@ -37,6 +40,5 @@
 
   # Optional: make sure the user has GPU access
   # (assuming you're using the `video` or `render` group for your GPU)
-  users.users.ollama.extraGroups = [ "video" "render" ];
+  users.users.ollama.extraGroups = ["video" "render"];
 }
-

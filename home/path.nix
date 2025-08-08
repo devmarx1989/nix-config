@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.sessionPath = [
     "$HOME/.rye/shims"
     "$HOME/.proto/shims"

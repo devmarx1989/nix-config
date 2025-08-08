@@ -1,13 +1,14 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
-
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./boot.nix
     ./fileSystems.nix
@@ -26,11 +27,11 @@
   ];
 
   nix.settings = {
-    max-jobs = "auto";  # Uses all available CPU cores
-    cores = 0;          # 0 means "use all cores" for individual build steps
-    experimental-features = [ "nix-command" "flakes" ];
+    max-jobs = "auto"; # Uses all available CPU cores
+    cores = 0; # 0 means "use all cores" for individual build steps
+    experimental-features = ["nix-command" "flakes"];
     use-sqlite-wal = true;
-    trusted-users = [ "root" "dev-marx" ];
+    trusted-users = ["root" "dev-marx"];
     auto-optimise-store = true;
     substituters = [
       "https://cuda-maintainers.cachix.org"
@@ -42,15 +43,15 @@
   };
 
   nixpkgs.config = {
-  # Allow unfree packages
+    # Allow unfree packages
     allowUnfree = true;
     allowParallelBuilding = true;
   };
 
-    # Graphics drivers
+  # Graphics drivers
   virtualisation.docker = {
-     enable = true;
-     enableOnBoot = true;
+    enable = true;
+    enableOnBoot = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).

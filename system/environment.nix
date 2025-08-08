@@ -1,5 +1,8 @@
-{ environment, pkgs, ... }:
 {
+  environment,
+  pkgs,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
   ];
 
@@ -9,5 +12,4 @@
     #SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
-
 }

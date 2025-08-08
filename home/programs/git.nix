@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Enable the git module
   programs.git = {
     enable = true;
@@ -14,7 +12,7 @@
       st = "status";
       ls = "log --graph --decorate --oneline --all";
     };
-    
+
     # Other Git configurations
     extraConfig = {
       # Core settings now go in here

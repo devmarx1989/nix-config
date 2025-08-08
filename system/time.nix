@@ -1,5 +1,8 @@
-{ time, i18n, ... }:
 {
+  time,
+  i18n,
+  ...
+}: {
   # Set your time zone.
   time.timeZone = "America/Mexico_City";
 

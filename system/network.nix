@@ -1,6 +1,10 @@
-{ networking, lib, ... }: {
+{
+  networking,
+  lib,
+  ...
+}: {
   networking.useDHCP = lib.mkDefault true;
-  networking.nameservers = [ "127.0.0.1#1001" "1.1.1.1" "9.9.9.9" ];
+  networking.nameservers = ["127.0.0.1#1001" "1.1.1.1" "9.9.9.9"];
   networking.hostName = "house-of-marx";
   networking.firewall.enable = false;
 
@@ -20,4 +24,3 @@
   # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp7s0.useDHCP = lib.mkDefault true;
 }
-

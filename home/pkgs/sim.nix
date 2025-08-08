@@ -1,4 +1,5 @@
-{ pkgs, ... }:
-{
-  elastic
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    elastic
+  ];
 }

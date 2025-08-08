@@ -1,5 +1,8 @@
-{ home, pkgs, ... }:
 {
+  home,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     nh
     nix-index

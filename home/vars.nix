@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.sessionVariables = {
     CC = "sccache clang";
     CXX = "scacche clang++";
