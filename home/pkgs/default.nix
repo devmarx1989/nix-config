@@ -2,10 +2,13 @@
 {
   imports = [
     ./ai.nix
+    ./c.nix
     ./db.nix
     ./nix.nix
     ./pkg.nix
+    ./python.nix
     ./sec.nix
+    ./text.nix
   ];
   home.packages = with pkgs; [
     amass
@@ -14,14 +17,12 @@
     cacert
     cachix
     calibre
-    clang
     cointop
     coursier
     curl
     delta
     docker
     docker-compose
-    dpkg
     dust
     expressvpn
     fd
@@ -36,14 +37,10 @@
     gh
     glow
     helix
-    hexyl
     htop
     internetarchive
     jq
     kaggle
-    lld
-    lldb
-    llvm
     masscan
     mcfly
     mcfly-fzf
@@ -52,7 +49,6 @@
     mold
     monaspace
     msitools
-    musl
     neofetch
     newsboat
     nickel
@@ -66,29 +62,16 @@
     pnpm
     ponysay
     pup
-    ruff
     rustscan
-    rye
     sccache
-    sn0int
-    sniffglue
     stack
     tealdeer
-    tectonic
-    texliveFull
     tiv
-    topiary
     translate-shell
     translatelocally
     tree
-    tree-sitter
-    typst
-    typst-live
-    typstfmt
-    typstyle
     unixtools.netstat
     uutils-coreutils
-    uv
     wget
     wl-clipboard-x11
     xan
