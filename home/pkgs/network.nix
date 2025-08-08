@@ -8,7 +8,6 @@
     newsboat
     nmap
     pup
-    subliminal
     rustcan
     unixtools.netstat
     wget
