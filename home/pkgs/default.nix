@@ -19,6 +19,7 @@
     delta
     docker
     docker-compose
+    dpkg
     dust
     expressvpn
     fd
