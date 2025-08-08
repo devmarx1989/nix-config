@@ -32,13 +32,6 @@
     # Open firewall ports for mDNS/Avahi
     #openFirewall = true;
 
-    # Extra configuration (goes into avahi-daemon.conf)
-    extraConfig = ''
-      use-ipv6=yes
-      use-ipv4=yes
-      enable-dbus=yes
-    '';
-
     # Service publishing
     publish = {
       enable = true;
