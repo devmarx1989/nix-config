@@ -17,7 +17,7 @@
     alejandra.url = "github:kamadorueda/alejandra";
   };
 
-  outputs = { nixpkgs, home-manager, nixvim, ... }:
+  outputs = { nixpkgs, home-manager, nixvim, alejandra, ... }:
     let
       system   = "x86_64-linux";
       hostname = "house-of-marx";
