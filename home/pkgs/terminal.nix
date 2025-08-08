@@ -18,7 +18,6 @@
     mcfly-fzf
     msitools
     neofetch
-    p7zip
     pastel
     ponysay
     ripgrep
@@ -27,6 +26,5 @@
     tree
     uutils-coreutils
     xan
-    zpaq
   ];
 }

@@ -3,6 +3,7 @@
     ./ai.nix
     ./anime.nix
     ./api.nix
+    ./archive.nix
     ./c.nix
     ./db.nix
     ./media.nix
@@ -21,7 +22,6 @@
     cacert
     cachix
     calibre
-    cointop
     coursier
     docker
     docker-compose
