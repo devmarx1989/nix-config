@@ -1,8 +1,10 @@
 { pkgs, ... }:
 {
-  clang
-  lld
-  lldb
-  llvm
-  musl
+  home.packages = with pkgs; [
+    clang
+    lld
+    lldb
+    llvm
+    musl
+  ];
 }
