@@ -1,0 +1,33 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    bat
+    bingrep
+    cointop
+    delta
+    dust
+    fd
+    file
+    files-to-prompt
+    fortune
+    fzf
+    glow
+    helix
+    htop
+    jq
+    mcfly
+    mcfly-fzf
+    msitools
+    neofetch
+    p7zip
+    pastel
+    ponysay
+    ripgrep
+    ripgrep-all
+    tealdeer
+    tree
+    uutils-coreutils
+    xan
+    zpaq
+  ];
+}

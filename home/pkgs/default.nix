@@ -12,56 +12,33 @@
     ./pkg.nix
     ./python.nix
     ./sec.nix
+    ./terminal.nix
     ./text.nix
   ];
   home.packages = with pkgs; [
-    bat
     cacert
     cachix
     calibre
     cointop
     coursier
-    delta
     docker
     docker-compose
-    dust
-    fd
-    file
-    files-to-prompt
     fishPlugins.bobthefish
     fishPlugins.foreign-env
-    fortune
-    glow
-    helix
-    htop
-    jq
-    mcfly
-    mcfly-fzf
     microsoft-edge
     monaspace
-    msitools
-    neofetch
     nickel
     nushell
     nushellPlugins.highlight
     nyancat
-    p7zip
     pandoc
-    pastel
     pnpm
-    ponysay
-    pup
     sccache
     stack
-    tealdeer
     tiv
     translate-shell
     translatelocally
-    tree
-    uutils-coreutils
     wl-clipboard-x11
-    xan
-    zpaq
   ];
 
 }
