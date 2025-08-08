@@ -4,6 +4,8 @@
     ./ai.nix
     ./db.nix
     ./nix.nix
+    ./pkg.nix
+    ./sec.nix
   ];
   home.packages = with pkgs; [
     amass
