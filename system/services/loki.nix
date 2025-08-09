@@ -1,6 +1,9 @@
-{services, config, ...}:
 {
- #####################
+  services,
+  config,
+  ...
+}: {
+  #####################
   # Loki (server)
   #####################
   services.loki = {
@@ -16,20 +19,25 @@
       };
 
       schema_config = {
-        configs = [{
-          from = "2020-10-24";
-          store = "boltdb-shipper";
-          object_store = "filesystem";
-          schema = "v13";
-          index = { prefix = "index_"; period = "24h"; };
-        }];
+        configs = [
+          {
+            from = "2020-10-24";
+            store = "boltdb-shipper";
+            object_store = "filesystem";
+            schema = "v13";
+            index = {
+              prefix = "index_";
+              period = "24h";
+            };
+          }
+        ];
       };
 
       storage_config = {
         boltdb_shipper = {
           active_index_directory = "${config.services.loki.dataDir}/index";
-          cache_location         = "${config.services.loki.dataDir}/boltdb-cache";
-          shared_store           = "filesystem";
+          cache_location = "${config.services.loki.dataDir}/boltdb-cache";
+          shared_store = "filesystem";
         };
         filesystem.directory = "${config.services.loki.dataDir}/chunks";
       };

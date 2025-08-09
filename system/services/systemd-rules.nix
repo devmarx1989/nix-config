@@ -1,7 +1,8 @@
-# modules/store-dirs.nix
-{ systemd, lib, ... }:
-
-let
+{
+  systemd,
+  lib,
+  ...
+}: let
   # 1) list of service names (strings)
   serviceNames = [
     "loki"
@@ -11,7 +12,7 @@ let
   ];
 
   # 2) helper to build { name = "<name>"; }
-  mk = name: { inherit name; };
+  mk = name: {inherit name;};
 
   # 3) turn names into [{ name = "..."; } ...]
   services = map mk serviceNames;
@@ -21,6 +22,5 @@ in {
 
   systemd.services =
     lib.genAttrs serviceNames
-      (name: { serviceConfig.WorkingDirectory = lib.mkForce "/store/${name}"; });
+    (name: {serviceConfig.WorkingDirectory = lib.mkForce "/store/${name}";});
 }
-

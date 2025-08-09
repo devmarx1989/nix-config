@@ -1,5 +1,4 @@
-{ virtualisation, ... }:
-{
+{virtualisation, ...}: {
   # Graphics drivers
   virtualisation.docker = {
     enable = true;

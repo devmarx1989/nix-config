@@ -1,10 +1,12 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   #### Prometheus server
   services.prometheus = {
     enable = true;
-    listenAddress = "0.0.0.0";     # expose on LAN/WAN
+    listenAddress = "0.0.0.0"; # expose on LAN/WAN
     extraFlags = [
       "--storage.tsdb.path=/store/prometheus"
     ];
@@ -19,32 +21,38 @@
       # Scrape Prometheus itself
       {
         job_name = "prometheus";
-        static_configs = [{ targets = [ "localhost:1020" ]; }];
+        static_configs = [{targets = ["localhost:1020"];}];
       }
       # Scrape node exporter
       {
         job_name = "node";
-        static_configs = [{ targets = [ "localhost:1021" ]; }];
+        static_configs = [{targets = ["localhost:1021"];}];
       }
       {
         job_name = "coredns";
         metrics_path = "/metrics";
         scheme = "http";
         static_configs = [
-          { targets = [ "127.0.0.1:1001" ]; }
+          {targets = ["127.0.0.1:1001"];}
         ];
       }
-      { job_name = "loki";      static_configs = [ { targets = [ "127.0.0.1:1030" ]; } ]; }
-      { job_name = "promtail";  static_configs = [ { targets = [ "127.0.0.1:1032" ]; } ]; }
+      {
+        job_name = "loki";
+        static_configs = [{targets = ["127.0.0.1:1030"];}];
+      }
+      {
+        job_name = "promtail";
+        static_configs = [{targets = ["127.0.0.1:1032"];}];
+      }
     ];
 
     # Wire Prometheus to Alertmanager
     alertmanagers = [
-      { static_configs = [{ targets = [ "localhost:1022" ]; }]; }
+      {static_configs = [{targets = ["localhost:1022"];}];}
     ];
 
     # Example: add your own alert rules (optional)
-    ruleFiles = [ "/store/prometheus/rules/*.yml" ];
+    ruleFiles = ["/store/prometheus/rules/*.yml"];
   };
 
   #### Node exporter (host metrics)
@@ -77,8 +85,8 @@
     listenAddress = "0.0.0.0";
     port = 1022;
     configuration = {
-      route = { receiver = "null"; };
-      receivers = [{ name = "null"; }];
+      route = {receiver = "null";};
+      receivers = [{name = "null";}];
     };
   };
 
@@ -90,4 +98,3 @@
   #   isDefault = true;
   # }];
 }
-

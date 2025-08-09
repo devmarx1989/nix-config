@@ -1,5 +1,4 @@
-{serivces, ...}:
-{
+{services, ...}: {
   services.kubo = {
     enable = true;
     dataDir = "/drive/Media/ipfs";
@@ -23,7 +22,7 @@
         ];
 
         # Expose API on TCP for WebUI
-        API = [ "/ip4/127.0.0.1/tcp/1005" ];
+        API = ["/ip4/127.0.0.1/tcp/1005"];
 
         # HTTP Gateway on TCP
         Gateway = "/ip4/127.0.0.1/tcp/1006";
@@ -42,18 +41,17 @@
       # (Optional) CORS headers so browser apps can talk to your API/Gateway locally
       API = {
         HTTPHeaders = {
-          "Access-Control-Allow-Origin" = [ "http://127.0.0.1:1005" "http://127.0.0.1:1006" "*" ];
-          "Access-Control-Allow-Methods" = [ "GET" "POST" "PUT" "OPTIONS" ];
+          "Access-Control-Allow-Origin" = ["http://127.0.0.1:1005" "http://127.0.0.1:1006" "*"];
+          "Access-Control-Allow-Methods" = ["GET" "POST" "PUT" "OPTIONS"];
         };
       };
       Gateway = {
         HTTPHeaders = {
-          "Access-Control-Allow-Origin" = [ "http://127.0.0.1:1005" "http://127.0.0.1:1006" "*" ];
-          "Access-Control-Allow-Methods" = [ "GET" "POST" "OPTIONS" ];
+          "Access-Control-Allow-Origin" = ["http://127.0.0.1:1005" "http://127.0.0.1:1006" "*"];
+          "Access-Control-Allow-Methods" = ["GET" "POST" "OPTIONS"];
         };
-        RootRedirect = "/webui";  # uncomment if you want 1006/ to jump to the WebUI
+        RootRedirect = "/webui"; # uncomment if you want 1006/ to jump to the WebUI
       };
     };
-
   };
 }
