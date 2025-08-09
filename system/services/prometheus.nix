@@ -4,7 +4,6 @@
   #### Prometheus server
   services.prometheus = {
     enable = true;
-    dataDir = "/store/prometheus";
     listenAddress = "0.0.0.0";     # expose on LAN/WAN
     port = 1020;
     # Global scrape/defaults
