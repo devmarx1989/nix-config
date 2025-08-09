@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     amass
     aria2
+    avahi
     curl
     expressvpn
     masscan
