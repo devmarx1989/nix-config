@@ -2,7 +2,11 @@
   imports = [
     ./avahi.nix
     ./ipfs.nix
+    ./grafana.nix
+    ./loki.nix
     ./ollama.nix
+    ./prometheus.nix
+    ./promtail.nix
   ];
 
   security.rtkit.enable = true;
@@ -58,6 +62,7 @@
           bind 0.0.0.0
           bind ::
           forward . 1.1.1.1 8.8.8.8
+          prometheus 0.0.0.0:1020
           cache {
               success 360000
               denial 30
