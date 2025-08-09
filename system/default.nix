@@ -24,7 +24,7 @@
     ./systemd.nix
     ./time.nix
     ./users.nix
-    ./virtualisation
+    ./virtualisation.nix
   ];
 
   nix.settings = {
