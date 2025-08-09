@@ -1,5 +1,5 @@
 # modules/store-dirs.nix
-{ lib, ... }:
+{ systemd, lib, ... }:
 
 let
   # 1) list of service names (strings)
@@ -21,6 +21,6 @@ in {
 
   systemd.services =
     lib.genAttrs serviceNames
-      (name: { serviceConfig.WorkingDirectory = "/store/${name}"; });
+      (name: { serviceConfig.WorkingDirectory = lib.mkForce "/store/${name}"; });
 }
 
