@@ -53,8 +53,4 @@
       };
     };
   };
-
-  systemd.tmpfiles.rules = [
-    "d /store/loki 0750 loki loki -"
-  ];
 }

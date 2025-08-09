@@ -47,8 +47,5 @@
   };
 
   users.users.promtail.extraGroups = [ "systemd-journal" ];
-  systemd.tmpfiles.rules += [
-    "d /store/promtail 0750 promtail promtail -"
-  ];
 }
 

@@ -7,6 +7,7 @@
     ./ollama.nix
     ./prometheus.nix
     ./promtail.nix
+    ./systemd-rules.nix
   ];
 
   security.rtkit.enable = true;

@@ -4,6 +4,7 @@
   #### Prometheus server
   services.prometheus = {
     enable = true;
+    dataDir = "/store/prometheus";
     listenAddress = "0.0.0.0";     # expose on LAN/WAN
     port = 1020;
     # Global scrape/defaults
@@ -86,9 +87,5 @@
   #   url  = "http://localhost:1020";
   #   isDefault = true;
   # }];
-
-  systemd.tmpfiles.rules = [
-    "d /store/prometheus/rules 0755 root root -"
-  ];
 }
 

@@ -2,6 +2,7 @@
 {
   services.grafana = {
     enable = true;
+    dataDir = "/store/grafana";
     settings.server = {
       http_addr = "127.0.0.1";             # only expose to localhost; Caddy handles public
       http_port = 1040;
