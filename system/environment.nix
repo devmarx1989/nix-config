@@ -4,6 +4,8 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
+    cudatoolkit
+    cudnn
   ];
 
   # For GUI apps using GPU (WSLg)

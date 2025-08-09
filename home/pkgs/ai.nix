@@ -4,6 +4,7 @@
   ...
 }: {
   home.packages = with pkgs; [
+    docling
     lmstudio
     ollama-cuda
     pinokio
