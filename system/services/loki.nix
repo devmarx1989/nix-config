@@ -1,4 +1,4 @@
-{services, ...}:
+{services, config, ...}:
 {
  #####################
   # Loki (server)
