@@ -1,6 +1,7 @@
 {services, ...}: {
   imports = [
     ./avahi.nix
+    ./ipfs.nix
     ./ollama.nix
   ];
 
