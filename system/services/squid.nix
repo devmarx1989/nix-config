@@ -7,23 +7,29 @@
   rock = "${base}/rock";
   ufs = "${base}/ufs";
   sslDb = "${base}/ssl_db";
-  sslDir = "${base}/ssl"; # if you want CA here too
+  sslDir = "${base}/ssl";
   sslCrt = "${pkgs.squid}/libexec/squid/ssl_crtd";
 in {
   services.squid = {
     enable = true;
-    listenAddress = "127.0.0.1";
-    proxyPort = 1050; # HTTP + CONNECT passthrough
+
+    # Use Squid directives (not proxyPort/listenAddress)
     settings = {
+      # Bind explicitly
+      http_port = "127.0.0.1:3128";
+      https_port = [
+        "127.0.0.1:3130 ssl-bump cert=${sslDir}/ca.pem generate-host-certificates=on dynamic_cert_mem_cache_size=16MB"
+      ];
+
       cache_mem = "1024 MB";
       maximum_object_size = "512 MB";
       cache_replacement_policy = "heap LFUDA";
       memory_replacement_policy = "heap GDSF";
 
-      # All cache stores on your big drive
-      "cache_dir" = [
-        "rock ${rock} 1048576 max-size=4194304" # 1 TB, ≤4 MB objects
-        "ufs  ${ufs}  2097152 64 256" # 2 TB, large files
+      # Stores
+      cache_dir = [
+        "rock ${rock} 1048576 max-size=4194304" # 1 TB, ≤4 MB per object
+        "ufs  ${ufs}  2097152 64 256" # 2 TB, big files
       ];
 
       range_offset_limit = "-1";
@@ -38,55 +44,37 @@ in {
         "-i \\.(mp4|m4a|mp3|avi|mkv|zip|tar|gz|xz|7z|iso)$     10080 90% 43200"
         ".                                                     0    20% 4320"
       ];
-
-      # ✅ define ALL ACLs ONCE here
-      acl = [
-        "localnet src 127.0.0.1/32"
-        "step1 at_step SslBump1"
-        builtins.concatStringsSep
-        " "
-        [
-          "badsites"
-          "ssl::server_name"
-          ".bank"
-          ".paypal.com"
-          ".microsoft.com"
-          ".apple.com"
-          ".bankofamerica.com"
-        ]
-      ];
-
-      http_access = ["allow localnet" "deny all"];
-
-      # HTTPS bumping port (cacheable TLS)
-      https_port = [
-        "3130 ssl-bump cert=${sslDir}/ca.pem generate-host-certificates=on dynamic_cert_mem_cache_size=16MB"
-      ];
-      sslcrtd_program = "${sslCrt} -s ${sslDb} -M 16MB";
-      sslcrtd_children = "5 startup=1 idle=1";
-
-      tls_outgoing_options = "min=TLS1.2";
-      sslproxy_options = "ALL:NO_COMPRESSION";
-
-      # Splice pinned/HSTS sites; bump the rest
-      ssl_bump = ["peek step1" "splice badsites" "bump all"];
-
-      forwarded_for = "off";
-      via = "off";
-      dns_v4_first = "on";
-      pipeline_prefetch = "on";
     };
+
+    # Put ACL and bump policy in one ordered block to avoid “unknown ACL” issues
+    extraConfig = ''
+      acl localnet src 127.0.0.1/32
+      http_access allow localnet
+      http_access deny all
+
+      # SSL bump policy
+      acl step1 at_step SslBump1
+      acl badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com
+
+      ssl_bump peek step1
+      ssl_bump splice badsites
+      ssl_bump bump all
+
+      forwarded_for off
+      via off
+      dns_v4_first on
+      pipeline_prefetch on
+    '';
   };
 
   systemd.tmpfiles.rules = [
-    "d ${base} 0750 squid squid - -"
-    "d ${rock} 0750 squid squid - -"
-    "d ${ufs}  0750 squid squid - -"
-    "d ${sslDb} 0750 squid squid - -"
+    "d ${base}   0750 squid squid - -"
+    "d ${rock}   0750 squid squid - -"
+    "d ${ufs}    0750 squid squid - -"
+    "d ${sslDb}  0750 squid squid - -"
     "d ${sslDir} 0700 squid squid - -"
   ];
 
-  # Initialize ssl_db and create a CA if missing (stored under your drive)
   systemd.services.squid.preStart = ''
     if [ ! -d "${sslDb}" ] || [ ! -f "${sslDb}/cert9.db" ]; then
       ${sslCrt} -c -s ${sslDb}
