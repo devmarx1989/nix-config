@@ -2,7 +2,17 @@
   config,
   pkgs,
   ...
-}: {
+}:
+let
+  baseRules = pkgs.writeText "prom-base-rules.yml" ''
+    groups:
+    - name: sanity
+      rules:
+      - record: up:sum
+        expr: sum(up)
+  '';
+in {
+
   #### Prometheus server
   services.prometheus = {
     enable = true;
@@ -52,7 +62,7 @@
     ];
 
     # Example: add your own alert rules (optional)
-    ruleFiles = [./prometheus/rules];
+    ruleFiles = [ baseRules ];
   };
 
   #### Node exporter (host metrics)
