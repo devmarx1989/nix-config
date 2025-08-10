@@ -52,7 +52,7 @@
     ];
 
     # Example: add your own alert rules (optional)
-    ruleFiles = [ ./prometheus/rules ];
+    ruleFiles = [./prometheus/rules];
   };
 
   #### Node exporter (host metrics)

@@ -19,6 +19,6 @@
     download-attempts = 100;
     max-substitution-jobs = 1;
     # optional, but harmless to pin:
-    accept-flake-config = false;  # you already have this; keep it
+    accept-flake-config = false; # you already have this; keep it
   };
 }
