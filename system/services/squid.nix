@@ -43,9 +43,11 @@ in {
       acl = [
         "localnet src 127.0.0.1/32"
         "step1 at_step SslBump1"
-        builtins.concatStringsSep " " [
+        builtins.concatStringsSep
+        " "
+        [
           "badsites"
-          "ssl::server_name" 
+          "ssl::server_name"
           ".bank"
           ".paypal.com"
           ".microsoft.com"
