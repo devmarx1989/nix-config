@@ -12,5 +12,9 @@
       allowParallelBuilding = true;
       cudaSupport = false;
     };
+    config.permittedInsecurePackages = [
+      "squid-7.0.1"
+    ];
+
   };
 }
