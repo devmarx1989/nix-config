@@ -52,7 +52,7 @@
     ];
 
     # Example: add your own alert rules (optional)
-    ruleFiles = builtins.glob ./prometheus/rules/*.yml;
+    ruleFiles = [ ./prometheus/rules ];
   };
 
   #### Node exporter (host metrics)
