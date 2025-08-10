@@ -10,7 +10,7 @@
     config = {
       allowUnfree = true;
       allowParallelBuilding = true;
-      cudaSupport = true;
+      cudaSupport = false;
     };
   };
 }
