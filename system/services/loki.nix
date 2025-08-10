@@ -13,6 +13,14 @@
     dataDir = "/store/loki";
 
     configuration = {
+      common = {
+        path_prefix = "/var/lib/loki";
+        ring = {
+          kvstore = { store = "inmemory"; };
+          instance_addr = "127.0.0.1";
+        };
+        replication_factor = 1;
+      };
       server = {
         http_listen_port = 1030;
         grpc_listen_port = 1031;
@@ -22,7 +30,7 @@
         configs = [
           {
             from = "2020-10-24";
-            store = "boltdb-shipper";
+            store = "tsdb";
             object_store = "filesystem";
             schema = "v13";
             index = {
@@ -34,22 +42,14 @@
       };
 
       storage_config = {
-        boltdb_shipper = {
-          active_index_directory = "${config.services.loki.dataDir}/index";
-          cache_location = "${config.services.loki.dataDir}/boltdb-cache";
-        };
         filesystem.directory = "${config.services.loki.dataDir}/chunks";
       };
 
       limits_config = {
-        retention_period = "168h";
-        ingestion_rate_mb = 8;
+        allow_structured_metadata = true;
         ingestion_burst_size_mb = 16;
+        ingestion_rate_mb = 8;
         max_query_series = 500000;
-      };
-
-      table_manager = {
-        retention_deletes_enabled = true;
         retention_period = "168h";
       };
 
@@ -57,6 +57,7 @@
         working_directory = "${config.services.loki.dataDir}/compactor";
         compaction_interval = "5m";
         delete_request_cancel_period = "48h";
+        delete_request_store = "filesystem";
         retention_enabled = true;
       };
 
