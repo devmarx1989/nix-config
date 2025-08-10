@@ -1,16 +1,19 @@
-{ config, pkgs, ... }:
-let
-  base   = "/drive/Store/squid";
-  rock   = "${base}/rock";
-  ufs    = "${base}/ufs";
-  sslDb  = "${base}/ssl_db";
-  sslDir = "${base}/ssl";               # if you want CA here too
+{
+  config,
+  pkgs,
+  ...
+}: let
+  base = "/drive/Store/squid";
+  rock = "${base}/rock";
+  ufs = "${base}/ufs";
+  sslDb = "${base}/ssl_db";
+  sslDir = "${base}/ssl"; # if you want CA here too
   sslCrt = "${pkgs.squid}/libexec/squid/ssl_crtd";
 in {
   services.squid = {
     enable = true;
     listenAddress = "127.0.0.1";
-    proxyPort = 3128;                        # HTTP + CONNECT passthrough
+    proxyPort = 1050; # HTTP + CONNECT passthrough
     settings = {
       cache_mem = "1024 MB";
       maximum_object_size = "512 MB";
@@ -19,8 +22,8 @@ in {
 
       # All cache stores on your big drive
       "cache_dir" = [
-        "rock ${rock} 1048576 max-size=4194304"  # 1 TB, ≤4 MB objects
-        "ufs  ${ufs}  2097152 64 256"            # 2 TB, large files
+        "rock ${rock} 1048576 max-size=4194304" # 1 TB, ≤4 MB objects
+        "ufs  ${ufs}  2097152 64 256" # 2 TB, large files
       ];
 
       range_offset_limit = "-1";
@@ -37,22 +40,22 @@ in {
       ];
 
       # Access control
-      acl = [ "localnet src 127.0.0.1/32" "step1 at_step SslBump1" ];
-      http_access = [ "allow localnet" "deny all" ];
+      acl = ["localnet src 127.0.0.1/32" "step1 at_step SslBump1"];
+      http_access = ["allow localnet" "deny all"];
 
       # HTTPS bumping port (cacheable TLS)
       https_port = [
         "3130 ssl-bump cert=${sslDir}/ca.pem generate-host-certificates=on dynamic_cert_mem_cache_size=16MB"
       ];
-      sslcrtd_program  = "${sslCrt} -s ${sslDb} -M 16MB";
+      sslcrtd_program = "${sslCrt} -s ${sslDb} -M 16MB";
       sslcrtd_children = "5 startup=1 idle=1";
 
       tls_outgoing_options = "min=TLS1.2";
-      sslproxy_options     = "ALL:NO_COMPRESSION";
+      sslproxy_options = "ALL:NO_COMPRESSION";
 
       # Splice pinned/HSTS sites; bump the rest
-      acl = [ "badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com" ];
-      ssl_bump = [ "peek step1" "splice badsites" "bump all" ];
+      acl = ["badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com"];
+      ssl_bump = ["peek step1" "splice badsites" "bump all"];
 
       forwarded_for = "off";
       via = "off";
@@ -84,4 +87,3 @@ in {
     fi
   '';
 }
-
