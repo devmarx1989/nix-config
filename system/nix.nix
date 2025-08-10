@@ -15,7 +15,7 @@
     ];
 
     connect-timeout = 120;
-    retry-attempts = 100;
-    http-connections = 3;
+    http-connections = 1;
+    download-attempts = 100;
   };
 }
