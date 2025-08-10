@@ -1,30 +1,28 @@
 {
-  config,
-  pkgs,
-  ...
-}: {
   services.squid = {
     enable = true;
 
-    # Generated http_port from these:
+    # Make the builder stop running `squid -k parse` (files are created at runtime)
+    validateConfig = false;
+
     proxyAddress = "127.0.0.1";
     proxyPort = 3128;
 
-    # All other Squid directives go here, in order.
     extraConfig = ''
-      # keep 3128 from proxyAddress/proxyPort for normal HTTP + CONNECT tunneling
-      # add a SECOND explicit proxy port that does SSL Bump:
+      # --- Ports ---
+      # 3128 from proxyAddress/proxyPort above
       http_port 127.0.0.1:3130 ssl-bump \
         cert=/drive/Store/squid/ssl/ca.pem \
         generate-host-certificates=on \
         dynamic_cert_mem_cache_size=16MB
 
-      # --- ACL & access (ordered) ---
+      # --- ACL & access ---
       acl localnet src 127.0.0.1/32
       http_access allow localnet
+      http_access allow localhost
       http_access deny all
 
-      # SSL bump policy
+      # SSL bump policy (order matters)
       acl step1 at_step SslBump1
       acl badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com
       ssl_bump peek step1
@@ -37,9 +35,8 @@
       cache_replacement_policy heap LFUDA
       memory_replacement_policy heap GDSF
 
-      # Disk stores (all on your big drive)
-      cache_dir rock /drive/Store/squid/rock 1048576 max-size=4194304    # ≈1 TB, objects ≤4 MB
-      cache_dir ufs  /drive/Store/squid/ufs  2097152 64 256              # ≈2 TB, large files
+      cache_dir rock /drive/Store/squid/rock 1048576 max-size=4194304
+      cache_dir ufs  /drive/Store/squid/ufs  2097152 64 256
 
       range_offset_limit -1
       collapsed_forwarding on
@@ -48,32 +45,30 @@
       connect_timeout 1 minute
       request_timeout 5 minutes
 
-      # Freshness rules
       refresh_pattern -i \.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?)$  1440 90% 43200
       refresh_pattern -i \.(mp4|m4a|mp3|avi|mkv|zip|tar|gz|xz|7z|iso)$     10080 90% 43200
       refresh_pattern .                                                    0    20% 4320
 
       # QoL
       forwarded_for off
-      via off
-      dns_v4_first on
-      pipeline_prefetch on
+      # via off        # optional; leaving it off will log a warning
+      pipeline_prefetch 1
     '';
   };
 
-  # Create all on-disk paths with correct perms
   systemd.tmpfiles.rules = [
-    "d /drive/Store/squid/rock     0750 squid squid - -"
-    "d /drive/Store/squid/ufs      0750 squid squid - -"
-    "d /drive/Store/squid/ssl_db   0750 squid squid - -"
-    "d /drive/Store/squid/ssl      0700 squid squid - -"
+    "d /drive/Store/squid/rock   0750 squid squid - -"
+    "d /drive/Store/squid/ufs    0750 squid squid - -"
+    "d /drive/Store/squid/ssl_db 0750 squid squid - -"
+    "d /drive/Store/squid/ssl    0700 squid squid - -"
   ];
 
-  # Init ssl_db and local MITM CA for bumping HTTPS
   systemd.services.squid.preStart = ''
+    # init ssl_db
     if [ ! -d /drive/Store/squid/ssl_db ] || [ ! -f /drive/Store/squid/ssl_db/cert9.db ]; then
       ${pkgs.squid}/libexec/squid/ssl_crtd -c -s /drive/Store/squid/ssl_db
     fi
+    # create local CA if missing
     if [ ! -f /drive/Store/squid/ssl/ca.pem ]; then
       umask 077
       openssl req -x509 -new -nodes -newkey rsa:4096 -sha256 -days 3650 \
