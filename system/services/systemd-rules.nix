@@ -9,6 +9,7 @@
     "prometheus"
     "promtail"
     "grafana"
+    "jellyfin"
   ];
 
   # 2) helper to build { name = "<name>"; }

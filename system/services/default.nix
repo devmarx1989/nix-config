@@ -2,6 +2,7 @@
   imports = [
     ./avahi.nix
     ./ipfs.nix
+    ./jellyfin.nix
     ./grafana.nix
     ./loki.nix
     ./ollama.nix
