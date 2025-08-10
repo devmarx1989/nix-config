@@ -1,4 +1,8 @@
 {
+  services,
+  pkgs,
+  ...
+}: {
   services.squid = {
     enable = true;
 
