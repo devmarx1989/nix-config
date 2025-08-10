@@ -15,6 +15,5 @@
     config.permittedInsecurePackages = [
       "squid-7.0.1"
     ];
-
   };
 }
