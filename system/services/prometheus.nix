@@ -6,6 +6,7 @@
   #### Prometheus server
   services.prometheus = {
     enable = true;
+    checkRules = false;
     listenAddress = "0.0.0.0"; # expose on LAN/WAN
     extraFlags = [
       "--storage.tsdb.path=/store/prometheus"
@@ -52,7 +53,7 @@
     ];
 
     # Example: add your own alert rules (optional)
-    ruleFiles = ["/store/prometheus/rules/*.yml"];
+    ruleFiles = ["/store/prometheus/"];
   };
 
   #### Node exporter (host metrics)
