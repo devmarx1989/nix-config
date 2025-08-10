@@ -37,7 +37,6 @@
         boltdb_shipper = {
           active_index_directory = "${config.services.loki.dataDir}/index";
           cache_location = "${config.services.loki.dataDir}/boltdb-cache";
-          shared_store = "filesystem";
         };
         filesystem.directory = "${config.services.loki.dataDir}/chunks";
       };
@@ -46,6 +45,7 @@
         retention_period = "168h";
         ingestion_rate_mb = 8;
         ingestion_burst_size_mb = 16;
+        max_query_series = 500000;
       };
 
       table_manager = {
@@ -56,9 +56,12 @@
       compactor = {
         working_directory = "${config.services.loki.dataDir}/compactor";
         compaction_interval = "5m";
-        delete_request_cancel_period = "24h";
+        delete_request_cancel_period = "48h";
         retention_enabled = true;
       };
+      
+      chunk_store_config = { max_look_back_period = "0s"; };
+      ruler = { storage = { type = "local"; }; };
     };
   };
 }
