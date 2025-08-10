@@ -60,7 +60,6 @@
         retention_enabled = true;
       };
 
-      chunk_store_config = {max_look_back_period = "0s";};
       ruler = {storage = {type = "local";};};
     };
   };
