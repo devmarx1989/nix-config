@@ -10,7 +10,7 @@
     config = {
       allowUnfree = true;
       allowParallelBuilding = true;
-      cudaSupport = false;
+      cudaSupport = true;
     };
     config.permittedInsecurePackages = [
       "squid-7.0.1"
