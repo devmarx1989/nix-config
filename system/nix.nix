@@ -1,5 +1,4 @@
-{nix, ...}:
-{
+{nix, ...}: {
   nix.settings = {
     max-jobs = "auto"; # Uses all available CPU cores
     cores = 0; # 0 means "use all cores" for individual build steps
