@@ -1,5 +1,5 @@
 {services, ...}: {
-  servics.jellyfin = {
+  services.jellyfin = {
     enable = true;
     group = "jellyfin";
     user = "jellyfin";
