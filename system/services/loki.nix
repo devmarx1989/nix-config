@@ -14,7 +14,7 @@
 
     configuration = {
       common = {
-        path_prefix = "/var/lib/loki";
+        path_prefix = "${config.services.loki.dataDir}";
         ring = {
           kvstore = {store = "inmemory";};
           instance_addr = "127.0.0.1";
