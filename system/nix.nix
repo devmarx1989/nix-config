@@ -18,5 +18,8 @@
     http-connections = 1;
     download-attempts = 100;
     max-substitution-jobs = 1;
+    # optional, but harmless to pin:
+    substituters-parallel-connections = 1;
+    accept-flake-config = false;  # you already have this; keep it
   };
 }
