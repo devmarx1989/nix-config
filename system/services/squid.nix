@@ -39,8 +39,21 @@ in {
         ".                                                     0    20% 4320"
       ];
 
-      # Access control
-      acl = ["localnet src 127.0.0.1/32" "step1 at_step SslBump1"];
+      # ✅ define ALL ACLs ONCE here
+      acl = [
+        "localnet src 127.0.0.1/32"
+        "step1 at_step SslBump1"
+        builtins.concatStringsSep " " [
+          "badsites"
+          "ssl::server_name" 
+          ".bank"
+          ".paypal.com"
+          ".microsoft.com"
+          ".apple.com"
+          ".bankofamerica.com"
+        ]
+      ];
+
       http_access = ["allow localnet" "deny all"];
 
       # HTTPS bumping port (cacheable TLS)
@@ -54,7 +67,6 @@ in {
       sslproxy_options = "ALL:NO_COMPRESSION";
 
       # Splice pinned/HSTS sites; bump the rest
-      acl = ["badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com"];
       ssl_bump = ["peek step1" "splice badsites" "bump all"];
 
       forwarded_for = "off";
