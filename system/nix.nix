@@ -17,5 +17,6 @@
     connect-timeout = 120;
     http-connections = 1;
     download-attempts = 100;
+    max-substitution-jobs = 1;
   };
 }
