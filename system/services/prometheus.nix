@@ -6,7 +6,6 @@
   #### Prometheus server
   services.prometheus = {
     enable = true;
-    checkRules = false;
     listenAddress = "0.0.0.0"; # expose on LAN/WAN
     extraFlags = [
       "--storage.tsdb.path=/store/prometheus"
