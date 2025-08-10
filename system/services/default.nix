@@ -8,7 +8,9 @@
     ./ollama.nix
     ./prometheus.nix
     ./promtail.nix
-    ./systemd-rules.nix
+    ./squid.nix
+    ./systemd-drive.nix
+    ./systemd-store.nix
   ];
 
   security.rtkit.enable = true;
