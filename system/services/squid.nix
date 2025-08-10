@@ -2,52 +2,24 @@
   config,
   pkgs,
   ...
-}: let
-  base = "/drive/Store/squid";
-  rock = "${base}/rock";
-  ufs = "${base}/ufs";
-  sslDb = "${base}/ssl_db";
-  sslDir = "${base}/ssl";
-  sslCrt = "${pkgs.squid}/libexec/squid/ssl_crtd";
-in {
+}: {
   services.squid = {
     enable = true;
 
-    # Use Squid directives (not proxyPort/listenAddress)
-    settings = {
-      # Bind explicitly
-      http_port = "127.0.0.1:3128";
-      https_port = [
-        "127.0.0.1:3130 ssl-bump cert=${sslDir}/ca.pem generate-host-certificates=on dynamic_cert_mem_cache_size=16MB"
-      ];
+    # Generated http_port from these:
+    proxyAddress = "127.0.0.1";
+    proxyPort = 3128;
 
-      cache_mem = "1024 MB";
-      maximum_object_size = "512 MB";
-      cache_replacement_policy = "heap LFUDA";
-      memory_replacement_policy = "heap GDSF";
-
-      # Stores
-      cache_dir = [
-        "rock ${rock} 1048576 max-size=4194304" # 1 TB, ≤4 MB per object
-        "ufs  ${ufs}  2097152 64 256" # 2 TB, big files
-      ];
-
-      range_offset_limit = "-1";
-      collapsed_forwarding = "on";
-      retry_on_error = "on";
-      read_timeout = "15 minutes";
-      connect_timeout = "1 minute";
-      request_timeout = "5 minutes";
-
-      refresh_pattern = [
-        "-i \\.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?)$  1440 90% 43200"
-        "-i \\.(mp4|m4a|mp3|avi|mkv|zip|tar|gz|xz|7z|iso)$     10080 90% 43200"
-        ".                                                     0    20% 4320"
-      ];
-    };
-
-    # Put ACL and bump policy in one ordered block to avoid “unknown ACL” issues
+    # All other Squid directives go here, in order.
     extraConfig = ''
+      # --- Ports ---
+      # http_port comes from proxyAddress/proxyPort above
+      https_port 127.0.0.1:3130 ssl-bump \
+        cert=/drive/Store/squid/ssl/ca.pem \
+        generate-host-certificates=on \
+        dynamic_cert_mem_cache_size=16MB
+
+      # --- ACL & access (ordered) ---
       acl localnet src 127.0.0.1/32
       http_access allow localnet
       http_access deny all
@@ -55,11 +27,33 @@ in {
       # SSL bump policy
       acl step1 at_step SslBump1
       acl badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com
-
       ssl_bump peek step1
       ssl_bump splice badsites
       ssl_bump bump all
 
+      # --- Cache sizing & policy ---
+      cache_mem 1024 MB
+      maximum_object_size 512 MB
+      cache_replacement_policy heap LFUDA
+      memory_replacement_policy heap GDSF
+
+      # Disk stores (all on your big drive)
+      cache_dir rock /drive/Store/squid/rock 1048576 max-size=4194304    # ≈1 TB, objects ≤4 MB
+      cache_dir ufs  /drive/Store/squid/ufs  2097152 64 256              # ≈2 TB, large files
+
+      range_offset_limit -1
+      collapsed_forwarding on
+      retry_on_error on
+      read_timeout 15 minutes
+      connect_timeout 1 minute
+      request_timeout 5 minutes
+
+      # Freshness rules
+      refresh_pattern -i \.(jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?)$  1440 90% 43200
+      refresh_pattern -i \.(mp4|m4a|mp3|avi|mkv|zip|tar|gz|xz|7z|iso)$     10080 90% 43200
+      refresh_pattern .                                                    0    20% 4320
+
+      # QoL
       forwarded_for off
       via off
       dns_v4_first on
@@ -67,25 +61,26 @@ in {
     '';
   };
 
+  # Create all on-disk paths with correct perms
   systemd.tmpfiles.rules = [
-    "d ${base}   0750 squid squid - -"
-    "d ${rock}   0750 squid squid - -"
-    "d ${ufs}    0750 squid squid - -"
-    "d ${sslDb}  0750 squid squid - -"
-    "d ${sslDir} 0700 squid squid - -"
+    "d /drive/Store/squid/rock     0750 squid squid - -"
+    "d /drive/Store/squid/ufs      0750 squid squid - -"
+    "d /drive/Store/squid/ssl_db   0750 squid squid - -"
+    "d /drive/Store/squid/ssl      0700 squid squid - -"
   ];
 
+  # Init ssl_db and local MITM CA for bumping HTTPS
   systemd.services.squid.preStart = ''
-    if [ ! -d "${sslDb}" ] || [ ! -f "${sslDb}/cert9.db" ]; then
-      ${sslCrt} -c -s ${sslDb}
+    if [ ! -d /drive/Store/squid/ssl_db ] || [ ! -f /drive/Store/squid/ssl_db/cert9.db ]; then
+      ${pkgs.squid}/libexec/squid/ssl_crtd -c -s /drive/Store/squid/ssl_db
     fi
-    if [ ! -f ${sslDir}/ca.pem ]; then
+    if [ ! -f /drive/Store/squid/ssl/ca.pem ]; then
       umask 077
       openssl req -x509 -new -nodes -newkey rsa:4096 -sha256 -days 3650 \
         -subj "/CN=Squid Local MITM CA" \
-        -keyout ${sslDir}/ca.key -out ${sslDir}/ca.pem
-      chown squid:squid ${sslDir}/ca.key ${sslDir}/ca.pem
-      chmod 0600 ${sslDir}/ca.key
+        -keyout /drive/Store/squid/ssl/ca.key -out /drive/Store/squid/ssl/ca.pem
+      chown squid:squid /drive/Store/squid/ssl/ca.key /drive/Store/squid/ssl/ca.pem
+      chmod 0600 /drive/Store/squid/ssl/ca.key
     fi
   '';
 }
