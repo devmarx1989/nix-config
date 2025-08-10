@@ -6,9 +6,11 @@
     curl
     expressvpn
     masscan
+    nethogs
     newsboat
     nmap
     pup
+    sniffnet
     rustscan
     unixtools.netstat
     wget
