@@ -12,9 +12,9 @@
 
     # All other Squid directives go here, in order.
     extraConfig = ''
-      # --- Ports ---
-      # http_port comes from proxyAddress/proxyPort above
-      https_port 127.0.0.1:3130 ssl-bump \
+      # keep 3128 from proxyAddress/proxyPort for normal HTTP + CONNECT tunneling
+      # add a SECOND explicit proxy port that does SSL Bump:
+      http_port 127.0.0.1:3130 ssl-bump \
         cert=/drive/Store/squid/ssl/ca.pem \
         generate-host-certificates=on \
         dynamic_cert_mem_cache_size=16MB
