@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  programs.dconf.enable = true;
   programs.ccache.enable = true;
   programs.nix-ld.enable = true;
   programs.mtr.enable = true;

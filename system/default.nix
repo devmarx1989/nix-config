@@ -9,6 +9,7 @@
     ./fileSystems.nix
     ./fonts.nix
     ./environment.nix
+    ./gnome/default.nix
     ./hardware.nix
     ./hardware-configuration.nix
     ./network.nix
