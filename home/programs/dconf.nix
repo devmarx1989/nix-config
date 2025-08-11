@@ -13,11 +13,6 @@
       monospace-font-name = "MonaspiceKr Nerd Font Mono 14";
     };
 
-    "org/gnome/desktop/wm/preferences" = {
-      # Window title font
-      titlebar-font = "MonaspiceAr Nerd Font 11";
-    };
-
     "app/drey/Elastic" = {
       last-language = "rust";
     };
