@@ -1,4 +1,3 @@
 {dconf, ...}:
 with dconf.settings; {
-
 }
