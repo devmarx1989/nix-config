@@ -1,5 +1,8 @@
-{dconf, lib, ...}:
 {
+  dconf,
+  lib,
+  ...
+}: {
   dconf.settings = {
     "org/gnome/calculator" = {
       button-mode = "programming";
