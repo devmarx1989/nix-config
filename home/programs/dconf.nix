@@ -1,4 +1,4 @@
 {dconf, ...}:
-{
+with dconf.settings; {
 
 }
