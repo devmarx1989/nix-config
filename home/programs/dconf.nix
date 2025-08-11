@@ -14,7 +14,7 @@
 
     "org/gnome/desktop/interface" = {
       # UI font (menus, dialogs)
-      font-name          = "MonaspiceAr Nerd Font 11";
+      font-name = "MonaspiceAr Nerd Font 11";
       # Proportional document font (GTK apps that consult this)
       document-font-name = "MonaspiceXe Nerd Font 11";
       # Monospace font (terminals, code views)
