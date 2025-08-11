@@ -34,7 +34,7 @@
     };
 
     "org/gnome/Weather" = {
-      locations = [ (mkVariant [ (mkUint32 2) (mkVariant [ "Guadalajara" "MMGL" true [ (mkTuple [ 0.3580833906852675 (-1.803216011336572) ]) ] [ (mkTuple [ 0.36070138456325895 (-1.8035068879097094) ]) ] ]) ]) (mkVariant [ (mkUint32 2) (mkVariant [ "Guadalajara" "LETO" true [ (mkTuple [ 0.7065674530312737 (-6.021385919380437e-2) ]) ] [ (mkTuple [ 0.7091920442538375 (-5.5281454007913275e-2) ]) ] ]) ]) ];
+      locations = [(mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])]) (mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "LETO" true [(mkTuple [0.7065674530312737 (-6.021385919380437e-2)])] [(mkTuple [0.7091920442538375 (-5.5281454007913275e-2)])]])])];
     };
 
     "org/gnome/baobab/ui" = {
@@ -50,9 +50,11 @@
     };
 
     "org/gnome/clocks" = {
-      world-clocks = [ {
-        location = mkVariant [ (mkUint32 2) (mkVariant [ "Guadalajara" "MMGL" true [ (mkTuple [ 0.3580833906852675 (-1.803216011336572) ]) ] [ (mkTuple [ 0.36070138456325895 (-1.8035068879097094) ]) ] ]) ];
-      } ];
+      world-clocks = [
+        {
+          location = mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])];
+        }
+      ];
     };
 
     "org/gnome/clocks/state/window" = {
@@ -62,29 +64,29 @@
     };
 
     "org/gnome/desktop/app-folders" = {
-      folder-children = [ "System" "Utilities" "YaST" "Pardus" ];
+      folder-children = ["System" "Utilities" "YaST" "Pardus"];
     };
 
     "org/gnome/desktop/app-folders/folders/Pardus" = {
-      categories = [ "X-Pardus-Apps" ];
+      categories = ["X-Pardus-Apps"];
       name = "X-Pardus-Apps.directory";
       translate = true;
     };
 
     "org/gnome/desktop/app-folders/folders/System" = {
-      apps = [ "org.gnome.baobab.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Logs.desktop" "org.gnome.SystemMonitor.desktop" ];
+      apps = ["org.gnome.baobab.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Logs.desktop" "org.gnome.SystemMonitor.desktop"];
       name = "X-GNOME-Shell-System.directory";
       translate = true;
     };
 
     "org/gnome/desktop/app-folders/folders/Utilities" = {
-      apps = [ "org.gnome.Connections.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.font-viewer.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop" ];
+      apps = ["org.gnome.Connections.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.font-viewer.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop"];
       name = "X-GNOME-Shell-Utilities.directory";
       translate = true;
     };
 
     "org/gnome/desktop/app-folders/folders/YaST" = {
-      categories = [ "X-SuSE-YaST" ];
+      categories = ["X-SuSE-YaST"];
       name = "suse-yast.directory";
       translate = true;
     };
@@ -99,13 +101,13 @@
     };
 
     "org/gnome/desktop/input-sources" = {
-      mru-sources = [ (mkTuple [ "xkb" "us" ]) ];
-      sources = [ (mkTuple [ "xkb" "us" ]) (mkTuple [ "xkb" "de" ]) (mkTuple [ "xkb" "latam" ]) (mkTuple [ "xkb" "jp" ]) (mkTuple [ "xkb" "ru" ]) ];
+      mru-sources = [(mkTuple ["xkb" "us"])];
+      sources = [(mkTuple ["xkb" "us"]) (mkTuple ["xkb" "de"]) (mkTuple ["xkb" "latam"]) (mkTuple ["xkb" "jp"]) (mkTuple ["xkb" "ru"])];
       xkb-options = [];
     };
 
     "org/gnome/desktop/notifications" = {
-      application-children = [ "org-gnome-console" "firefox" "org-gnome-settings" "calibre-gui" ];
+      application-children = ["org-gnome-console" "firefox" "org-gnome-settings" "calibre-gui"];
     };
 
     "org/gnome/desktop/notifications/application/calibre-gui" = {
@@ -176,8 +178,8 @@
     };
 
     "org/gnome/shell" = {
-      disabled-extensions = [ "rezmon@azz.lol" ];
-      enabled-extensions = [ "monitor@astraext.github.io" ];
+      disabled-extensions = ["rezmon@azz.lol"];
+      enabled-extensions = ["monitor@astraext.github.io"];
     };
 
     "org/gnome/shell/extensions/astra-monitor" = {
@@ -222,21 +224,21 @@
     };
 
     "org/gnome/shell/keybindings" = {
-      show-screenshot-ui = [ "<Super>f" ];
+      show-screenshot-ui = ["<Super>f"];
     };
 
     "org/gnome/shell/weather" = {
       automatic-location = true;
-      locations = [ (mkVariant [ (mkUint32 2) (mkVariant [ "Guadalajara" "MMGL" true [ (mkTuple [ 0.3580833906852675 (-1.803216011336572) ]) ] [ (mkTuple [ 0.36070138456325895 (-1.8035068879097094) ]) ] ]) ]) (mkVariant [ (mkUint32 2) (mkVariant [ "Guadalajara" "LETO" true [ (mkTuple [ 0.7065674530312737 (-6.021385919380437e-2) ]) ] [ (mkTuple [ 0.7091920442538375 (-5.5281454007913275e-2) ]) ] ]) ]) ];
+      locations = [(mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])]) (mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "LETO" true [(mkTuple [0.7065674530312737 (-6.021385919380437e-2)])] [(mkTuple [0.7091920442538375 (-5.5281454007913275e-2)])]])])];
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [ (mkVariant [ (mkUint32 2) (mkVariant [ "Guadalajara" "MMGL" true [ (mkTuple [ 0.3580833906852675 (-1.803216011336572) ]) ] [ (mkTuple [ 0.36070138456325895 (-1.8035068879097094) ]) ] ]) ]) ];
+      locations = [(mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])])];
     };
 
     "org/gtk/gtk4/settings/color-chooser" = {
-      custom-colors = [ (mkTuple [ 0.11372549086809158 0.6745098233222961 0.8392156958580017 1.0 ]) (mkTuple [ 0.8392156958580017 0.11372549086809158 0.11372549086809158 1.0 ]) ];
-      selected-color = mkTuple [ true 0.6000000238418579 0.7568627595901489 0.9450980424880981 1.0 ];
+      custom-colors = [(mkTuple [0.11372549086809158 0.6745098233222961 0.8392156958580017 1.0]) (mkTuple [0.8392156958580017 0.11372549086809158 0.11372549086809158 1.0])];
+      selected-color = mkTuple [true 0.6000000238418579 0.7568627595901489 0.9450980424880981 1.0];
     };
 
     "org/gtk/settings/file-chooser" = {
@@ -251,6 +253,5 @@
       sort-order = "ascending";
       type-format = "category";
     };
-
   };
 }
