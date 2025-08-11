@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./git.nix
+    ./dconf.nix
     ./vim.nix
   ];
   programs.home-manager.enable = true;
