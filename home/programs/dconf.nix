@@ -32,8 +32,8 @@ with lib.hm.gvariant; {
             "Guadalajara"
             "MMGL"
             true
-            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
-            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble (-1.803216011336572))])]
+            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094))])]
           ])
         ])
         (mkVariant [
@@ -42,8 +42,8 @@ with lib.hm.gvariant; {
             "Guadalajara"
             "LETO"
             true
-            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble - 0.06021385919380437)])]
-            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble - 0.055281454007913275)])]
+            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble (-0.06021385919380437))])]
+            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble (-0.055281454007913275))])]
           ])
         ])
       ];
@@ -69,8 +69,8 @@ with lib.hm.gvariant; {
               "Guadalajara"
               "MMGL"
               true
-              [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
-              [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+              [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble (-1.803216011336572))])]
+              [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094))])]
             ])
           ];
         }
@@ -264,8 +264,8 @@ with lib.hm.gvariant; {
             "Guadalajara"
             "MMGL"
             true
-            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
-            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble (-1.803216011336572))])]
+            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094))])]
           ])
         ])
         (mkVariant [
@@ -274,8 +274,8 @@ with lib.hm.gvariant; {
             "Guadalajara"
             "LETO"
             true
-            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble - 0.06021385919380437)])]
-            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble - 0.055281454007913275)])]
+            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble (-0.06021385919380437))])]
+            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble (-0.055281454007913275))])]
           ])
         ])
       ];
@@ -289,8 +289,8 @@ with lib.hm.gvariant; {
             "Guadalajara"
             "MMGL"
             true
-            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
-            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble (-1.803216011336572))])]
+            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094))])]
           ])
         ])
       ];
