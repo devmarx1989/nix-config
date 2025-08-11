@@ -6,18 +6,13 @@
 }: {
   services.squid = {
     enable = true;
-
-    # Don't run squid -k parse in the builder; we do our own prep in preStart.
     validateConfig = false;
 
-    # This opens a *plain* HTTP listener on 127.0.0.1:3128
     proxyAddress = "127.0.0.1";
     proxyPort = 3128;
 
     extraConfig = ''
       # --- TLS-bump listener on 3130 ---
-      # cert= points at the CA certificate; key= points at its private key.
-      # sslcrtd_program is required when using generate-host-certificates=on.
       http_port 127.0.0.1:3130 ssl-bump \
         cert=/drive/Store/squid/ssl/ca.pem \
         key=/drive/Store/squid/ssl/ca.key \
@@ -60,14 +55,11 @@
       refresh_pattern -i \.(mp4|m4a|mp3|avi|mkv|zip|tar|gz|xz|7z|iso)$     10080 90% 43200
       refresh_pattern .                                                    0    20% 4320
 
-      # QoL
       forwarded_for off
-      # via off        # optional; leaving it off will log a warning
       pipeline_prefetch 1
     '';
   };
 
-  # Ensure dirs exist with correct ownership/modes
   systemd.tmpfiles.rules = [
     "d /drive/Store/squid/rock   0750 squid squid - -"
     "d /drive/Store/squid/ufs    0750 squid squid - -"
@@ -75,25 +67,56 @@
     "d /drive/Store/squid/ssl    0700 squid squid - -"
   ];
 
-  # Pre-start: create ssl_db and *actually* create the CA using Nix paths.
   systemd.services.squid.preStart = ''
-    set -eu
+        set -euo pipefail
 
-    # Init ssl_db if missing
-    if [ ! -d /drive/Store/squid/ssl_db ] || [ ! -f /drive/Store/squid/ssl_db/cert9.db ]; then
-      ${pkgs.squid}/libexec/squid/ssl_crtd -c -s /drive/Store/squid/ssl_db
-      chown -R squid:squid /drive/Store/squid/ssl_db
-      chmod 0750 /drive/Store/squid/ssl_db
-    fi
+        # Ensure directories exist (tmpfiles runs at boot, but be safe)
+        install -d -m 0750 -o squid -g squid /drive/Store/squid/rock /drive/Store/squid/ufs /drive/Store/squid/ssl_db
+        install -d -m 0700 -o squid -g squid /drive/Store/squid/ssl
 
-    # Create local MITM CA if missing
-    if [ ! -f /drive/Store/squid/ssl/ca.pem ] || [ ! -f /drive/Store/squid/ssl/ca.key ]; then
-      umask 077
-      ${pkgs.openssl}/bin/openssl req -x509 -new -nodes -newkey rsa:4096 -sha256 -days 3650 \
-        -subj "/CN=Squid Local MITM CA" \
-        -keyout /drive/Store/squid/ssl/ca.key -out /drive/Store/squid/ssl/ca.pem
-      chown squid:squid /drive/Store/squid/ssl/ca.key /drive/Store/squid/ssl/ca.pem
-      chmod 0600 /drive/Store/squid/ssl/ca.key
-    fi
+        # Init ssl_db if missing
+        if [ ! -f /drive/Store/squid/ssl_db/cert9.db ]; then
+          ${pkgs.squid}/libexec/squid/ssl_crtd -c -s /drive/Store/squid/ssl_db
+          chown -R squid:squid /drive/Store/squid/ssl_db
+          chmod 0750 /drive/Store/squid/ssl_db
+        fi
+
+        # Function: create a proper CA cert (CA:TRUE)
+        create_ca() {
+          umask 077
+          cfg=/run/squid-openssl.cnf
+          cat > "$cfg" <<'EOF'
+    [ req ]
+    distinguished_name = dn
+    x509_extensions = v3_ca
+    prompt = no
+    [ dn ]
+    CN = Squid Local MITM CA
+    [ v3_ca ]
+    basicConstraints = critical, CA:true, pathlen:0
+    keyUsage = critical, keyCertSign, cRLSign
+    subjectKeyIdentifier = hash
+    authorityKeyIdentifier = keyid:always,issuer
+    EOF
+          ${pkgs.openssl}/bin/openssl req -x509 -new -nodes -newkey rsa:4096 -sha256 -days 3650 \
+            -config "$cfg" -extensions v3_ca \
+            -keyout /drive/Store/squid/ssl/ca.key \
+            -out /drive/Store/squid/ssl/ca.pem
+          chown squid:squid /drive/Store/squid/ssl/ca.key /drive/Store/squid/ssl/ca.pem
+          chmod 0600 /drive/Store/squid/ssl/ca.key
+        }
+
+        need_new_ca=0
+        if [ ! -f /drive/Store/squid/ssl/ca.pem ] || [ ! -f /drive/Store/squid/ssl/ca.key ]; then
+          need_new_ca=1
+        else
+          if ! ${pkgs.openssl}/bin/openssl x509 -in /drive/Store/squid/ssl/ca.pem -noout -text | grep -q 'CA:TRUE'; then
+            need_new_ca=1
+          fi
+        fi
+
+        if [ "$need_new_ca" -eq 1 ]; then
+          create_ca
+        fi
   '';
 }
