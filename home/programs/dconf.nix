@@ -62,18 +62,17 @@ with lib.hm.gvariant; {
 
     "org/gnome/clocks" = {
       world-clocks = [
-        {
-          location = mkVariant [
-            (mkUint32 2)
+        (mkDictionary [
+          (mkDictionaryEntry "location"
             (mkVariant [
-              "Guadalajara"
-              "MMGL"
-              true
-              [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble (-1.803216011336572))])]
-              [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094))])]
-            ])
-          ];
-        }
+              (mkUint32 2)
+              (mkVariant [
+                "Guadalajara" "MMGL" true
+                [ (mkTuple [ (mkDouble 0.3580833906852675) (mkDouble (-1.803216011336572)) ]) ]
+                [ (mkTuple [ (mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094)) ]) ]
+              ])
+            ]))
+        ])
       ];
     };
 
