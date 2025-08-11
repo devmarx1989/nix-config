@@ -1,8 +1,4 @@
-{
-  dconf,
-  lib,
-  ...
-}:
+{lib, ...}:
 with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -20,21 +16,40 @@ with lib.hm.gvariant; {
 
     "org/gnome/Console" = {
       custom-font = "Monaspace Krypton Var 13";
-      font-scale = 1;
+      font-scale = mkDouble 1.0;
       ignore-scrollback-limit = true;
       theme = "day";
       use-system-font = true;
     };
 
-    "org/gnome/TextEditor" = {
-    };
+    "org/gnome/TextEditor" = {};
 
     "org/gnome/Weather" = {
-      locations = [(mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])]) (mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "LETO" true [(mkTuple [0.7065674530312737 (-6.021385919380437e-2)])] [(mkTuple [0.7091920442538375 (-5.5281454007913275e-2)])]])])];
+      locations = [
+        (mkVariant [
+          (mkUint32 2)
+          (mkVariant [
+            "Guadalajara"
+            "MMGL"
+            true
+            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
+            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+          ])
+        ])
+        (mkVariant [
+          (mkUint32 2)
+          (mkVariant [
+            "Guadalajara"
+            "LETO"
+            true
+            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble - 0.06021385919380437)])]
+            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble - 0.055281454007913275)])]
+          ])
+        ])
+      ];
     };
 
-    "org/gnome/baobab/ui" = {
-    };
+    "org/gnome/baobab/ui" = {};
 
     "org/gnome/calculator" = {
       base = 10;
@@ -62,11 +77,8 @@ with lib.hm.gvariant; {
       ];
     };
 
-    "org/gnome/clocks/state/window" = {
-    };
-
-    "org/gnome/control-center" = {
-    };
+    "org/gnome/clocks/state/window" = {};
+    "org/gnome/control-center" = {};
 
     "org/gnome/desktop/app-folders" = {
       folder-children = ["System" "Utilities" "YaST" "Pardus"];
@@ -79,13 +91,25 @@ with lib.hm.gvariant; {
     };
 
     "org/gnome/desktop/app-folders/folders/System" = {
-      apps = ["org.gnome.baobab.desktop" "org.gnome.DiskUtility.desktop" "org.gnome.Logs.desktop" "org.gnome.SystemMonitor.desktop"];
+      apps = [
+        "org.gnome.baobab.desktop"
+        "org.gnome.DiskUtility.desktop"
+        "org.gnome.Logs.desktop"
+        "org.gnome.SystemMonitor.desktop"
+      ];
       name = "X-GNOME-Shell-System.directory";
       translate = true;
     };
 
     "org/gnome/desktop/app-folders/folders/Utilities" = {
-      apps = ["org.gnome.Connections.desktop" "org.gnome.Evince.desktop" "org.gnome.FileRoller.desktop" "org.gnome.font-viewer.desktop" "org.gnome.Loupe.desktop" "org.gnome.seahorse.Application.desktop"];
+      apps = [
+        "org.gnome.Connections.desktop"
+        "org.gnome.Evince.desktop"
+        "org.gnome.FileRoller.desktop"
+        "org.gnome.font-viewer.desktop"
+        "org.gnome.Loupe.desktop"
+        "org.gnome.seahorse.Application.desktop"
+      ];
       name = "X-GNOME-Shell-Utilities.directory";
       translate = true;
     };
@@ -107,7 +131,13 @@ with lib.hm.gvariant; {
 
     "org/gnome/desktop/input-sources" = {
       mru-sources = [(mkTuple ["xkb" "us"])];
-      sources = [(mkTuple ["xkb" "us"]) (mkTuple ["xkb" "de"]) (mkTuple ["xkb" "latam"]) (mkTuple ["xkb" "jp"]) (mkTuple ["xkb" "ru"])];
+      sources = [
+        (mkTuple ["xkb" "us"])
+        (mkTuple ["xkb" "de"])
+        (mkTuple ["xkb" "latam"])
+        (mkTuple ["xkb" "jp"])
+        (mkTuple ["xkb" "ru"])
+      ];
       xkb-options = [];
     };
 
@@ -135,8 +165,7 @@ with lib.hm.gvariant; {
       numlock-state = true;
     };
 
-    "org/gnome/desktop/screensaver" = {
-    };
+    "org/gnome/desktop/screensaver" = {};
 
     "org/gnome/desktop/session" = {
       idle-delay = mkUint32 900;
@@ -160,17 +189,11 @@ with lib.hm.gvariant; {
       search-filter-time-type = "last_modified";
     };
 
-    "org/gnome/nautilus/window-state" = {
-    };
+    "org/gnome/nautilus/window-state" = {};
 
-    "org/gnome/portal/filechooser/lm-studio" = {
-    };
-
-    "org/gnome/portal/filechooser/microsoft-edge" = {
-    };
-
-    "org/gnome/portal/filechooser/org/gnome/TextEditor" = {
-    };
+    "org/gnome/portal/filechooser/lm-studio" = {};
+    "org/gnome/portal/filechooser/microsoft-edge" = {};
+    "org/gnome/portal/filechooser/org/gnome/TextEditor" = {};
 
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
@@ -208,7 +231,7 @@ with lib.hm.gvariant; {
       network-indicators-order = "[\"icon\",\"IO bar\",\"IO graph\",\"IO speed\"]";
       network-menu-arrow-color1 = "rgb(143,240,164)";
       network-menu-arrow-color2 = "rgb(153,193,241)";
-      network-update = 2.0;
+      network-update = mkDouble 2.0;
       processor-header-bars = true;
       processor-header-bars-color1 = "rgb(143,240,164)";
       processor-header-bars-color2 = "rgb(153,193,241)";
@@ -234,16 +257,52 @@ with lib.hm.gvariant; {
 
     "org/gnome/shell/weather" = {
       automatic-location = true;
-      locations = [(mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])]) (mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "LETO" true [(mkTuple [0.7065674530312737 (-6.021385919380437e-2)])] [(mkTuple [0.7091920442538375 (-5.5281454007913275e-2)])]])])];
+      locations = [
+        (mkVariant [
+          (mkUint32 2)
+          (mkVariant [
+            "Guadalajara"
+            "MMGL"
+            true
+            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
+            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+          ])
+        ])
+        (mkVariant [
+          (mkUint32 2)
+          (mkVariant [
+            "Guadalajara"
+            "LETO"
+            true
+            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble - 0.06021385919380437)])]
+            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble - 0.055281454007913275)])]
+          ])
+        ])
+      ];
     };
 
     "org/gnome/shell/world-clocks" = {
-      locations = [(mkVariant [(mkUint32 2) (mkVariant ["Guadalajara" "MMGL" true [(mkTuple [0.3580833906852675 (-1.803216011336572)])] [(mkTuple [0.36070138456325895 (-1.8035068879097094)])]])])];
+      locations = [
+        (mkVariant [
+          (mkUint32 2)
+          (mkVariant [
+            "Guadalajara"
+            "MMGL"
+            true
+            [(mkTuple [(mkDouble 0.3580833906852675) (mkDouble - 1.803216011336572)])]
+            [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble - 1.8035068879097094)])]
+          ])
+        ])
+      ];
     };
 
     "org/gtk/gtk4/settings/color-chooser" = {
-      custom-colors = [(mkTuple [0.11372549086809158 0.6745098233222961 0.8392156958580017 1.0]) (mkTuple [0.8392156958580017 0.11372549086809158 0.11372549086809158 1.0])];
-      selected-color = mkTuple [true 0.6000000238418579 0.7568627595901489 0.9450980424880981 1.0];
+      custom-colors = [
+        (mkTuple [(mkDouble 0.11372549086809158) (mkDouble 0.6745098233222961) (mkDouble 0.8392156958580017) (mkDouble 1.0)])
+        (mkTuple [(mkDouble 0.8392156958580017) (mkDouble 0.11372549086809158) (mkDouble 0.11372549086809158) (mkDouble 1.0)])
+      ];
+      selected-color =
+        mkTuple [true (mkDouble 0.6000000238418579) (mkDouble 0.7568627595901489) (mkDouble 0.9450980424880981) (mkDouble 1.0)];
     };
 
     "org/gtk/settings/file-chooser" = {
