@@ -3,6 +3,10 @@
     enable = true;
     dataDir = "/drive/Media/ipfs";
 
+    pinnedFiles = [
+      "bafybeicxcbb23czpad3jvbqpeg6z3ozbrohljxq37bfmzsjzbr3c32q2t4"
+    ];
+
     # Kubo settings
     settings = {
       Addresses = {
