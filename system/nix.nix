@@ -1,7 +1,7 @@
 {nix, ...}: {
   nix.settings = {
-    max-jobs = "auto"; # Uses all available CPU cores
-    cores = 0; # 0 means "use all cores" for individual build steps
+    max-jobs = 1 # Uses all available CPU cores
+    cores = 4; # 0 means "use all cores" for individual build steps
     experimental-features = ["nix-command" "flakes"];
     use-sqlite-wal = true;
     trusted-users = ["root" "dev-marx"];
