@@ -6,8 +6,10 @@
 }: {
   imports = [
     ./git.nix
+    ./gnome/default.nix
     ./vim.nix
   ];
+  programs.dconf.enable = true;
   programs.home-manager.enable = true;
   programs.fish = {
     enable = true;
