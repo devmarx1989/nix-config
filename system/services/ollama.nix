@@ -4,7 +4,7 @@
   ...
 }: {
   services.ollama = {
-    enable = true;
+    enable = false;
 
     # Run Ollama as its own user
     user = "ollama";

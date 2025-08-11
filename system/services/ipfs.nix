@@ -1,6 +1,6 @@
 {services, ...}: {
   services.kubo = {
-    enable = true;
+    enable = false;
     dataDir = "/drive/Media/ipfs";
 
     pinnedFiles = [
