@@ -6,6 +6,7 @@
     ./archive.nix
     ./c.nix
     ./db.nix
+    ./gnome.nix
     ./media.nix
     ./myPkgs.nix
     ./mpv.nix
