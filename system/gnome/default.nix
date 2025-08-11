@@ -1,5 +1,4 @@
-{lib, ...}:
-{
+{lib, ...}: {
   imports = [
     ./dconf.nix
   ];
