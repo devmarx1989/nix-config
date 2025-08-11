@@ -1,4 +1,4 @@
-{dconf, ...}:
+{dconf, lib, ...}:
 {
   dconf.settings = {
     "org/gnome/calculator" = {
