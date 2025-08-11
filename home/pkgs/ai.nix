@@ -8,6 +8,6 @@
     lmstudio
     ollama-cuda
     pinokio
-    #whisperx
+    whisperx
   ];
 }
