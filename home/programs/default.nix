@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./git.nix
-    ./gnome/default.nix
     ./vim.nix
   ];
   programs.dconf.enable = true;
