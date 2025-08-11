@@ -4,9 +4,9 @@
   systemd.services."autovt@tty1".enable = false;
 
   systemd.services.nix-daemon.serviceConfig = {
-    CPUQuota = "800%";     # cap at half a CPU worth per core set
-    CPUWeight = 200;      # de-prioritize vs. interactive apps
-    IOWeight = 200;       # friendlier disk usage
-    MemoryMax = "8G";     # hard memory ceiling for builds
+    CPUQuota = "800%"; # cap at half a CPU worth per core set
+    CPUWeight = 200; # de-prioritize vs. interactive apps
+    IOWeight = 200; # friendlier disk usage
+    MemoryMax = "8G"; # hard memory ceiling for builds
   };
 }
