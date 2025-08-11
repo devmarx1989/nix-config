@@ -2,7 +2,8 @@
   dconf,
   lib,
   ...
-}: {
+}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       accent-color = "red";
