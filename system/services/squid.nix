@@ -1,24 +1,31 @@
 {
   services,
   pkgs,
+  lib,
   ...
 }: {
   services.squid = {
     enable = true;
 
-    # Make the builder stop running `squid -k parse` (files are created at runtime)
+    # Don't run squid -k parse in the builder; we do our own prep in preStart.
     validateConfig = false;
 
+    # This opens a *plain* HTTP listener on 127.0.0.1:3128
     proxyAddress = "127.0.0.1";
     proxyPort = 3128;
 
     extraConfig = ''
-      # --- Ports ---
-      # 3128 from proxyAddress/proxyPort above
+      # --- TLS-bump listener on 3130 ---
+      # cert= points at the CA certificate; key= points at its private key.
+      # sslcrtd_program is required when using generate-host-certificates=on.
       http_port 127.0.0.1:3130 ssl-bump \
         cert=/drive/Store/squid/ssl/ca.pem \
+        key=/drive/Store/squid/ssl/ca.key \
         generate-host-certificates=on \
         dynamic_cert_mem_cache_size=16MB
+
+      sslcrtd_program ${pkgs.squid}/libexec/squid/ssl_crtd -s /drive/Store/squid/ssl_db -M 16MB
+      sslcrtd_children 5
 
       # --- ACL & access ---
       acl localnet src 127.0.0.1/32
@@ -60,6 +67,7 @@
     '';
   };
 
+  # Ensure dirs exist with correct ownership/modes
   systemd.tmpfiles.rules = [
     "d /drive/Store/squid/rock   0750 squid squid - -"
     "d /drive/Store/squid/ufs    0750 squid squid - -"
@@ -67,15 +75,21 @@
     "d /drive/Store/squid/ssl    0700 squid squid - -"
   ];
 
+  # Pre-start: create ssl_db and *actually* create the CA using Nix paths.
   systemd.services.squid.preStart = ''
-    # init ssl_db
+    set -eu
+
+    # Init ssl_db if missing
     if [ ! -d /drive/Store/squid/ssl_db ] || [ ! -f /drive/Store/squid/ssl_db/cert9.db ]; then
       ${pkgs.squid}/libexec/squid/ssl_crtd -c -s /drive/Store/squid/ssl_db
+      chown -R squid:squid /drive/Store/squid/ssl_db
+      chmod 0750 /drive/Store/squid/ssl_db
     fi
-    # create local CA if missing
-    if [ ! -f /drive/Store/squid/ssl/ca.pem ]; then
+
+    # Create local MITM CA if missing
+    if [ ! -f /drive/Store/squid/ssl/ca.pem ] || [ ! -f /drive/Store/squid/ssl/ca.key ]; then
       umask 077
-      openssl req -x509 -new -nodes -newkey rsa:4096 -sha256 -days 3650 \
+      ${pkgs.openssl}/bin/openssl req -x509 -new -nodes -newkey rsa:4096 -sha256 -days 3650 \
         -subj "/CN=Squid Local MITM CA" \
         -keyout /drive/Store/squid/ssl/ca.key -out /drive/Store/squid/ssl/ca.pem
       chown squid:squid /drive/Store/squid/ssl/ca.key /drive/Store/squid/ssl/ca.pem
