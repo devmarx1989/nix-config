@@ -15,16 +15,10 @@ in {
   services.prometheus = {
     enable = true;
     listenAddress = "0.0.0.0"; # expose on LAN/WAN
-    # Let the module pass --storage.tsdb.path for you:
-    # Do NOT pass --storage.tsdb.path here; the module sets it.
-    # Keep any other flags you need instead.
     extraFlags = [
       "--web.enable-lifecycle"
-      "--web.listen-address=0.0.0.0:1023"
     ];
-    # Optional: adjust retention using the module option instead of flags
-    # retentionTime = "30d";
-    port = 1020;
+    port = 4000;
     # Global scrape/defaults
     globalConfig = {
       scrape_interval = "15s";
@@ -35,34 +29,34 @@ in {
       # Scrape Prometheus itself
       {
         job_name = "prometheus";
-        static_configs = [{targets = ["localhost:1020"];}];
+        static_configs = [{targets = ["localhost:4000"];}];
       }
       # Scrape node exporter
       {
         job_name = "node";
-        static_configs = [{targets = ["localhost:1021"];}];
+        static_configs = [{targets = ["localhost:4001"];}];
       }
       {
         job_name = "coredns";
         metrics_path = "/metrics";
         scheme = "http";
         static_configs = [
-          {targets = ["127.0.0.1:1001"];}
+          {targets = ["127.0.0.1:4002"];}
         ];
       }
       {
         job_name = "loki";
-        static_configs = [{targets = ["127.0.0.1:1030"];}];
+        static_configs = [{targets = ["127.0.0.1:4003"];}];
       }
       {
         job_name = "promtail";
-        static_configs = [{targets = ["127.0.0.1:1032"];}];
+        static_configs = [{targets = ["127.0.0.1:4004"];}];
       }
     ];
 
     # Wire Prometheus to Alertmanager
     alertmanagers = [
-      {static_configs = [{targets = ["localhost:1022"];}];}
+      {static_configs = [{targets = ["localhost:4005"];}];}
     ];
 
     # Example: add your own alert rules (optional)
@@ -73,7 +67,7 @@ in {
   services.prometheus.exporters.node = {
     enable = true;
     listenAddress = "0.0.0.0";
-    port = 1021;
+    port = 4001;
     enabledCollectors = [
       "boottime"
       "cpu"
@@ -90,25 +84,25 @@ in {
       "systemd"
       "textfile"
     ];
-    # openFirewall = true; # only if needed
   };
 
   #### Minimal Alertmanager
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "0.0.0.0";
-    port = 1022;
+    port = 4005;
     configuration = {
       route = {receiver = "null";};
       receivers = [{name = "null";}];
     };
   };
 
-  # If you want Grafana to point at Prometheus on 1020, add:
+  # Example for Grafana to point at Prometheus on port 4000:
   # services.grafana.provision.datasources = [{
   #   name = "Prometheus";
   #   type = "prometheus";
-  #   url  = "http://localhost:1020";
+  #   url  = "http://localhost:4000";
   #   isDefault = true;
   # }];
 }
+

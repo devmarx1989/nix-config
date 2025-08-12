@@ -44,6 +44,7 @@
       inherit system;
 
       modules = [
+        ./modules/options/ports.nix
         ./system/default.nix
         home-manager.nixosModules.home-manager
         {
