@@ -16,7 +16,14 @@ in {
     enable = true;
     listenAddress = "0.0.0.0"; # expose on LAN/WAN
     # Let the module pass --storage.tsdb.path for you:
-    storagePath = "/store/prometheus";
+    # Do NOT pass --storage.tsdb.path here; the module sets it.
+    # Keep any other flags you need instead.
+    extraFlags = [
+      "--web.enable-lifecycle"
+      "--web.listen-address=0.0.0.0:1023"
+    ];
+    # Optional: adjust retention using the module option instead of flags
+    # retentionTime = "30d";
     port = 1020;
     # Global scrape/defaults
     globalConfig = {
