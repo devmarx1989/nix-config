@@ -65,7 +65,21 @@ in {
         retention_enabled = true;
       };
 
-      ruler = {storage = {type = "local";};};
+      # after — keep everything else exactly as-is
+      ruler = {
+        storage = {
+          type = "local";
+          # keep using your dataDir (which points at /store/loki) and put rules under it
+          local.directory = "${config.services.loki.dataDir}/rules";
+        };
+        # some 3.x builds still read this; harmless to set
+        rule_path = "${config.services.loki.dataDir}/rules";
+      };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    # add this alongside your other tmpfiles rules (if any)
+    "d ${config.services.loki.dataDir}/rules 0750 loki loki - -"
+  ];
 }
