@@ -1,6 +1,7 @@
 {
   config,
   services,
+  pkgs,
   ...
 }: let
   ports = config.my.ports; # optional convenience alias
