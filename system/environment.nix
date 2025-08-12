@@ -4,20 +4,21 @@
   ...
 }: {
   environment.systemPackages = with pkgs.cudaPackages; [
+    ccache
     cudatoolkit
     cudnn
   ];
 
   # For GUI apps using GPU (WSLg)
   environment.variables = {
+    CMAKE_CUDA_ARCHITECTURES = "86";
+    CMAKE_CXX_COMPILER_LAUNCHER = "ccache";
+    CMAKE_C_COMPILER_LAUNCHER = "ccache";
+    CUDAARCHS = "86";
+    GTK_ENABLE_PRIMARY_PASTE = "1";
     LIBGL_ALWAYS_INDIRECT = "1";
     SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    GTK_ENABLE_PRIMARY_PASTE = "1";
-    # NVCC/CMake will honor these in many projects
-    CUDAARCHS = "86";
-    CMAKE_CUDA_ARCHITECTURES = "86";
-    # PyTorch/XLA/etc.
     TORCH_CUDA_ARCH_LIST = "8.6";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   };
 }
