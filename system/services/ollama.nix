@@ -2,12 +2,10 @@
   services,
   lib,
   ...
-}:
-let
+}: let
   ports = config.my.ports;
   ollamaPort = ports.ollama;
-in
-{
+in {
   services.ollama = {
     enable = false;
 
