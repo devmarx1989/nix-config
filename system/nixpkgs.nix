@@ -11,7 +11,12 @@
       allowUnfree = true;
       allowParallelBuilding = true;
       cudaSupport = true;
-      ccache.enable = true;
+      cudaCapabilities = ["8.6"];
+      ccache = {
+        enable = true;
+        cacheSize = "200G";
+      };
+      ccacheStdenv = true;
     };
     config.permittedInsecurePackages = [
       "squid-7.0.1"
