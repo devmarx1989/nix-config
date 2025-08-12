@@ -5,7 +5,7 @@
 }:
 let
   ports = config.my.ports;
-  ollamaPort = ports.ollama
+  ollamaPort = ports.ollama;
 in
 {
   services.ollama = {
