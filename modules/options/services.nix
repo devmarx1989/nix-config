@@ -1,24 +1,22 @@
-[
-  # 10000
-  "alertmanager" # 10001
-  "avahi" # 10002
-  "cadvisor" # 10003
-  "calibreServer" # 10004
-  "calibreWeb" # 10005
-  "coredns" # 10006
-  "grafana" # 10007
-  "jellyfinHttp" # 10008
-  "jellyfinHttps" # 10009
-  "lokiGrpc" # 10010
-  "lokiHttp" # 10011
-  "nodeExporter" # 10012
-  "ollama" # 10013
-  "prometheus" # 10014
-  "promtailGrpc" # 10015
-  "promtailHttp" # 10016
-  "qbittorrentWeb" # 10017
-  "squidProxy" # 10018
-  "squidTlsBump" # 10019
-]
-# 10020
-
+[ # 1
+  "alertmanager"  # 2
+  "avahi"  # 3
+  "cadvisor"  # 4
+  "calibreServer"  # 5
+  "calibreWeb"  # 6
+  "coredns"  # 7
+  "corednsProm" # 8
+  "grafana"  # 9
+  "jellyfinHttp"  # 10
+  "jellyfinHttps"  # 11
+  "lokiGrpc"  # 12
+  "lokiHttp"  # 13
+  "nodeExporter"  # 14
+  "ollama"  # 15
+  "prometheus"  # 16
+  "promtailGrpc"  # 17
+  "promtailHttp"  # 18
+  "qbittorrentWeb"  # 19
+  "squidProxy"  # 20
+  "squidTlsBump"  # 21
+] # 22
