@@ -60,19 +60,19 @@ in {
   services.grafana = {
     enable = true;
     dataDir = "/store/grafana";
-    settings.server = {
-      http_addr = "0.0.0.0";
-      http_port = grafanaPort;
-      #domain = "grafana.example.com";
-      #root_url = "https://grafana.example.com/";  # important for links/cookies
+    settings = {
+      server = {
+        http_addr = "0.0.0.0";
+        http_port = grafanaPort;
+        #domain = "grafana.example.com";
+        #root_url = "https://grafana.example.com/";  # important for links/cookies
+      };
+      security = {
+        admin_user = "admin";
+        admin_password = "admin";
+      };
+      users.allow_sign_up = false;
     };
-
-    settings.security = {
-      admin_user = "admin";
-      admin_password = "admin";
-    };
-
-    settings.users.allow_sign_up = false;
 
     provision = {
       enable = true;
@@ -87,6 +87,22 @@ in {
           name = "Loki";
           type = "loki";
           url = "http://127.0.0.1:${loki}";
+        }
+      ];
+
+      
+      # --- Dashboards provider (this is what was missing) ---
+      dashboards.settings.providers = [
+        {
+          name = "Imported dashboards";
+          orgId = 1;
+          disableDeletion = true;
+          editable = false;
+          updateIntervalSeconds = 60;
+          options = {
+            # This can be any directory; here we use a Nix store path we built above.
+            path = dashboardsDir;
+          };
         }
       ];
     };
