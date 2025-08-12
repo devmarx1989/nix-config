@@ -50,15 +50,17 @@ in {
         job_name = "coredns";
         metrics_path = "/metrics";
         scheme = "http";
-        static_configs = [{
-          targets = ["127.0.0.1:${corednsProm}"];
-          labels = {
-            job = "coredns";
-            # optional: helps k8s-flavored dashboards light up
-            namespace = "kube-system";
-            pod = "coredns-standalone";
-          };
-        }];
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${corednsProm}"];
+            labels = {
+              job = "coredns";
+              # optional: helps k8s-flavored dashboards light up
+              namespace = "kube-system";
+              pod = "coredns-standalone";
+            };
+          }
+        ];
       }
       {
         job_name = "loki";
