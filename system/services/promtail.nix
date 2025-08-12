@@ -5,7 +5,7 @@
 }: let
   ports = config.my.ports;
   http = ports.promtailHttp;
-  grpc = ports.promtailGrcp;
+  grpc = ports.promtailGrpc;
   loki = toString ports.lokiHttp;
 in {
   #####################

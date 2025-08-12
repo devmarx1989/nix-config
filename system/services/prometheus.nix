@@ -13,13 +13,13 @@
   ports = config.my.ports;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
-  coredns = toString ports.coreDns;
+  coredns = toString ports.coredns;
   loki = toString ports.lokiHttp;
   node = ports.nodeExporter;
   nodes = toString node;
   promWebPort = ports.prometheus;
   promWebPorts = toString ports.prometheus;
-  promtail = toString ports.promtail;
+  promtail = toString ports.promtailHttp;
 in {
   #### Prometheus server
   services.prometheus = {

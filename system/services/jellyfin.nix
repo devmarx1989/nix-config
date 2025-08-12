@@ -14,10 +14,5 @@ in {
     dataDir = "/store/jellyfin";
     logDir = "/store/jellyfin/log";
     cacheDir = "/store/jellyfin/cache";
-    extraArgs = [
-      "--listen=0.0.0.0" # listen on all interfaces
-      "--publicPort=${http}" # change this to your desired port
-      "--publicHttpsPort=${https}" # change HTTPS port
-    ];
   };
 }
