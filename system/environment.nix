@@ -20,7 +20,7 @@
     GTK_ENABLE_PRIMARY_PASTE = "1";
     LIBGL_ALWAYS_INDIRECT = "1";
     RUSTC_WRAPPER = "sccache";
-    SCCACHE_CACHE_SIZE = "100G"
+    SCCACHE_CACHE_SIZE = "100G";
     SCCACHE_DIR "/store/sccache";
     SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
     TORCH_CUDA_ARCH_LIST = "8.6";
