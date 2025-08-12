@@ -90,7 +90,6 @@ in {
         }
       ];
 
-      
       # --- Dashboards provider (this is what was missing) ---
       dashboards.settings.providers = [
         {
