@@ -89,21 +89,6 @@ in {
           url = "http://127.0.0.1:${loki}";
         }
       ];
-
-      # --- Dashboards provider (this is what was missing) ---
-      dashboards.settings.providers = [
-        {
-          name = "Imported dashboards";
-          orgId = 1;
-          disableDeletion = true;
-          editable = false;
-          updateIntervalSeconds = 60;
-          options = {
-            # This can be any directory; here we use a Nix store path we built above.
-            #path = dashboardsPkg;
-          };
-        }
-      ];
     };
   };
 }
