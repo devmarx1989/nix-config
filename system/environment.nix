@@ -12,9 +12,7 @@
   # For GUI apps using GPU (WSLg)
   environment.variables = {
     CMAKE_CUDA_ARCHITECTURES = "86";
-    CMAKE_CXX_COMPILER_LAUNCHER = "ccache";
     CMAKE_CXX_COMPILER_LAUNCHER = "sccache";
-    CMAKE_C_COMPILER_LAUNCHER = "ccache";
     CMAKE_C_COMPILER_LAUNCHER = "sccache";
     CUDAARCHS = "86";
     GTK_ENABLE_PRIMARY_PASTE = "1";
