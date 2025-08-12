@@ -8,7 +8,7 @@
   inherit (builtins) length elemAt listToAttrs genList getAttr;
 
   # <<< KEEP YOUR SERVICE NAMES HERE, as strings >>> (static; don't read `config` here)
-  srvPorts = imports ./services.nix;
+  srvPorts = import ./services.nix;
 
   # Declare one *option* per service name (NO defaults here).
   mkPortOptions = names:
