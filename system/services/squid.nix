@@ -11,14 +11,29 @@
   # Helper wrapper: picks the available cert generator on this system
   sslcrtdWrapper = pkgs.writeShellScriptBin "squid-sslcrtd" ''
     set -euo pipefail
-    for p in \
-      "${pkgs.squid}/libexec/squid/ssl_crtd" \
-      "${pkgs.squid}/libexec/ssl_crtd" \
-      "${pkgs.squid}/libexec/squid/security_file_certgen" \
-      "${pkgs.squid}/libexec/security_file_certgen"
-    do
-      if [ -x "$p" ]; then exec "$p" "$@"; fi
+
+    # 1) Fast path: common locations
+    for name in ssl_crtd security_file_certgen; do
+      for dir in \
+        "${pkgs.squid}/libexec" \
+        "${pkgs.squid}/libexec/squid" \
+        "${pkgs.squid}/lib" \
+        "${pkgs.squid}/lib/squid" \
+        "${pkgs.squid}/bin" \
+        "${pkgs.squid}/sbin"
+      do
+        if [ -x "$dir/$name" ]; then
+          exec "$dir/$name" "$@"
+        fi
+      done
     done
+
+    # 2) Fallback: search the whole store path for an executable named like the helpers
+    found="$(${pkgs.findutils}/bin/find "${pkgs.squid}" -type f \( -name ssl_crtd -o -name security_file_certgen \) -perm -111 -print -quit || true)"
+    if [ -n "$found" ]; then
+      exec "$found" "$@"
+    fi
+
     echo "ERROR: Could not find squid ssl cert helper (ssl_crtd/security_file_certgen) in ${pkgs.squid}" >&2
     exit 127
   '';
