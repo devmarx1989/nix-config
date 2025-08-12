@@ -1,6 +1,9 @@
 # modules/options/ports.nix
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   inherit (lib) mkOption types;
   inherit (builtins) length elemAt listToAttrs genList getAttr;
 
@@ -28,17 +31,18 @@ let
 
   # Declare one port option per service name (NO defaults here!)
   mkPortOptions = names:
-    lib.foldl' (acc: name:
-      acc // {
-        ${name} = mkOption {
-          type = types.port;
-          description = "Port for ${name}.";
-        };
-      }
-    ) {} names;
-
-in
-{
+    lib.foldl' (
+      acc: name:
+        acc
+        // {
+          ${name} = mkOption {
+            type = types.port;
+            description = "Port for ${name}.";
+          };
+        }
+    ) {}
+    names;
+in {
   options.my.ports =
     {
       base = mkOption {
@@ -63,7 +67,7 @@ in
       # { <service> = mkDefault (base + i); ... }
       (listToAttrs (genList
         (i: {
-          name  = elemAt srvPorts i;
+          name = elemAt srvPorts i;
           value = lib.mkDefault (config.my.ports.base + i);
         })
         (length srvPorts)))
@@ -71,23 +75,29 @@ in
       // {
         # name -> realized port
         map = listToAttrs (map
-          (name: { inherit name; value = getAttr name config.my.ports; })
+          (name: {
+            inherit name;
+            value = getAttr name config.my.ports;
+          })
           config.my.ports.services);
 
         # [port1 port2 ...] in the order of `services`
-        list = map (name: getAttr name config.my.ports)
-                   config.my.ports.services;
+        list =
+          map (name: getAttr name config.my.ports)
+          config.my.ports.services;
       };
 
     # Guardrail: no duplicate ports among the listed services
-    assertions = [{
-      assertion =
-        let ports =
-          map (name: getAttr name config.my.ports)
-              config.my.ports.services;
-        in lib.length (lib.unique ports) == lib.length ports;
-      message = "my.ports: duplicate port assignments detected in services list.";
-    }];
+    assertions = [
+      {
+        assertion = let
+          ports =
+            map (name: getAttr name config.my.ports)
+            config.my.ports.services;
+        in
+          lib.length (lib.unique ports) == lib.length ports;
+        message = "my.ports: duplicate port assignments detected in services list.";
+      }
+    ];
   };
 }
-
