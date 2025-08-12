@@ -3,14 +3,16 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = (with pkgs;
-    (with pkgs.cudaPackages; [
-      cudatoolkit
-      cudnn
-    ]) ++ [
-      ccache
-      sccache
-    ]
+  environment.systemPackages = (
+    with pkgs;
+      (with pkgs.cudaPackages; [
+        cudatoolkit
+        cudnn
+      ])
+      ++ [
+        ccache
+        sccache
+      ]
   );
 
   # For GUI apps using GPU (WSLg)
