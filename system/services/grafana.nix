@@ -37,10 +37,22 @@
 
   # Build a read-only directory Grafana can scan
   dashboardsPkg = pkgs.linkFarm "grafana-dashboards" [
-    { name = "Infra/Node Exporter Full.json"; path = nodeExporterFull; }
-    { name = "Infra/Prometheus 2.0 Overview.json"; path = promOverview; }
-    { name = "Infra/CoreDNS.json"; path = coredns; }
-    { name = "Infra/Loki.json"; path = lokiSelf; }
+    {
+      name = "Infra/Node Exporter Full.json";
+      path = nodeExporterFull;
+    }
+    {
+      name = "Infra/Prometheus 2.0 Overview.json";
+      path = promOverview;
+    }
+    {
+      name = "Infra/CoreDNS.json";
+      path = coredns;
+    }
+    {
+      name = "Infra/Loki.json";
+      path = lokiSelf;
+    }
   ];
 in {
   services.grafana = {
