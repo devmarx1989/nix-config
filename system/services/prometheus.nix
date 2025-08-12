@@ -13,7 +13,7 @@
   ports = config.my.ports;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
-  coredns = toString ports.coredns;
+  corednsProm = toString ports.corednsProm;
   loki = toString ports.lokiHttp;
   node = ports.nodeExporter;
   nodes = toString node;
@@ -51,7 +51,7 @@ in {
         metrics_path = "/metrics";
         scheme = "http";
         static_configs = [
-          {targets = ["127.0.0.1:${coredns}"];}
+          {targets = ["127.0.0.1:${corednsProm}"];}
         ];
       }
       {
