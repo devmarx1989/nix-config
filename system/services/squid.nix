@@ -53,10 +53,6 @@ in {
   # Make sure /drive is mounted before squid starts
   systemd.services.squid.unitConfig.RequiresMountsFor = ["/drive/Store/squid"];
 
-  # IMPORTANT: remove our ExecStartPre entirely (no ssl_crtd, no CA)
-  # If you previously set one, null it out:
-  systemd.services.squid.serviceConfig.ExecStartPre = lib.mkForce [];
-
   # Only create cache parents; no ssl/ssl_db anymore
   systemd.tmpfiles.rules = [
     "d /drive/Store/squid/rock 0750 squid squid - -"
