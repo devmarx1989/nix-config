@@ -2,7 +2,12 @@
   config,
   pkgs,
   ...
-}: {
+}: let
+  ports = config.my.ports;
+  http = ports.promtailHttp;
+  grpc = ports.promtailGrcp;
+  loki = toString ports.lokiHttp;
+in {
   #####################
   # Promtail (agent)
   #####################
@@ -10,14 +15,14 @@
     enable = true;
     configuration = {
       server = {
-        http_listen_port = 1032;
-        grpc_listen_port = 0;
+        http_listen_port = http;
+        grpc_listen_port = grpc;
       };
       positions = {filename = "/store/promtail/positions.yaml";};
 
       clients = [
         {
-          url = "http://127.0.0.1:1030/loki/api/v1/push";
+          url = "http://127.0.0.1:${loki}/loki/api/v1/push";
         }
       ];
 

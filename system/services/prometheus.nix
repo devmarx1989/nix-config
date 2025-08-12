@@ -10,6 +10,16 @@
       - record: up:sum
         expr: sum(up)
   '';
+  ports = config.my.ports;
+  am = ports.alertmanager;
+  ams = toString ports.alertmanager;
+  coredns = toString ports.coreDns;
+  loki = toString ports.lokiHttp;
+  node = ports.nodeExporter;
+  nodes = toString node;
+  promWebPort = ports.prometheus;
+  promWebPorts = toString ports.prometheus;
+  promtail = toString ports.promtail;
 in {
   #### Prometheus server
   services.prometheus = {
@@ -18,7 +28,7 @@ in {
     extraFlags = [
       "--web.enable-lifecycle"
     ];
-    port = 4000;
+    port = promWebPort;
     # Global scrape/defaults
     globalConfig = {
       scrape_interval = "15s";
@@ -29,34 +39,34 @@ in {
       # Scrape Prometheus itself
       {
         job_name = "prometheus";
-        static_configs = [{targets = ["localhost:4000"];}];
+        static_configs = [{targets = ["localhost:${promWebPorts}"];}];
       }
       # Scrape node exporter
       {
         job_name = "node";
-        static_configs = [{targets = ["localhost:4001"];}];
+        static_configs = [{targets = ["localhost:${nodes}"];}];
       }
       {
         job_name = "coredns";
         metrics_path = "/metrics";
         scheme = "http";
         static_configs = [
-          {targets = ["127.0.0.1:4002"];}
+          {targets = ["127.0.0.1:${coredns}"];}
         ];
       }
       {
         job_name = "loki";
-        static_configs = [{targets = ["127.0.0.1:4003"];}];
+        static_configs = [{targets = ["127.0.0.1:${loki}"];}];
       }
       {
         job_name = "promtail";
-        static_configs = [{targets = ["127.0.0.1:4004"];}];
+        static_configs = [{targets = ["127.0.0.1:${promtail}"];}];
       }
     ];
 
     # Wire Prometheus to Alertmanager
     alertmanagers = [
-      {static_configs = [{targets = ["localhost:4005"];}];}
+      {static_configs = [{targets = ["localhost:${ams}"];}];}
     ];
 
     # Example: add your own alert rules (optional)
@@ -67,7 +77,7 @@ in {
   services.prometheus.exporters.node = {
     enable = true;
     listenAddress = "0.0.0.0";
-    port = 4001;
+    port = node;
     enabledCollectors = [
       "boottime"
       "cpu"
@@ -90,7 +100,7 @@ in {
   services.prometheus.alertmanager = {
     enable = true;
     listenAddress = "0.0.0.0";
-    port = 4005;
+    port = am;
     configuration = {
       route = {receiver = "null";};
       receivers = [{name = "null";}];
@@ -105,4 +115,3 @@ in {
   #   isDefault = true;
   # }];
 }
-

@@ -2,7 +2,13 @@
   services,
   config,
   ...
-}: {
+}:
+let
+  ports = config.my.ports;
+  grpc = ports.lokiGrpc;
+  http = ports.lokiHttp;
+in
+{
   #####################
   # Loki (server)
   #####################
@@ -22,8 +28,8 @@
         replication_factor = 1;
       };
       server = {
-        http_listen_port = 1030;
-        grpc_listen_port = 1031;
+        http_listen_port = ${http};
+        grpc_listen_port = ${grcp};
       };
 
       schema_config = {

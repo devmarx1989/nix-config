@@ -2,7 +2,12 @@
   services,
   lib,
   ...
-}: {
+}:
+let
+  ports = config.my.ports;
+  ollamaPort = ports.ollama
+in
+{
   services.ollama = {
     enable = false;
 
@@ -12,7 +17,7 @@
 
     # Host on all interfaces so others can access it
     host = "0.0.0.0";
-    port = 11434;
+    port = ollamaPort;
     openFirewall = true;
 
     # Store Ollama models and config in a custom location

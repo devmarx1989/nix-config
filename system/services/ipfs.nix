@@ -1,4 +1,14 @@
-{services, ...}: {
+{
+  config,
+  services,
+  ...
+}: let
+  p0 = toString config.my.ports.ipfs0;
+  p1 = toString config.my.ports.ipfs1;
+  p2 = toString config.my.ports.ipfs2;
+  p3 = toString config.my.ports.ipfs3;
+  p4 = toString config.my.ports.ipfs4;
+in {
   services.kubo = {
     enable = false;
     dataDir = "/drive/Media/ipfs";
@@ -13,21 +23,21 @@
         # Libp2p listeners
         Swarm = [
           # TCP swarm
-          "/ip4/0.0.0.0/tcp/2002"
-          "/ip6/::/tcp/2002"
+          "/ip4/0.0.0.0/tcp/${p0}"
+          "/ip6/::/tcp/${p0}"
 
           # QUIC v1 (UDP) swarm
-          "/ip4/0.0.0.0/udp/2003/quic-v1"
-          "/ip6/::/udp/2003/quic-v1"
+          "/ip4/0.0.0.0/udp/${p1}/quic-v1"
+          "/ip6/::/udp/${p1}/quic-v1"
 
           # WebSocket transport
-          "/ip4/0.0.0.0/tcp/2004/ws"
-          "/ip6/::/tcp/2004/ws"
+          "/ip4/0.0.0.0/tcp/${p2}/ws"
+          "/ip6/::/tcp/${p2}/ws"
         ];
 
         # API + Gateway (local-only)
-        API = ["/ip4/127.0.0.1/tcp/2005"];
-        Gateway = "/ip4/127.0.0.1/tcp/2006";
+        API = ["/ip4/127.0.0.1/tcp/${p3}"];
+        Gateway = "/ip4/127.0.0.1/tcp/${p4}";
 
         # With unstable/unknown public IP, do not hardcode Announce.
         Announce = [];
@@ -70,16 +80,16 @@
       # CORS for API and Gateway (local dev convenience)
       API = {
         HTTPHeaders = {
-          "Access-Control-Allow-Origin" = ["http://127.0.0.1:2005" "http://127.0.0.1:2006" "*"];
+          "Access-Control-Allow-Origin" = ["http://127.0.0.1:${p3}" "http://127.0.0.1:${p4}" "*"];
           "Access-Control-Allow-Methods" = ["GET" "POST" "PUT" "OPTIONS"];
         };
       };
       Gateway = {
         HTTPHeaders = {
-          "Access-Control-Allow-Origin" = ["http://127.0.0.1:2005" "http://127.0.0.1:2006" "*"];
+          "Access-Control-Allow-Origin" = ["http://127.0.0.1:${p3}" "http://127.0.0.1:${p4}" "*"];
           "Access-Control-Allow-Methods" = ["GET" "POST" "OPTIONS"];
         };
-        RootRedirect = "/webui"; # 2006/ -> WebUI
+        RootRedirect = "/webui"; # ${p4}/ -> WebUI
       };
     };
   };

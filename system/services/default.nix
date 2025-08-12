@@ -1,6 +1,7 @@
 {services, ...}: {
   imports = [
     ./avahi.nix
+    ./coredns.nix
     ./ipfs.nix
     ./jellyfin.nix
     ./grafana.nix
@@ -58,21 +59,4 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-  services.coredns = {
-    enable = true;
-
-    config = ''
-      .:1001 {
-          bind 0.0.0.0
-          bind ::
-          forward . 1.1.1.1 8.8.8.8
-          prometheus 0.0.0.0:1020
-          cache {
-              success 360000
-              denial 30
-          }
-          log
-      }
-    '';
-  };
 }

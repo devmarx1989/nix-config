@@ -1,67 +1,86 @@
 # modules/options/ports.nix
-{ lib, config, ... }:
-let
-  inherit (lib) mkOption types;
-  cfg = config.my.ports;
-
-  # Keep every port here to assert uniqueness.
-  allPorts = [
-    cfg.grafana
-    cfg.prometheus
-    cfg.alertmanager
-    cfg.nodeExporter
-    cfg.cadvisor
-    cfg.lokiHttp
-    cfg.lokiGrpc
-    cfg.promtail
-    cfg.jellyfin
-    cfg.calibreWeb
-    cfg.calibreServer
-    cfg.coreDns
-    cfg.coreDnsMetrics
-    cfg.squidProxy
-    cfg.squidTlsBump
-    cfg.ollama
-    cfg.qbittorrentWeb
-  ];
-in
 {
-  options.my.ports = {
-    # Shift the whole block by changing base.
-    base = mkOption {
-      type = types.port;
-      default = 10001;
-      description = "Starting port number for sequential service assignments.";
-    };
+  lib,
+  config,
+  ...
+}: let
+  inherit (lib) mkOption types imap0 listToAttrs attrByPath;
+  cfg = config.my.ports;
+  srvPorts = [
+    "avahi"
+    "alertmanager"
+    "cadvisor"
+    "calibreServer"
+    "calibreWeb"
+    "coreDns"
+    "coreDnsMetrics"
+    "grafana"
+    "ipfs0"
+    "ipfs1"
+    "ipfs2"
+    "ipfs3"
+    "ipfs4"
+    "jellyfinHttp"
+    "jellyfinHttps"
+    "lokiGrpc"
+    "lokiHttp"
+    "nodeExporter"
+    "ollama"
+    "prometheus"
+    "promtailHttp"
+    "promtailGrpc"
+    "qbittorrentWeb"
+    "squidProxy"
+    "squidTlsBump"
+  ];
 
-    grafana       = mkOption { type = types.port; default = cfg.base + 0;  description = "Grafana HTTP."; };
-    prometheus    = mkOption { type = types.port; default = cfg.base + 1;  description = "Prometheus web UI/API."; };
-    alertmanager  = mkOption { type = types.port; default = cfg.base + 2;  description = "Prometheus Alertmanager HTTP."; };
-    nodeExporter  = mkOption { type = types.port; default = cfg.base + 3;  description = "Node exporter HTTP."; };
-    cadvisor      = mkOption { type = types.port; default = cfg.base + 4;  description = "cAdvisor HTTP."; };
+  # Build options for each service name, defaulting to base + index (unless overridden)
+  mkPortOptions = names:
+    listToAttrs (imap0
+      (i: name: {
+        name = name;
+        value = mkOption {
+          type = types.port;
+          # If user set my.ports.overrides.<name>, use it; else base+index
+          default = attrByPath [name] (cfg.base + i) cfg.overrides;
+        };
+      })
+      names);
+in {
+  options.my.ports =
+    {
+      # Starting port number
+      base = mkOption {
+        type = types.port;
+        default = 10001;
+      };
 
-    lokiHttp      = mkOption { type = types.port; default = cfg.base + 5;  description = "Loki HTTP API/UI."; };
-    lokiGrpc      = mkOption { type = types.port; default = cfg.base + 6;  description = "Loki gRPC."; };
-    promtail      = mkOption { type = types.port; default = cfg.base + 7;  description = "Promtail HTTP/metrics."; };
+      # List your services here (can be extended per-host with mkAfter)
+      services = mkOption {
+        type = with types; listOf str;
+        default = srvPorts;
+        description = "Names of services that will get sequential ports from base.";
+      };
 
-    jellyfin      = mkOption { type = types.port; default = cfg.base + 8;  description = "Jellyfin web UI."; };
-    calibreWeb    = mkOption { type = types.port; default = cfg.base + 9;  description = "Calibre-Web HTTP."; };
-    calibreServer = mkOption { type = types.port; default = cfg.base + 10; description = "Calibre content server HTTP."; };
+      # Optional hard overrides: { prometheus = 9090; grafana = 4000; }
+      overrides = mkOption {
+        type = types.attrsOf types.port;
+        default = {};
+      };
+    }
+    // mkPortOptions cfg.services;
 
-    coreDns       = mkOption { type = types.port; default = cfg.base + 11; description = "CoreDNS (DNS listener when not using 53)."; };
-    coreDnsMetrics= mkOption { type = types.port; default = cfg.base + 12; description = "CoreDNS Prometheus metrics."; };
+  # Export convenient computed values (these are *config* values, not options)
+  config.my.ports = {
+    # map: { grafana = 10001; prometheus = 10002; ... }
+    map = listToAttrs (map
+      (name: {
+        inherit name;
+        value = config.my.ports.${name};
+      })
+      cfg.services);
 
-    squidProxy    = mkOption { type = types.port; default = cfg.base + 13; description = "Squid HTTP proxy port."; };
-    squidTlsBump  = mkOption { type = types.port; default = cfg.base + 14; description = "Squid TLS-bump listener."; };
-
-    ollama        = mkOption { type = types.port; default = cfg.base + 15; description = "Ollama HTTP API."; };
-    qbittorrentWeb= mkOption { type = types.port; default = cfg.base + 16; description = "qBittorrent Web UI."; };
+    # list: [10001 10002 ...], useful for firewall rules
+    list = map (name: config.my.ports.${name}) cfg.services;
   };
-
-  # Guardrail: no accidental duplicates.
-  config.assertions = [{
-    assertion = lib.length (lib.unique allPorts) == lib.length allPorts;
-    message = "my.ports: duplicate port assignments detected.";
-  }];
 }
-

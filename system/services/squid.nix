@@ -1,19 +1,24 @@
 {
+  config,
   services,
   pkgs,
   lib,
   ...
-}: {
+}: let
+  ports = config.my.ports;
+  proxy = ports.squidProxy;
+  bump = toString ports.squidTlsBump;
+in {
   services.squid = {
     enable = true;
     validateConfig = false;
 
     proxyAddress = "127.0.0.1";
-    proxyPort = 3128;
+    proxyPort = proxy;
 
     extraConfig = ''
       # --- TLS-bump listener on 3130 ---
-      http_port 127.0.0.1:3130 ssl-bump \
+      http_port 127.0.0.1:${bump} ssl-bump \
         cert=/drive/Store/squid/ssl/ca.pem \
         key=/drive/Store/squid/ssl/ca.key \
         generate-host-certificates=on \
