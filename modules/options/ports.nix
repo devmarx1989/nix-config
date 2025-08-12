@@ -1,12 +1,10 @@
 # modules/options/ports.nix
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkOption types;
+  inherit (lib.lists) findFirstIndex;
 
-  # <<< KEEP YOUR SERVICE NAMES HERE >>>  (array of strings, as requested)
+  # KEEP YOUR SERVICE NAMES *AS STRINGS* HERE (static; do not read `config` here)
   srvPorts = [
     "avahi"
     "alertmanager"
@@ -25,31 +23,34 @@
     "qbittorrentWeb"
     "squidProxy"
     "squidTlsBump"
-    # add any other names you already use
+    # …add the rest exactly as you use them
   ];
 
-  # Declare one option per service name from the *static* list.
-  # NOTE: index via lib.elemIndex (returns an int), no imap0 shenanigans.
+  # Declare per-service *options* from the static list.
+  # NOTE: compute index with lib.lists.findFirstIndex
   mkPortOptions = names:
-    lib.foldl' (
-      acc: name:
-        acc
-        // {
-          ${name} = mkOption {
-            type = types.port;
-            default = let
-              idx = lib.elemIndex name names; # 0-based integer
+    lib.foldl' (acc: name:
+      acc // {
+        ${name} = mkOption {
+          type = types.port;
+          default =
+            let
+              idx = findFirstIndex (n: n == name) names;
             in
-              config.my.ports.base + idx;
-            description = "Port for ${name}.";
-          };
-        }
-    ) {}
-    names;
-in {
+              if idx == null then
+                throw "my.ports: service '${name}' not found in srvPorts"
+              else
+                config.my.ports.base + idx;
+          description = "Port for ${name}.";
+        };
+      }
+    ) {} names;
+
+in
+{
   options.my.ports =
     {
-      # Single knob to shift the whole block
+      # One knob to shift everything
       base = mkOption {
         type = types.port;
         default = 10001;
@@ -63,36 +64,31 @@ in {
         description = "Ordered service names used for port assignment and helpers.";
       };
     }
-    # Add per-service port options from the static list
+    # Add one option per service from the STATIC list (no `config` usage here)
     // mkPortOptions srvPorts;
 
-  # Anything that *reads* config belongs here (safe phase).
+  # Anything that *reads* from `config` goes here (safe phase)
   config = {
-    # Convenience: name->port map and ordered list of ports following `services`
+    # Convenience helpers derived from your services list (kept as strings)
     my.ports = {
+      # { name -> port }
       map = lib.listToAttrs (map
-        (name: {
-          inherit name;
-          value = builtins.getAttr name config.my.ports;
-        })
+        (name: { inherit name; value = builtins.getAttr name config.my.ports; })
         config.my.ports.services);
 
-      list =
-        map (name: builtins.getAttr name config.my.ports)
-        config.my.ports.services;
+      # [port1 port2 …] in services order (useful for firewall openings)
+      list = map (name: builtins.getAttr name config.my.ports)
+                 config.my.ports.services;
     };
 
-    # Guardrail: no dup ports among the listed services
-    assertions = [
-      {
-        assertion = let
-          ports =
-            map (name: builtins.getAttr name config.my.ports)
-            config.my.ports.services;
-        in
-          lib.length (lib.unique ports) == lib.length ports;
-        message = "my.ports: duplicate port assignments detected in services list.";
-      }
-    ];
+    # Guardrail: detect dup assignments among listed services
+    assertions = [{
+      assertion =
+        let ports = map (name: builtins.getAttr name config.my.ports)
+                        config.my.ports.services;
+        in lib.length (lib.unique ports) == lib.length ports;
+      message = "my.ports: duplicate port assignments detected in services list.";
+    }];
   };
 }
+
