@@ -2,13 +2,11 @@
   services,
   config,
   ...
-}:
-let
+}: let
   ports = config.my.ports;
   grpc = ports.lokiGrpc;
   http = ports.lokiHttp;
-in
-{
+in {
   #####################
   # Loki (server)
   #####################
