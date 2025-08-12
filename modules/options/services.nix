@@ -16,4 +16,4 @@
   "qbittorrentWeb"
   "squidProxy"
   "squidTlsBump"
-];
+]
