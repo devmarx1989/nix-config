@@ -4,7 +4,7 @@
   ...
 }: {
   environment.systemPackages = with pkgs.cudaPackages; [
-    ccache
+    sccache
     cudatoolkit
     cudnn
   ];
