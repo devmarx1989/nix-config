@@ -17,6 +17,7 @@ in {
     dataDir = "/store/loki";
 
     configuration = {
+      auth_enabled = false;
       common = {
         path_prefix = "${config.services.loki.dataDir}";
         ring = {
