@@ -255,16 +255,6 @@ with lib.hm.gvariant; {
             [(mkTuple [(mkDouble 0.36070138456325895) (mkDouble (-1.8035068879097094))])]
           ])
         ])
-        (mkVariant [
-          (mkUint32 2)
-          (mkVariant [
-            "Guadalajara"
-            "LETO"
-            true
-            [(mkTuple [(mkDouble 0.7065674530312737) (mkDouble (-0.06021385919380437))])]
-            [(mkTuple [(mkDouble 0.7091920442538375) (mkDouble (-0.055281454007913275))])]
-          ])
-        ])
       ];
     };
 
