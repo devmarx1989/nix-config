@@ -96,29 +96,12 @@ in {
     proxyPort = proxy;
 
     extraConfig = ''
-      # --- TLS-bump listener ---
-      http_port 127.0.0.1:${bump} ssl-bump \
-        cert=/drive/Store/squid/ssl/ca.pem \
-        key=/drive/Store/squid/ssl/ca.key \
-        generate-host-certificates=on \
-        dynamic_cert_mem_cache_size=16MB
-
-      # Use wrapper so path variations are handled
-      sslcrtd_program ${sslcrtd_cmd} -s /drive/Store/squid/ssl_db -M 16MB
-      sslcrtd_children 5
-
       # --- ACL & access ---
+      http_port 127.0.0.1:${bump}
       acl localnet src 127.0.0.1/32
       http_access allow localnet
       http_access allow localhost
       http_access deny all
-
-      # SSL bump policy
-      acl step1 at_step SslBump1
-      acl badsites ssl::server_name .bank .paypal.com .microsoft.com .apple.com
-      ssl_bump peek step1
-      ssl_bump splice badsites
-      ssl_bump bump all
 
       # --- Cache sizing & policy ---
       cache_mem 1024 MB

@@ -78,22 +78,6 @@ in {
     enable = true;
     listenAddress = "0.0.0.0";
     port = node;
-    enabledCollectors = [
-      "boottime"
-      "cpu"
-      "cpufreq"
-      "diskstats"
-      "filesystem"
-      "loadavg"
-      "logind"
-      "meminfo"
-      "netclass"
-      "netdev"
-      "netstat"
-      "pressure"
-      "systemd"
-      "textfile"
-    ];
   };
 
   #### Minimal Alertmanager
