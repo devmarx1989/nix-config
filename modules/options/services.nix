@@ -1,4 +1,5 @@
-[ # 10000
+[
+  # 10000
   "alertmanager" # 10001
   "avahi" # 10002
   "cadvisor" # 10003
@@ -18,4 +19,6 @@
   "qbittorrentWeb" # 10017
   "squidProxy" # 10018
   "squidTlsBump" # 10019
-] # 10020
+]
+# 10020
+

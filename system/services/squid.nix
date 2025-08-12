@@ -8,30 +8,43 @@
   proxy = ports.squidProxy;
   bump = toString ports.squidTlsBump;
 
-  # Run before the module's own ExecStartPre (config parse, cache init)
+  # Helper wrapper: picks the available cert generator on this system
+  sslcrtdWrapper = pkgs.writeShellScriptBin "squid-sslcrtd" ''
+    set -euo pipefail
+    for p in \
+      "${pkgs.squid}/libexec/squid/ssl_crtd" \
+      "${pkgs.squid}/libexec/ssl_crtd" \
+      "${pkgs.squid}/libexec/squid/security_file_certgen" \
+      "${pkgs.squid}/libexec/security_file_certgen"
+    do
+      if [ -x "$p" ]; then exec "$p" "$@"; fi
+    done
+    echo "ERROR: Could not find squid ssl cert helper (ssl_crtd/security_file_certgen) in ${pkgs.squid}" >&2
+    exit 127
+  '';
+  sslcrtd_cmd = "${sslcrtdWrapper}/bin/squid-sslcrtd";
+
+  # Run before the module’s own ExecStartPre
   squidPrep = pkgs.writeShellScript "squid-prep.sh" ''
         set -euo pipefail
 
-        # Ensure mount point exists and is writable by squid
         install -d -m 0750 -o squid -g squid /drive/Store/squid
         install -d -m 0750 -o squid -g squid /drive/Store/squid/{rock,ufs,ssl_db}
         install -d -m 0700 -o squid -g squid /drive/Store/squid/ssl
 
         # Initialize ssl_db once
         if [ ! -f /drive/Store/squid/ssl_db/cert9.db ]; then
-          ${pkgs.squid}/libexec/squid/ssl_crtd -c -s /drive/Store/squid/ssl_db
+          ${sslcrtd_cmd} -c -s /drive/Store/squid/ssl_db
           chown -R squid:squid /drive/Store/squid/ssl_db
           chmod 0750 /drive/Store/squid/ssl_db
         fi
 
-        # Create a proper CA if missing or not CA:TRUE
+        # Ensure we have a CA with CA:TRUE
         need_new_ca=0
         if [ ! -s /drive/Store/squid/ssl/ca.pem ] || [ ! -s /drive/Store/squid/ssl/ca.key ]; then
           need_new_ca=1
-        else
-          if ! ${pkgs.openssl}/bin/openssl x509 -in /drive/Store/squid/ssl/ca.pem -noout -text | grep -q 'CA:TRUE'; then
-            need_new_ca=1
-          fi
+        elif ! ${pkgs.openssl}/bin/openssl x509 -in /drive/Store/squid/ssl/ca.pem -noout -text | grep -q 'CA:TRUE'; then
+          need_new_ca=1
         fi
 
         if [ "$need_new_ca" -eq 1 ]; then
@@ -62,7 +75,7 @@
 in {
   services.squid = {
     enable = true;
-    validateConfig = false; # keep this as you had it
+    validateConfig = false;
 
     proxyAddress = "127.0.0.1";
     proxyPort = proxy;
@@ -75,7 +88,8 @@ in {
         generate-host-certificates=on \
         dynamic_cert_mem_cache_size=16MB
 
-      sslcrtd_program ${pkgs.squid}/libexec/squid/ssl_crtd -s /drive/Store/squid/ssl_db -M 16MB
+      # Use wrapper so path variations are handled
+      sslcrtd_program ${sslcrtd_cmd} -s /drive/Store/squid/ssl_db -M 16MB
       sslcrtd_children 5
 
       # --- ACL & access ---
@@ -116,14 +130,13 @@ in {
     '';
   };
 
-  # Make sure the /drive mount is up before the service starts
-  systemd.services.squid.serviceConfig.RequiresMountsFor = ["/drive/Store/squid"];
+  # ! important: RequiresMountsFor is a [Unit] key
+  systemd.services.squid.unitConfig.RequiresMountsFor = ["/drive/Store/squid"];
 
-  # Run our prep script *before* the module’s own ExecStartPre
-  systemd.services.squid.serviceConfig.ExecStartPre =
-    lib.mkBefore [squidPrep];
+  # Ensure our prep runs before the module's own ExecStartPre
+  systemd.services.squid.serviceConfig.ExecStartPre = lib.mkBefore [squidPrep];
 
-  # Keep your tmpfiles (harmless if already created by the prep)
+  # Keep tmpfiles (harmless if prep already made them)
   systemd.tmpfiles.rules = [
     "d /drive/Store/squid/rock   0750 squid squid - -"
     "d /drive/Store/squid/ufs    0750 squid squid - -"
