@@ -61,7 +61,7 @@ in {
     enable = true;
     dataDir = "/store/grafana";
     settings.server = {
-      http_addr = "127.0.0.1"; # only expose to localhost; Caddy handles public
+      http_addr = "0.0.0.0";
       http_port = grafanaPort;
       #domain = "grafana.example.com";
       #root_url = "https://grafana.example.com/";  # important for links/cookies
@@ -80,13 +80,13 @@ in {
         {
           name = "Prometheus";
           type = "prometheus";
-          url = "http://localhost:${prome}";
+          url = "http://127.0.0.1:${prome}";
           isDefault = true;
         }
         {
           name = "Loki";
           type = "loki";
-          url = "http://localhost:${loki}";
+          url = "http://127.0.0.1:${loki}";
         }
       ];
     };

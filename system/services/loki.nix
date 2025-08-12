@@ -21,7 +21,7 @@ in {
         path_prefix = "${config.services.loki.dataDir}";
         ring = {
           kvstore = {store = "inmemory";};
-          instance_addr = "127.0.0.1";
+          instance_addr = "0.0.0.0";
         };
         replication_factor = 1;
       };
