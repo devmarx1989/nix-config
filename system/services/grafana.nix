@@ -1,11 +1,13 @@
-{config, services, ...}:
-let
-  ports = config.my.ports;  # optional convenience alias
+{
+  config,
+  services,
+  ...
+}: let
+  ports = config.my.ports; # optional convenience alias
   grafanaPort = ports.grafana;
   prome = toString ports.prometheus;
   loki = toString ports.lokiHttp;
-in
-{
+in {
   services.grafana = {
     enable = true;
     dataDir = "/store/grafana";
