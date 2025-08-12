@@ -15,9 +15,8 @@ in {
   services.prometheus = {
     enable = true;
     listenAddress = "0.0.0.0"; # expose on LAN/WAN
-    extraFlags = [
-      "--storage.tsdb.path=/store/prometheus"
-    ];
+    # Let the module pass --storage.tsdb.path for you:
+    storagePath = "/store/prometheus";
     port = 1020;
     # Global scrape/defaults
     globalConfig = {
