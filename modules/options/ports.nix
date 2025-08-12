@@ -1,13 +1,10 @@
 # modules/options/ports.nix
-{
-  lib,
-  config,
-  ...
-}: let
+{ lib, config, ... }:
+let
   inherit (lib) mkOption types;
-  inherit (lib.lists) findFirstIndex;
+  inherit (builtins) length elemAt listToAttrs genList getAttr;
 
-  # KEEP YOUR SERVICE NAMES *AS STRINGS* HERE (static; do not read `config` here)
+  # <<< KEEP YOUR SERVICE NAMES HERE, AS STRINGS >>>
   srvPorts = [
     "avahi"
     "alertmanager"
@@ -26,78 +23,71 @@
     "qbittorrentWeb"
     "squidProxy"
     "squidTlsBump"
-    # …add the rest exactly as you use them
+    # ...add the rest exactly as you use them
   ];
 
-  # Declare per-service *options* from the static list.
-  # NOTE: compute index with lib.lists.findFirstIndex
+  # Declare one port option per service name (NO defaults here!)
   mkPortOptions = names:
-    lib.foldl' (
-      acc: name:
-        acc
-        // {
-          ${name} = mkOption {
-            type = types.port;
-            default = let
-              idx = findFirstIndex (n: n == name) names;
-            in
-              if idx == null
-              then throw "my.ports: service '${name}' not found in srvPorts"
-              else config.my.ports.base + idx;
-            description = "Port for ${name}.";
-          };
-        }
-    ) {}
-    names;
-in {
+    lib.foldl' (acc: name:
+      acc // {
+        ${name} = mkOption {
+          type = types.port;
+          description = "Port for ${name}.";
+        };
+      }
+    ) {} names;
+
+in
+{
   options.my.ports =
     {
-      # One knob to shift everything
       base = mkOption {
         type = types.port;
         default = 10001;
         description = "Starting port number for sequential assignments.";
       };
 
-      # *** This stays an array of strings ***
+      # stays an array of strings exactly as you want
       services = mkOption {
         type = types.listOf types.str;
         default = srvPorts;
         description = "Ordered service names used for port assignment and helpers.";
       };
     }
-    # Add one option per service from the STATIC list (no `config` usage here)
     // mkPortOptions srvPorts;
 
-  # Anything that *reads* from `config` goes here (safe phase)
+  # Do ALL arithmetic and derived values in the config phase
   config = {
-    # Convenience helpers derived from your services list (kept as strings)
-    my.ports = {
-      # { name -> port }
-      map = lib.listToAttrs (map
-        (name: {
-          inherit name;
-          value = builtins.getAttr name config.my.ports;
+    # Assign defaults for each service: base + index (0-based)
+    my.ports =
+      # { <service> = mkDefault (base + i); ... }
+      (listToAttrs (genList
+        (i: {
+          name  = elemAt srvPorts i;
+          value = lib.mkDefault (config.my.ports.base + i);
         })
-        config.my.ports.services);
+        (length srvPorts)))
+      # plus convenience helpers
+      // {
+        # name -> realized port
+        map = listToAttrs (map
+          (name: { inherit name; value = getAttr name config.my.ports; })
+          config.my.ports.services);
 
-      # [port1 port2 …] in services order (useful for firewall openings)
-      list =
-        map (name: builtins.getAttr name config.my.ports)
-        config.my.ports.services;
-    };
+        # [port1 port2 ...] in the order of `services`
+        list = map (name: getAttr name config.my.ports)
+                   config.my.ports.services;
+      };
 
-    # Guardrail: detect dup assignments among listed services
-    assertions = [
-      {
-        assertion = let
-          ports =
-            map (name: builtins.getAttr name config.my.ports)
-            config.my.ports.services;
-        in
-          lib.length (lib.unique ports) == lib.length ports;
-        message = "my.ports: duplicate port assignments detected in services list.";
-      }
-    ];
+    # Guardrail: no duplicate ports among the listed services
+    assertions = [{
+      assertion =
+        let ports =
+          map (name: getAttr name config.my.ports)
+              config.my.ports.services;
+        in lib.length (lib.unique ports) == lib.length ports;
+      message = "my.ports: duplicate port assignments detected in services list.";
+    }];
   };
 }
+
