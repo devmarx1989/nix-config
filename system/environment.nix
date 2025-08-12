@@ -10,7 +10,8 @@
     ]) ++ [
       ccache
       sccache
-  ];
+    ]
+  );
 
   # For GUI apps using GPU (WSLg)
   environment.variables = {
