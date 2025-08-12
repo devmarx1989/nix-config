@@ -20,6 +20,6 @@
     max-substitution-jobs = 1;
     # optional, but harmless to pin:
     accept-flake-config = false; # you already have this; keep it
-    extra-sandbox-paths = [ "/store/sccache" ];
+    extra-sandbox-paths = ["/store/sccache"];
   };
 }
