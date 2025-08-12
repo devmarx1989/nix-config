@@ -100,7 +100,7 @@ in {
           updateIntervalSeconds = 60;
           options = {
             # This can be any directory; here we use a Nix store path we built above.
-            path = dashboardsDir;
+            path = dashboardsPkg;
           };
         }
       ];
