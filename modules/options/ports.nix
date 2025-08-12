@@ -8,26 +8,7 @@
   inherit (builtins) length elemAt listToAttrs genList getAttr;
 
   # <<< KEEP YOUR SERVICE NAMES HERE, as strings >>> (static; don't read `config` here)
-  srvPorts = [
-    "avahi"
-    "alertmanager"
-    "cadvisor"
-    "calibreServer"
-    "calibreWeb"
-    "coreDns"
-    "coreDnsMetrics"
-    "grafana"
-    "lokiHttp"
-    "lokiGrpc"
-    "nodeExporter"
-    "ollama"
-    "prometheus"
-    "promtail"
-    "qbittorrentWeb"
-    "squidProxy"
-    "squidTlsBump"
-    # ...add the rest exactly as you use them
-  ];
+  srvPorts = imports ./services.nix;
 
   # Declare one *option* per service name (NO defaults here).
   mkPortOptions = names:
