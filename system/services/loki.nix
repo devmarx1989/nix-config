@@ -27,7 +27,7 @@ in {
       };
       server = {
         http_listen_port = http;
-        grpc_listen_port = grcp;
+        grpc_listen_port = grpc;
       };
 
       schema_config = {
