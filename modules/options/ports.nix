@@ -1,6 +1,9 @@
 # modules/options/ports.nix
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   inherit (lib) mkOption types;
   inherit (lib.lists) findFirstIndex;
 
@@ -29,25 +32,24 @@ let
   # Declare per-service *options* from the static list.
   # NOTE: compute index with lib.lists.findFirstIndex
   mkPortOptions = names:
-    lib.foldl' (acc: name:
-      acc // {
-        ${name} = mkOption {
-          type = types.port;
-          default =
-            let
+    lib.foldl' (
+      acc: name:
+        acc
+        // {
+          ${name} = mkOption {
+            type = types.port;
+            default = let
               idx = findFirstIndex (n: n == name) names;
             in
-              if idx == null then
-                throw "my.ports: service '${name}' not found in srvPorts"
-              else
-                config.my.ports.base + idx;
-          description = "Port for ${name}.";
-        };
-      }
-    ) {} names;
-
-in
-{
+              if idx == null
+              then throw "my.ports: service '${name}' not found in srvPorts"
+              else config.my.ports.base + idx;
+            description = "Port for ${name}.";
+          };
+        }
+    ) {}
+    names;
+in {
   options.my.ports =
     {
       # One knob to shift everything
@@ -73,22 +75,29 @@ in
     my.ports = {
       # { name -> port }
       map = lib.listToAttrs (map
-        (name: { inherit name; value = builtins.getAttr name config.my.ports; })
+        (name: {
+          inherit name;
+          value = builtins.getAttr name config.my.ports;
+        })
         config.my.ports.services);
 
       # [port1 port2 …] in services order (useful for firewall openings)
-      list = map (name: builtins.getAttr name config.my.ports)
-                 config.my.ports.services;
+      list =
+        map (name: builtins.getAttr name config.my.ports)
+        config.my.ports.services;
     };
 
     # Guardrail: detect dup assignments among listed services
-    assertions = [{
-      assertion =
-        let ports = map (name: builtins.getAttr name config.my.ports)
-                        config.my.ports.services;
-        in lib.length (lib.unique ports) == lib.length ports;
-      message = "my.ports: duplicate port assignments detected in services list.";
-    }];
+    assertions = [
+      {
+        assertion = let
+          ports =
+            map (name: builtins.getAttr name config.my.ports)
+            config.my.ports.services;
+        in
+          lib.length (lib.unique ports) == lib.length ports;
+        message = "my.ports: duplicate port assignments detected in services list.";
+      }
+    ];
   };
 }
-
