@@ -5,7 +5,10 @@
     ./api.nix
     ./archive.nix
     ./c.nix
+    ./crypto.nix
     ./db.nix
+    ./docker.nix
+    ./emoji.nix
     ./gnome.nix
     ./media.nix
     ./myPkgs.nix
@@ -18,14 +21,13 @@
     ./sim.nix
     ./terminal.nix
     ./text.nix
+    ./torrents.nix
   ];
   home.packages = with pkgs; [
     cacert
     cachix
     calibre
     coursier
-    docker
-    docker-compose
     fishPlugins.bobthefish
     fishPlugins.foreign-env
     microsoft-edge
