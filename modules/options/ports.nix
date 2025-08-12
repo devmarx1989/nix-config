@@ -7,7 +7,7 @@
   inherit (lib) mkOption types;
   inherit (builtins) length elemAt listToAttrs genList getAttr;
 
-  # <<< KEEP YOUR SERVICE NAMES HERE, AS STRINGS >>>
+  # <<< KEEP YOUR SERVICE NAMES HERE, as strings >>> (static; don't read `config` here)
   srvPorts = [
     "avahi"
     "alertmanager"
@@ -29,7 +29,7 @@
     # ...add the rest exactly as you use them
   ];
 
-  # Declare one port option per service name (NO defaults here!)
+  # Declare one *option* per service name (NO defaults here).
   mkPortOptions = names:
     lib.foldl' (
       acc: name:
@@ -51,29 +51,41 @@ in {
         description = "Starting port number for sequential assignments.";
       };
 
-      # stays an array of strings exactly as you want
+      # stays an array of strings (your requirement)
       services = mkOption {
         type = types.listOf types.str;
         default = srvPorts;
         description = "Ordered service names used for port assignment and helpers.";
       };
+
+      # declare read-only helpers so setting them in `config` is legal
+      map = mkOption {
+        type = types.attrsOf types.port;
+        readOnly = true;
+        description = "Derived: { name -> port } for all services.";
+      };
+
+      list = mkOption {
+        type = types.listOf types.port;
+        readOnly = true;
+        description = "Derived: [port1 port2 ...] in the order of `services`.";
+      };
     }
     // mkPortOptions srvPorts;
 
-  # Do ALL arithmetic and derived values in the config phase
+  # Do ALL arithmetic / derivations here
   config = {
-    # Assign defaults for each service: base + index (0-based)
+    # Assign per-service defaults: base + index
     my.ports =
-      # { <service> = mkDefault (base + i); ... }
+      # { <service> = mkDefault (base + i); ... } generated from srvPorts order
       (listToAttrs (genList
         (i: {
           name = elemAt srvPorts i;
           value = lib.mkDefault (config.my.ports.base + i);
         })
         (length srvPorts)))
-      # plus convenience helpers
+      # plus the declared read-only helpers
       // {
-        # name -> realized port
         map = listToAttrs (map
           (name: {
             inherit name;
@@ -81,7 +93,6 @@ in {
           })
           config.my.ports.services);
 
-        # [port1 port2 ...] in the order of `services`
         list =
           map (name: getAttr name config.my.ports)
           config.my.ports.services;
@@ -96,7 +107,7 @@ in {
             config.my.ports.services;
         in
           lib.length (lib.unique ports) == lib.length ports;
-        message = "my.ports: duplicate port assignments detected in services list.";
+        message = "my.ports: duplicate port assignments detected in `services`.";
       }
     ];
   };
