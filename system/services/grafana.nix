@@ -5,6 +5,7 @@ let
   prome = toString ports.prometheus;
   loki = toString ports.lokiHttp;
 in
+{
   services.grafana = {
     enable = true;
     dataDir = "/store/grafana";
