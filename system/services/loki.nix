@@ -28,8 +28,8 @@ in
         replication_factor = 1;
       };
       server = {
-        http_listen_port = ${http};
-        grpc_listen_port = ${grcp};
+        http_listen_port = http;
+        grpc_listen_port = grcp;
       };
 
       schema_config = {
