@@ -1,4 +1,4 @@
-{config, services, ...}: {
+{config, services, ...}:
 let
   ports = config.my.ports;  # optional convenience alias
   grafanaPort = ports.grafana;
