@@ -15,6 +15,7 @@
     };
 
     alejandra.url = "github:kamadorueda/alejandra";
+    mathematica.url = "github:devmarx1989/mathematica-flake"
   };
 
   outputs = {
@@ -22,13 +23,14 @@
     home-manager,
     nixvim,
     alejandra,
+    mathematica,
     ...
   }: let
     system = "x86_64-linux";
     hostname = "house-of-marx";
     user = "dev-marx";
     myPkgs = {
-      inherit alejandra;
+      inherit alejandra mathematica;
     };
     myAttr = builtins.listToAttrs (builtins.map (name: {
       inherit name;
