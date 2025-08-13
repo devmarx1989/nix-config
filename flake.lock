@@ -163,7 +163,7 @@
         "type": "github"
       }
     },
-    "mathematica": {
+    "mathematica-flake": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs_2"
@@ -280,7 +280,7 @@
       "inputs": {
         "alejandra": "alejandra",
         "home-manager": "home-manager",
-        "mathematica": "mathematica",
+        "mathematica-flake": "mathematica-flake",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim"
       }
