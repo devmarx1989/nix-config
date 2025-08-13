@@ -8,6 +8,11 @@
   "coredns" # 7
   "corednsProm" # 8
   "grafana" # 9
+  "ipfs0"
+  "ipfs1"
+  "ipfs2"
+  "ipfs3"
+  "ipfs4"
   "jellyfinHttp" # 10
   "jellyfinHttps" # 11
   "lokiGrpc" # 12
