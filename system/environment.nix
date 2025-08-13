@@ -6,6 +6,7 @@
 }:
 let
   ollama = toString config.my.port.ollama;
+in
 {
   environment.systemPackages = (
     with pkgs;
