@@ -12,7 +12,20 @@ in {
   users.users.${user} = {
     description = "/dev/marx";
     enable = true;
-    extraGroups = ["networkmanager" "wheel" "docker" "video" "audio" "wireshark" "render"];
+    extraGroups = [
+      "audio"
+      "avahi"
+      "docker"
+      "ipfs"
+      "jellyfin"
+      "networkmanager"
+      "ollama"
+      "render"
+      "squid"
+      "video"
+      "wheel"
+      "wireshark"
+    ];
     group = user;
     home = "/home/dev-marx";
     isNormalUser = true;
