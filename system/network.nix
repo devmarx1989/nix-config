@@ -3,11 +3,9 @@
   networking,
   lib,
   ...
-}: 
-let
+}: let
   dns = toString config.my.ports.coredns;
-in
-{
+in {
   networking.useDHCP = lib.mkDefault true;
   networking.nameservers = ["127.0.0.1#${dns}" "1.1.1.1" "9.9.9.9"];
   networking.hostName = "house-of-marx";
