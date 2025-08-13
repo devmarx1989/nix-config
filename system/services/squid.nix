@@ -12,15 +12,15 @@ in {
     enable = true;
     validateConfig = false;
 
-    proxyAddress = "127.0.0.1";
+    proxyAddress = "0.0.0.0";
     proxyPort = proxy;
 
     extraConfig = ''
       # Plain HTTP listener on your "bump" port (keeps same port you’re using)
-      http_port 127.0.0.1:${bump}
+      http_port 0.0.0.0:${bump}
 
       # --- ACL & access ---
-      acl localnet src 127.0.0.1/32
+      acl localnet src 127.0.0.1/32 192.168.0.0/16 10.0.0.0/8
       http_access allow localnet
       http_access allow localhost
       http_access deny all
@@ -31,7 +31,7 @@ in {
       cache_replacement_policy heap LFUDA
       memory_replacement_policy heap GDSF
 
-      cache_dir ufs  /drive/Store/squid/ufs  20971 64 256
+      cache_dir ufs  /drive/Store/squid/ufs  40971 64 256
 
       range_offset_limit -1
       collapsed_forwarding on
