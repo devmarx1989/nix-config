@@ -4,10 +4,10 @@
   ...
 }: {
   home.packages = with pkgs; [
-    docling
+    #docling
     lmstudio
     ollama-cuda
     pinokio
-    whisperx
+    #whisperx
   ];
 }
