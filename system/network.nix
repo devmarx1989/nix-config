@@ -7,6 +7,8 @@
   networking.nameservers = ["127.0.0.1#1001" "1.1.1.1" "9.9.9.9"];
   networking.hostName = "house-of-marx";
   networking.firewall.enable = false;
+  # Enable IPv6 stack so Squid can bind [::] quietly
+  networking.enableIPv6 = true;
 
   #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

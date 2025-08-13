@@ -15,7 +15,7 @@
   services = map mk serviceNames;
 in {
   systemd.tmpfiles.rules =
-    map (svc: "d /drive/Store/${svc.name} 0755 ${svc.name} ${svc.name} -") services;
+    map (svc: "d /drive/Store/${svc.name} 0777 ${svc.name} ${svc.name} -") services;
 
   systemd.services =
     lib.genAttrs serviceNames

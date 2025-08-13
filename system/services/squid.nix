@@ -55,7 +55,7 @@ in {
 
   # Only create cache parents; no ssl/ssl_db anymore
   systemd.tmpfiles.rules = [
-    "d /drive/Store/squid/rock 0750 squid squid - -"
-    "d /drive/Store/squid/ufs  0750 squid squid - -"
+    "d /drive/Store/squid/rock 0777 squid squid - -"
+    "d /drive/Store/squid/ufs  0777 squid squid - -"
   ];
 }
