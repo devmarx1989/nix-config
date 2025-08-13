@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   systemd,
   ...
@@ -17,7 +18,7 @@ in {
       MemoryMax = "8G"; # hard memory ceiling for builds
     };
     environment = {
-      http_proxy = "http://127.0.0.1:${proxy}";
+      http_proxy = lib.mkForce "http://127.0.0.1:${proxy}";
       # https_proxy = "http://127.0.0.1:10024"; # only if you want HTTPS via proxy
       no_proxy = "localhost,127.0.0.1,::1";
     };
