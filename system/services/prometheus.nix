@@ -20,7 +20,7 @@
   promWebPort = ports.prometheus;
   promWebPorts = toString ports.prometheus;
   promtail = toString ports.promtailHttp;
-  ipfs = toString ports.ipfs4;
+  ipfs = toString ports.ipfs3;
 in {
   #### Prometheus server
   services.prometheus = {
