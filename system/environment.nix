@@ -3,11 +3,9 @@
   environment,
   pkgs,
   ...
-}:
-let
+}: let
   ollama = toString config.my.port.ollama;
-in
-{
+in {
   environment.systemPackages = (
     with pkgs;
       (with pkgs.cudaPackages; [
