@@ -9,6 +9,7 @@
     ./db.nix
     ./docker.nix
     ./emoji.nix
+    ./git.nix
     ./gnome.nix
     ./media.nix
     ./myPkgs.nix
