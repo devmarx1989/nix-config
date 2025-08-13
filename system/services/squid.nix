@@ -31,7 +31,6 @@ in {
       cache_replacement_policy heap LFUDA
       memory_replacement_policy heap GDSF
 
-      cache_dir rock /drive/Store/squid/rock 10485 max-size=41943
       cache_dir ufs  /drive/Store/squid/ufs  20971 64 256
 
       range_offset_limit -1
@@ -55,7 +54,6 @@ in {
 
   # Only create cache parents; no ssl/ssl_db anymore
   systemd.tmpfiles.rules = [
-    "d /drive/Store/squid/rock 0777 squid squid - -"
     "d /drive/Store/squid/ufs  0777 squid squid - -"
   ];
 }
