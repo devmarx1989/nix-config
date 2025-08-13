@@ -74,9 +74,11 @@ in {
       {
         job_name = "ipfs";
         metrics_path = "/debug/metrics/prometheus";
-        static_configs = [{
-          targets = [ "127.0.0.1:${ipfs}" ];
-        }];
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${ipfs}"];
+          }
+        ];
       }
     ];
 
