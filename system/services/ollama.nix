@@ -8,7 +8,7 @@
   ollamaPort = ports.ollama;
 in {
   services.ollama = {
-    enable = false;
+    enable = true;
 
     # Run Ollama as its own user
     user = "ollama";
