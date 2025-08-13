@@ -18,7 +18,7 @@ in {
     #wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary
-    proxy {
+    proxy = {
       default = "http://127.0.0.1:${squid}";
       noProxy = "localhost,127.0.0.1,::1,*.local";
     };
