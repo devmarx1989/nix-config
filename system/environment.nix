@@ -1,4 +1,5 @@
 {
+  config,
   environment,
   pkgs,
   ...
@@ -22,6 +23,7 @@
     CMAKE_C_COMPILER_LAUNCHER = "sccache";
     CUDAARCHS = "86";
     GTK_ENABLE_PRIMARY_PASTE = "1";
+    OLLAMA_HOST = "${toString config.my.ports.ollama}"
     LIBGL_ALWAYS_INDIRECT = "1";
     RUSTC_WRAPPER = "sccache";
     SCCACHE_CACHE_SIZE = "100G";
