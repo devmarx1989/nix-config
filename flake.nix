@@ -49,13 +49,13 @@
         ./modules/options/ports.nix
         ./system/default.nix
         home-manager.nixosModules.home-manager
-        {
+        ({config, ...}: {
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
             extraSpecialArgs = {
               myPkgs = myAttr;
-              ports = nixpkgs.config.my.ports;
+              ports = config.my.ports;
             };
 
             users.${user} = {
@@ -65,7 +65,7 @@
               ];
             };
           };
-        }
+        })
       ];
 
       specialArgs = {
