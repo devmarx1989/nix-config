@@ -20,6 +20,7 @@
   promWebPort = ports.prometheus;
   promWebPorts = toString ports.prometheus;
   promtail = toString ports.promtailHttp;
+  ipfs = toString ports.ipfs4;
 in {
   #### Prometheus server
   services.prometheus = {
@@ -69,6 +70,13 @@ in {
       {
         job_name = "promtail";
         static_configs = [{targets = ["127.0.0.1:${promtail}"];}];
+      }
+      {
+        job_name = "ipfs";
+        metrics_path = "/debug/metrics/prometheus";
+        static_configs = [{
+          targets = [ "127.0.0.1:${ipfs}" ];
+        }];
       }
     ];
 
