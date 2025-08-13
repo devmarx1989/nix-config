@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
     git-annex
     git-doc
-    git-extra
+    git-extras
     gitoxide
     gitui
     jujutsu
