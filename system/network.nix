@@ -1,10 +1,15 @@
 {
+  config,
   networking,
   lib,
   ...
-}: {
+}: 
+let
+  dns = toString config.my.ports.coredns;
+in
+{
   networking.useDHCP = lib.mkDefault true;
-  networking.nameservers = ["127.0.0.1#1001" "1.1.1.1" "9.9.9.9"];
+  networking.nameservers = ["127.0.0.1#${dns}" "1.1.1.1" "9.9.9.9"];
   networking.hostName = "house-of-marx";
   networking.firewall.enable = false;
   # Enable IPv6 stack so Squid can bind [::] quietly
