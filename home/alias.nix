@@ -1,8 +1,11 @@
-{config, pkgs, ...}:
-let
-  ipfs = toString config.my.ports.ipfs3;
-in
 {
+  config,
+  pkgs,
+  ports,
+  ...
+}: let
+  ipfs = toString ports.ipfs3;
+in {
   home.shellAliases = {
     "..." = "cd ../..";
     "...." = "cd ../../../";

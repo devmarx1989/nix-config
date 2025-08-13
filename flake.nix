@@ -50,17 +50,20 @@
         ./system/default.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
-            myPkgs = myAttr;
-          };
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              myPkgs = myAttr;
+              ports = config.ports;
+            };
 
-          home-manager.users.${user} = {
-            imports = [
-              nixvim.homeManagerModules.nixvim
-              ./home/default.nix
-            ];
+            users.${user} = {
+              imports = [
+                nixvim.homeManagerModules.nixvim
+                ./home/default.nix
+              ];
+            };
           };
         }
       ];
