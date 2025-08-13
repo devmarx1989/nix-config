@@ -5,6 +5,7 @@
     avahi
     curl
     expressvpn
+    localsend
     masscan
     nethogs
     newsboat
