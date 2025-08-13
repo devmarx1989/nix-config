@@ -55,7 +55,7 @@
             useUserPackages = true;
             extraSpecialArgs = {
               myPkgs = myAttr;
-              ports = config.ports;
+              ports = nixpkgs.config.my.ports;
             };
 
             users.${user} = {
