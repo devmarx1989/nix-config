@@ -31,8 +31,8 @@ in {
       cache_replacement_policy heap LFUDA
       memory_replacement_policy heap GDSF
 
-      cache_dir rock /drive/Store/squid/rock 104857 max-size=419430
-      cache_dir ufs  /drive/Store/squid/ufs  209715 64 256
+      cache_dir rock /drive/Store/squid/rock 10485 max-size=41943
+      cache_dir ufs  /drive/Store/squid/ufs  20971 64 256
 
       range_offset_limit -1
       collapsed_forwarding on
