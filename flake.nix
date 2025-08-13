@@ -15,7 +15,7 @@
     };
 
     alejandra.url = "github:kamadorueda/alejandra";
-    mathematica.url = "github:devmarx1989/mathematica-flake"
+    mathematica.url = "github:devmarx1989/mathematica-flake";
   };
 
   outputs = {
