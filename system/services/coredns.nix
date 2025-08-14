@@ -39,9 +39,4 @@ in {
       }
     '';
   };
-
-  networking = {
-    #networkmanager.dns = "systemd-resolved";
-    resolvconf.extraConfig = "options timeout:1 attempts:1";
-  };
 }
