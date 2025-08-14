@@ -43,7 +43,7 @@ in {
   };
 
   networking = {
-    networkingmanager.dns = "systemd-resolved";
+    networkmanager.dns = "systemd-resolved";
     resolvconf.extraConfig = "options timeout:1 attempts:1";
   };
 }
