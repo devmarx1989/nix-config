@@ -14,10 +14,10 @@ in {
       ollama.wantedBy = lib.mkForce [];
       nix-daemon = {
         serviceConfig = {
-          CPUQuota = "800%"; # cap at half a CPU worth per core set
+          CPUQuota = "1600%"; # cap at half a CPU worth per core set
           CPUWeight = 200; # de-prioritize vs. interactive apps
           IOWeight = 200; # friendlier disk usage
-          MemoryMax = "8G"; # hard memory ceiling for builds
+          MemoryMax = "20G"; # hard memory ceiling for builds
         };
         environment = {
           #http_proxy = "http://127.0.0.1:${proxy}";
