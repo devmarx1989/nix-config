@@ -23,7 +23,6 @@ in {
             policy random
             max_fails 2
             health_check 10s
-            timeout 8s
           }
           cache {
               success 360000
