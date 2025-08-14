@@ -19,8 +19,8 @@ in {
 
     # Configure network proxy if necessary
     proxy = {
-      default = "http://127.0.0.1:${squid}";
-      noProxy = "localhost,127.0.0.1,::1,*.local";
+      #default = "http://127.0.0.1:${squid}";
+      #noProxy = "localhost,127.0.0.1,::1,*.local";
     };
     # Enable networking
     networkmanager.enable = true;
