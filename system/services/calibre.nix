@@ -1,8 +1,10 @@
-{config, services, ...}:
-let
-  port = config.my.ports.calibreServer;
-in
 {
+  config,
+  services,
+  ...
+}: let
+  port = config.my.ports.calibreServer;
+in {
   services.calibre-server = {
     enable = true;
 
