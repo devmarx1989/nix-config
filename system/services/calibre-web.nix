@@ -6,7 +6,7 @@
   calibre = config.my.ports.calibreWeb;
 in {
   services.calibre-web = {
-    enable = true;
+    enable = false;
     user = "calibreWeb";
     group = "calibreWeb";
     options = {
