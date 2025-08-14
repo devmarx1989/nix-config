@@ -9,7 +9,7 @@
   bump = toString ports.squidTlsBump; # reuse your port var
 in {
   services.squid = {
-    enable = true;
+    enable = false;
     validateConfig = false;
 
     proxyAddress = "0.0.0.0";
