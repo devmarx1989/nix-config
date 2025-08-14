@@ -1,6 +1,7 @@
 {
   config,
   services,
+  pkgs,
   ...
 }: let
   port = config.my.ports.calibreServer;
