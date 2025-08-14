@@ -1,6 +1,7 @@
 {services, ...}: {
   imports = [
     ./avahi.nix
+    ./calibre-web.nix
     ./coredns.nix
     ./ipfs.nix
     ./jellyfin.nix

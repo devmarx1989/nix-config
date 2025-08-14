@@ -15,6 +15,7 @@ in {
     extraGroups = [
       "audio"
       "avahi"
+      "calibreWeb"
       "docker"
       "ipfs"
       "jellyfin"
