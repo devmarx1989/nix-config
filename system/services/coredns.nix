@@ -5,7 +5,7 @@
   ...
 }: let
   ports = config.my.ports; # optional convenience alias
-  coredns = toString ports.coredns;
+  coredns = toString 53 
   corednsProm = toString ports.corednsProm;
 in {
   services.coredns = {
