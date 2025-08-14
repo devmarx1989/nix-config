@@ -19,7 +19,7 @@ in {
           bind ::
           prometheus 0.0.0.0:${corednsProm}
 
-          fanout . 1.1.1.1 8.8.8.8 9.9.9.9 {
+          parallel . 1.1.1.1 8.8.8.8 9.9.9.9 {
             policy random
             max_fails 2
             health_check 10s
