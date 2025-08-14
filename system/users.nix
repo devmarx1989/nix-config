@@ -16,6 +16,7 @@ in {
       "audio"
       "avahi"
       "calibreWeb"
+      "calibre"
       "docker"
       "ipfs"
       "jellyfin"

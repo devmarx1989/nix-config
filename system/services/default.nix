@@ -2,6 +2,7 @@
   imports = [
     ./avahi.nix
     ./calibre-web.nix
+    ./calibre.nix
     ./coredns.nix
     ./ipfs.nix
     ./jellyfin.nix
