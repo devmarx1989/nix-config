@@ -37,7 +37,7 @@ in {
 
   services.resolved = {
     enable = true;
-    dns = ["127.0.0.1#${coredns}"];
+    #dns = ["127.0.0.1#${coredns}"];
     domains = ["~."];
     fallbackDns = [];
   };
