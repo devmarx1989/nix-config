@@ -26,7 +26,7 @@
   services.openssh.enable = true;
   services.printing.enable = true;
   services.pulseaudio.enable = false;
-  services.resolved.enable = true;
+  services.resolved.enable = false;
   services.xserver.enable = true;
   services.xserver.videoDrivers = ["nvidia"];
 

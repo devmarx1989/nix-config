@@ -35,13 +35,6 @@ in {
     '';
   };
 
-  services.resolved = {
-    enable = false;
-    #dns = ["127.0.0.1#${coredns}"];
-    domains = ["~."];
-    fallbackDns = [];
-  };
-
   networking = {
     #networkmanager.dns = "systemd-resolved";
     resolvconf.extraConfig = "options timeout:1 attempts:1";
