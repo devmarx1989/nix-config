@@ -28,7 +28,7 @@ in {
           cache {
               success 360000
               denial 30
-              prefetch 5 1000
+              prefetch 5 1000h
               serve_stale 1h
           }
       }
