@@ -19,6 +19,11 @@ in {
           bind 0.0.0.0
           bind ::
           prometheus 0.0.0.0:${corednsProm}
+        	timeouts {
+            read 10s
+            write 20s
+            idle 60s
+          }
 
           forward . 1.1.1.1 8.8.8.8 9.9.9.9 {
             policy random

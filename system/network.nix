@@ -4,7 +4,6 @@
   lib,
   ...
 }: let
-  dns = toString config.my.ports.coredns;
   squid = toString config.my.ports.squidProxy;
 in {
   networking = {
