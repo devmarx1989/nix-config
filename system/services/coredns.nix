@@ -27,7 +27,6 @@ in {
             health_check 1s
             max_concurrent 1000
             max_fails 5
-            expired 10s
           }
           cache {
               success 360000
