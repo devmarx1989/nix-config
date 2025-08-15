@@ -115,7 +115,6 @@ in {
         pg_bigm
         pg_byteamagic
         pg_ed25519
-        pg_embedding
         pg_hint_plan
         pg_hll
         pg_ivm
