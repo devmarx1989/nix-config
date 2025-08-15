@@ -135,7 +135,7 @@ in {
         pgrouting
         pgsql-http
         pgtap
-        pgvector-rs
+        pgvecto-rs
         pgvectorscale
         plpgsql_check
         plpython3
