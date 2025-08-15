@@ -8,7 +8,7 @@
 in {
   networking = {
     useDHCP = lib.mkDefault true;
-    nameservers = ["127.0.0.1" "1.1.1.1" "8.8.8.8" "9.9.9.9"];
+    nameservers = ["127.0.0.1"]; 
     hostName = "house-of-marx";
     firewall.enable = false;
     # Enable IPv6 stack so Squid can bind [::] quietly
@@ -18,7 +18,7 @@ in {
 
     # Configure network proxy if necessary
     proxy = {
-      #default = "http://127.0.0.1:${squid}";
+      default = "http://127.0.0.1:${squid}";
       #noProxy = "localhost,127.0.0.1,::1,*.local";
     };
     # Enable networking

@@ -21,6 +21,7 @@
   promWebPorts = toString ports.prometheus;
   promtail = toString ports.promtailHttp;
   ipfs = toString ports.ipfs3;
+  kresdProm = toString ports.kresdProm;
 in {
   #### Prometheus server
   services.prometheus = {
@@ -40,12 +41,26 @@ in {
       # Scrape Prometheus itself
       {
         job_name = "prometheus";
-        static_configs = [{targets = ["localhost:${promWebPorts}"];}];
+        static_configs = [
+          {
+            targets = ["localhost:${promWebPorts}"];
+            labels = {
+              jobs = "prometheus";
+            };
+          }
+        ];
       }
       # Scrape node exporter
       {
         job_name = "node";
-        static_configs = [{targets = ["localhost:${nodes}"];}];
+        static_configs = [
+          {
+            targets = ["localhost:${nodes}"];
+            labels = {
+              jobs = "node";
+            };
+          }
+        ];
       }
       {
         job_name = "coredns";
@@ -55,21 +70,32 @@ in {
           {
             targets = ["127.0.0.1:${corednsProm}"];
             labels = {
-              job = "coredns";
-              # optional: helps k8s-flavored dashboards light up
-              namespace = "kube-system";
-              pod = "coredns-standalone";
+              jobs = "coredns";
             };
           }
         ];
       }
       {
         job_name = "loki";
-        static_configs = [{targets = ["127.0.0.1:${loki}"];}];
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${loki}"];
+            labels = {
+              jobs = "loki";
+            };
+          }
+        ];
       }
       {
         job_name = "promtail";
-        static_configs = [{targets = ["127.0.0.1:${promtail}"];}];
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${promtail}"];
+            labels = {
+              jobs = "promtail";
+            };
+          }
+        ];
       }
       {
         job_name = "ipfs";
@@ -77,6 +103,21 @@ in {
         static_configs = [
           {
             targets = ["127.0.0.1:${ipfs}"];
+            labels = {
+              jobs = "ipfs";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "kresd";
+        metrics_path = "/metrics";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${kresdProm}"];
+            labels = {
+              job = "kresd";
+            }
           }
         ];
       }

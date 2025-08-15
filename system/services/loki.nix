@@ -81,6 +81,6 @@ in {
 
   systemd.tmpfiles.rules = [
     # add this alongside your other tmpfiles rules (if any)
-    "d ${config.services.loki.dataDir}/rules 0750 loki loki - -"
+    "d ${config.services.loki.dataDir}/rules 0777 loki loki - -"
   ];
 }

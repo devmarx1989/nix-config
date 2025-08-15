@@ -53,21 +53,6 @@ in {
             }
           ];
         }
-
-        # /var/log/*.log
-        {
-          job_name = "varlogs";
-          static_configs = [
-            {
-              targets = ["localhost"];
-              labels = {
-                job = "varlogs";
-                __path__ = "/var/log/*.log";
-                host = "${config.networking.hostName}";
-              };
-            }
-          ];
-        }
       ];
     };
   };

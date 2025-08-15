@@ -7,6 +7,7 @@
     ./ipfs.nix
     ./jellyfin.nix
     ./grafana.nix
+    ./kresd/default.nix
     ./loki.nix
     ./ollama.nix
     ./prometheus.nix

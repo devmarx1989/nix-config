@@ -1,0 +1,28 @@
+{config, services, ...}:
+let
+  ports = config.my.ports;
+  kresd =  toString ports.kresd;
+  kresdProm = toString ports.kresdProm;
+{
+  services.kresd = {
+    enable = true;
+    instances = 1;
+    listenPlain = [
+      "${kred}"
+      "0.0.0.0:${kresd}"
+      "[::]:${kresd}"
+    ];
+    extraConfig = import ./config.lua;
+    extraConfig = ''
+      modules.load('predict')
+      modules.load('http')
+
+      cache.size = 10024 * MB
+
+      trust_anchors.remove('.')
+      net.listen('0.0.0.0', ${kresdProm}, { kind = 'webmgmt' })
+
+      http.prometheus.namespace = 'kresd_'
+    ''; 
+  }
+}
