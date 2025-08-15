@@ -4,7 +4,8 @@
   pkgs,
   ...
 }: let
-  ollama = toString config.my.ports.ollama;
+  ports = config.my.ports;
+  ollama = toString ports.ollama;
   ipfs = toString ports.ipfs3;
 in {
   environment.systemPackages = (
