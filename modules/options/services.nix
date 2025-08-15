@@ -22,6 +22,7 @@
   "ollama"
   "postgres"
   "prometheus"
+  "promPostgres"
   "promtailGrpc"
   "promtailHttp"
   "qbittorrentWeb"

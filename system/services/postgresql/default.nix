@@ -5,11 +5,17 @@
   services,
   ...
 }: let
-  ps = config.my.ports.postgres;
+  ports = config.my.ports;
+  ps = ports.postgres;
+  promUser = "postgres-exporter";
+  pgPort = ports.promPostgres;
+  root = "admin";
+  pass = "admin";
 in {
   services.postgresql = {
     enable = true;
     port = ps;
+    package = pkgs.postgresql_18_jit;
     settings = {
       log_connections = true;
       log_statement = "all";
@@ -25,7 +31,16 @@ in {
 
     ensureUsers = [
       {
-        name = "root";
+        name = root;
+        ensureDBOwnership = true;
+        ensureClauses = {
+          superuser = true;
+          createrole = true;
+          createdb = true;
+        };
+      }
+      {
+        name = promUser;
         ensureDBOwnership = true;
         ensureClauses = {
           superuser = true;
@@ -36,7 +51,8 @@ in {
     ];
 
     ensureDatabases = [
-      "root"
+      root
+      promUser
       "data"
     ];
 
@@ -46,7 +62,18 @@ in {
     checkConfig = true;
 
     initialScript = pkgs.writeText "init-sql-script" ''
-      alter user root with password 'root';
+      alter user ${root} with password ${pass};
+      -- As a superuser on the DB:
+      CREATE ROLE ${promUser} LOGIN PASSWORD ${pass};
+
+      -- Easiest (PG 10+): grant the built-in monitor role
+      GRANT pg_monitor TO ${promUser};
+
+      -- Optional but very useful:
+      -- If you use pg_stat_statements, make sure it's enabled in postgresql.conf:
+      -- shared_preload_libraries = 'pg_stat_statements'
+      -- Then:
+      GRANT SELECT ON pg_stat_statements TO ${promUser};
     '';
 
     authentication = ''
@@ -78,6 +105,52 @@ in {
       host    all             all             localhost               trust
     '';
 
-    extensions = ps: with ps; [postgis pg_repack];
+    extensions = ps:
+      with ps; [
+        h3-pg
+        jsonb_deep_sum
+        lantern
+        periods
+        pg-semver
+        pg_bigm
+        pg_byteamagic
+        pg_ed25519
+        pg_embedding
+        pg_hint_plan
+        pg_hll
+        pg_ivm
+        pg_net
+        pg_partman
+        pg_rational
+        pg_relusage
+        pg_repack
+        pg_roaringbitmap
+        pg_similarity
+        pg_sodium
+        pg_uuidv7
+        pgaudit
+        pgddl
+        pgjwt
+        pgmq
+        pgroonga
+        pgrouting
+        pgsql-http
+        pgtap
+        pgvector-rs
+        pgvectorscale
+        plpgsql_check
+        plpython3
+        plv8
+        postgis
+        postgit
+        rum
+        smlar
+        system_stats
+        temporal_tables
+        timescaledb
+        timescaledb_toolkit
+        tsja
+        wal2json
+      ];
   };
 }

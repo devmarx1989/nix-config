@@ -11,6 +11,7 @@
         expr: sum(up)
   '';
   ports = config.my.ports;
+  pgPort = ports.promPostgres;
   ps = toString ports.postgres;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
@@ -126,7 +127,7 @@ in {
         job_name = "postgres";
         static_configs = [
           {
-            targets = ["127.0.0.1:${ps}"];
+            targets = ["127.0.0.1:${pgPort}"];
           }
         ];
       }
@@ -139,23 +140,37 @@ in {
 
     # Example: add your own alert rules (optional)
     ruleFiles = [baseRules];
-  };
 
-  #### Node exporter (host metrics)
-  services.prometheus.exporters.node = {
-    enable = true;
-    listenAddress = "0.0.0.0";
-    port = node;
-  };
+    exporters = {
+      node = {
+        enable = true;
+        listenAddress = "0.0.0.0";
+        port = node;
+      };
 
-  #### Minimal Alertmanager
-  services.prometheus.alertmanager = {
-    enable = true;
-    listenAddress = "0.0.0.0";
-    port = am;
-    configuration = {
-      route = {receiver = "null";};
-      receivers = [{name = "null";}];
+      postgres = {
+        enable = true;
+        port = pgPort;
+        user = "postgres-exporter";
+        group = "postgres-exporter";
+        telemetryPath = "/metrics";
+        runAsLocalSuperUser = false;
+        listenAddress = "0.0.0.0";
+        extraFlags = [
+          "--log.level=debug"
+        ];
+      };
+    };
+
+    #### Minimal Alertmanager
+    alertmanager = {
+      enable = true;
+      listenAddress = "0.0.0.0";
+      port = am;
+      configuration = {
+        route = {receiver = "null";};
+        receivers = [{name = "null";}];
+      };
     };
   };
 
