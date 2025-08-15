@@ -125,7 +125,6 @@ in {
         pg_similarity
         pgsodium
         pg_uuidv7
-        pgaudit
         pgddl
         pgjwt
         pgmq
