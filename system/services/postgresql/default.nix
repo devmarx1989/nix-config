@@ -138,7 +138,6 @@ in {
         plv8
         postgis
         rum
-        smlar
         system_stats
         temporal_tables
         timescaledb
