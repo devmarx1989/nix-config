@@ -11,7 +11,7 @@ in {
     enable = true;
     instances = 1;
     listenPlain = [
-      "${kred}"
+      "${kresd}"
       "0.0.0.0:${kresd}"
       "[::]:${kresd}"
     ];
