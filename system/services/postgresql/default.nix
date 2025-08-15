@@ -78,6 +78,6 @@ in {
       host    all             all             localhost               trust
     '';
 
-    extensions = ps: with ps; [ postgis pg_repack ];
+    extensions = ps: with ps; [postgis pg_repack];
   };
 }
