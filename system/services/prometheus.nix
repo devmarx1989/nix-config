@@ -11,6 +11,7 @@
         expr: sum(up)
   '';
   ports = config.my.ports;
+  ps = toString ports.postgres;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
   corednsProm = toString ports.corednsProm;
@@ -118,6 +119,14 @@ in {
             labels = {
               job = "kresd";
             };
+          }
+        ];
+      }
+      {
+        job_name = "postgres";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${ps}"];
           }
         ];
       }

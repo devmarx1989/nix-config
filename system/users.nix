@@ -22,6 +22,7 @@ in {
       "jellyfin"
       "networkmanager"
       "ollama"
+      "postgresql"
       "render"
       "squid"
       "video"

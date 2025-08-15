@@ -20,6 +20,7 @@
   "lokiHttp"
   "nodeExporter"
   "ollama"
+  "postgres"
   "prometheus"
   "promtailGrpc"
   "promtailHttp"
