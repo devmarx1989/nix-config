@@ -23,5 +23,5 @@ let
 
       http.prometheus.namespace = 'kresd_'
     ''; 
-  }
+  };
 }
