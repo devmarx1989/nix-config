@@ -12,7 +12,6 @@ let
       "0.0.0.0:${kresd}"
       "[::]:${kresd}"
     ];
-    extraConfig = import ./config.lua;
     extraConfig = ''
       modules.load('predict')
       modules.load('http')

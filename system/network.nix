@@ -8,7 +8,7 @@
 in {
   networking = {
     useDHCP = lib.mkDefault true;
-    nameservers = ["127.0.0.1"]; 
+    nameservers = ["127.0.0.1"];
     hostName = "house-of-marx";
     firewall.enable = false;
     # Enable IPv6 stack so Squid can bind [::] quietly

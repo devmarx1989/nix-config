@@ -117,7 +117,7 @@ in {
             targets = ["127.0.0.1:${kresdProm}"];
             labels = {
               job = "kresd";
-            }
+            };
           }
         ];
       }
