@@ -34,7 +34,6 @@ in {
     CXX = "scacche clang++";
     EDITOR = "nvim";
     GTK_ENABLE_PRIMARY_PASTE = "1";
-    LANG = "C.UTF-8";
     LIBGL_ALWAYS_INDIRECT = "1";
     MAX_JOBS = "16";
     MCFLY_FUZZY = "2";
