@@ -10,7 +10,7 @@
     ./kresd/default.nix
     ./loki.nix
     ./ollama.nix
-    ./postgresql.nix
+    ./postgresql/default.nix
     ./prometheus.nix
     ./promtail.nix
     ./squid.nix
