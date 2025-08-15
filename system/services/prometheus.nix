@@ -12,6 +12,7 @@
   '';
   ports = config.my.ports;
   pgPort = ports.promPostgres;
+  pgsPort = toString pgPort;
   ps = toString ports.postgres;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
@@ -127,7 +128,7 @@ in {
         job_name = "postgres";
         static_configs = [
           {
-            targets = ["127.0.0.1:${pgPort}"];
+            targets = ["127.0.0.1:${pgsPort}"];
           }
         ];
       }
