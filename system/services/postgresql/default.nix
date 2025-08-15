@@ -141,7 +141,6 @@ in {
         plpython3
         plv8
         postgis
-        postgit
         rum
         smlar
         system_stats
