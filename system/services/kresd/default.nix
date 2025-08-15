@@ -11,9 +11,7 @@ in {
     enable = true;
     instances = 1;
     listenPlain = [
-      "${kresd}"
       "0.0.0.0:${kresd}"
-      "[::]:${kresd}"
     ];
     extraConfig = ''
       modules.load('predict')
