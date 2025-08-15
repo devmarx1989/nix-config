@@ -125,7 +125,7 @@ in {
         pg_repack
         pg_roaringbitmap
         pg_similarity
-        pg_sodium
+        pgsodium
         pg_uuidv7
         pgaudit
         pgddl
