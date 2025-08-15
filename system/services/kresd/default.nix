@@ -1,9 +1,12 @@
-{config, services, ...}:
-let
-  ports = config.my.ports;
-  kresd =  toString ports.kresd;
-  kresdProm = toString ports.kresdProm;
 {
+  config,
+  services,
+  ...
+}: let
+  ports = config.my.ports;
+  kresd = toString ports.kresd;
+  kresdProm = toString ports.kresdProm;
+in {
   services.kresd = {
     enable = true;
     instances = 1;
@@ -22,6 +25,6 @@ let
       net.listen('0.0.0.0', ${kresdProm}, { kind = 'webmgmt' })
 
       http.prometheus.namespace = 'kresd_'
-    ''; 
+    '';
   };
 }
