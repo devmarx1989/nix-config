@@ -36,6 +36,7 @@ in {
     ];
 
     ensureDatabases = [
+      "root"
       "data"
     ];
 
