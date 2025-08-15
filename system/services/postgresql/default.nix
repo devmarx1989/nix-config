@@ -114,7 +114,6 @@ in {
         pg-semver
         pg_bigm
         pg_byteamagic
-        pg_hint_plan
         pg_hll
         pg_ivm
         pg_net
