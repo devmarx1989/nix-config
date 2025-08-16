@@ -147,4 +147,10 @@ in {
         wal2json
       ];
   };
+  systemd.services.postgresql.unitConfig.RequiresMountsFor = ["/store/postgresql"];
+
+  # Only create cache parents; no ssl/ssl_db anymore
+  systemd.tmpfiles.rules = [
+    "d /store/postgresql   0777 postgresql postgresql - -"
+  ];
 }
