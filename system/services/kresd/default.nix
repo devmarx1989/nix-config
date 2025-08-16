@@ -14,7 +14,7 @@ in {
       "0.0.0.0:${kresd}"
     ];
     extraConfig = ''
-      modules.load('predict')
+      --modules.load('predict')
       --modules.load('http')
 
       cache.size = 10024 * MB
