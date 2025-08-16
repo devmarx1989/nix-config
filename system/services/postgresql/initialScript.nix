@@ -1,4 +1,8 @@
-{services, ...}: let
+{
+  services,
+  config,
+  ...
+}: let
   ports = config.my.ports;
   ps = ports.postgres;
   promUser = "postgres-exporter";
