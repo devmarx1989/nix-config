@@ -14,6 +14,7 @@
     ./prometheus.nix
     ./promtail.nix
     ./squid.nix
+    ./systemd/default.nix
     ./systemd-drive.nix
     ./systemd-store.nix
   ];

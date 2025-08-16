@@ -23,15 +23,19 @@ in {
       acl localnet src 127.0.0.1/32 192.168.0.0/16 10.0.0.0/8
       http_access allow localnet
       http_access allow localhost
-      http_access deny all
+
+      # Allow cachemgr on localhost
+      acl manager proto cache_object
+      acl localhost src 127.0.0.1/32 ::1
+      http_access allow localhost manager
 
       # --- Cache sizing & policy ---
-      cache_mem 1024 MB
+      cache_mem 4024 MB
       maximum_object_size 512 MB
       cache_replacement_policy heap LFUDA
       memory_replacement_policy heap GDSF
 
-      cache_dir ufs  /drive/Store/squid/ufs  40971 64 256
+      cache_dir ufs  /store/squid/ufs  40971 64 256
 
       range_offset_limit -1
       collapsed_forwarding on
@@ -49,11 +53,11 @@ in {
     '';
   };
 
-  # Make sure /drive is mounted before squid starts
-  systemd.services.squid.unitConfig.RequiresMountsFor = ["/drive/Store/squid"];
+  systemd.services.squid.unitConfig.RequiresMountsFor = ["/store/squid"];
 
   # Only create cache parents; no ssl/ssl_db anymore
   systemd.tmpfiles.rules = [
-    "d /drive/Store/squid/ufs  0777 squid squid - -"
+    "d /store/squid      0777 squid squid - -"
+    "d /store/squid/ufs  0777 squid squid - -"
   ];
 }

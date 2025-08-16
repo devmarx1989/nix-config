@@ -11,20 +11,21 @@
         expr: sum(up)
   '';
   ports = config.my.ports;
-  pgPort = ports.promPostgres;
-  pgsPort = toString pgPort;
-  ps = toString ports.postgres;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
   corednsProm = toString ports.corednsProm;
+  ipfs = toString ports.ipfs3;
+  kresdProm = toString ports.kresdProm;
   loki = toString ports.lokiHttp;
   node = ports.nodeExporter;
   nodes = toString node;
+  pgPort = ports.promPostgres;
+  pgsPort = toString pgPort;
   promWebPort = ports.prometheus;
   promWebPorts = toString ports.prometheus;
   promtail = toString ports.promtailHttp;
-  ipfs = toString ports.ipfs3;
-  kresdProm = toString ports.kresdProm;
+  ps = toString ports.postgres;
+  squidProm = toString ports.squidProm;
 in {
   #### Prometheus server
   services.prometheus = {
@@ -129,6 +130,20 @@ in {
         static_configs = [
           {
             targets = ["127.0.0.1:${pgsPort}"];
+            labels = {
+              job = "postgres";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "squid";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${squidProm}"];
+            labels = {
+              job = "squid";
+            };
           }
         ];
       }
