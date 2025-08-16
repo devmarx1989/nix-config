@@ -16,7 +16,7 @@ in {
     ./authentication.nix
     ./ensureUsers.nix
     ./extensions.nix
-    ./intialScript.nix
+    ./initialScript.nix
   ];
   services.postgresql = {
     enable = true;
