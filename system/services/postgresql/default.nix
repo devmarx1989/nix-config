@@ -33,14 +33,13 @@ in {
 
     initdbArgs = [
       "--data-checksums"
-      "--allow-group-access"
     ];
 
     ensureDatabases = [
       root
       promUser
       "data"
-      "postgresql"
+      "postgres"
     ];
 
     enableTCPIP = true;
@@ -52,6 +51,6 @@ in {
 
   # Only create cache parents; no ssl/ssl_db anymore
   systemd.tmpfiles.rules = [
-    "d /store/postgresql   0777 postgresql postgresql - -"
+    "d /store/postgresql   0777 postgres postgres - -"
   ];
 }

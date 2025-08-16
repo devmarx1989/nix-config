@@ -16,7 +16,6 @@ with lib.hm.gvariant; {
 
     "org/gnome/Console" = {
       custom-font = "Monaspace Krypton Var 13";
-      font-scale = mkDouble 1.0;
       ignore-scrollback-limit = true;
       theme = "day";
       use-system-font = true;
