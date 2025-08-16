@@ -1,0 +1,42 @@
+{services, ...}: {
+  services.postgresql.extensions = ps:
+    with ps; [
+      h3-pg
+      jsonb_deep_sum
+      lantern
+      periods
+      pg-semver
+      pg_bigm
+      pg_byteamagic
+      pg_hll
+      pg_ivm
+      pg_net
+      pg_partman
+      pg_rational
+      pg_relusage
+      pg_repack
+      pg_roaringbitmap
+      pg_similarity
+      pgsodium
+      pg_uuidv7
+      pgddl
+      pgjwt
+      pgmq
+      pgroonga
+      pgrouting
+      pgsql-http
+      pgtap
+      pgvectorscale
+      plpgsql_check
+      plpython3
+      plv8
+      postgis
+      rum
+      system_stats
+      temporal_tables
+      timescaledb
+      timescaledb_toolkit
+      tsja
+      wal2json
+    ];
+}
