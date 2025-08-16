@@ -14,9 +14,10 @@
 in {
   services.postgresql = {
     enable = true;
-    port = ps;
     package = pkgs.postgresql_18_jit;
     settings = {
+      port = ps;
+      log_line_prefix = "%m [%p] ";
       log_connections = true;
       log_statement = "all";
       logging_collector = true;
