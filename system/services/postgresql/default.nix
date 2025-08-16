@@ -14,7 +14,7 @@
 in {
   services.postgresql = {
     enable = true;
-    package = pkgs.postgresql_17;
+    package = pkgs.postgresql_17_jit;
     settings = {
       port = ps;
       log_line_prefix = "%m [%p] ";
