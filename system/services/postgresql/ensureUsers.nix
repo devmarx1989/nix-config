@@ -30,7 +30,7 @@ in {
       };
     }
     {
-      name = "postgresql";
+      name = "postgres";
       ensureDBOwnership = true;
       ensureClauses = {
         superuser = true;
