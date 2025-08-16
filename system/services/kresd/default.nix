@@ -8,7 +8,7 @@
   kresdPort = toString ports.kresd;
   kresdProm = toString ports.kresdProm;
 
-  # LuaJIT packages we need for the HTTP module
+  # LuaJIT packages needed by kresd's 'http' module
   lp = pkgs.luajitPackages;
   luaPkgs = [
     (lp.cqueues or lp.lua-cqueues)
@@ -18,7 +18,7 @@
   luaPath = pkgs.lib.makeSearchPath "share/lua/5.1" luaPkgs;
   luaCPath = pkgs.lib.makeSearchPath "lib/lua/5.1" luaPkgs;
 
-  # Wrap kresd so LUA_PATH/LUA_CPATH include the modules
+  # Wrap kresd so LUA_PATH/LUA_CPATH include required modules
   kresdWrapped = pkgs.symlinkJoin {
     name = "knot-resolver-with-http";
     paths = [pkgs.knot-resolver];
@@ -32,27 +32,24 @@
 in {
   services.kresd = {
     enable = true;
-    package = kresdWrapped; # <-- use the wrapped binary
+    package = kresdWrapped;
     instances = 1;
 
-    # Use kresd's native address syntax (host@port). Dual-stack is fine.
+    # NixOS module expects host:port / [::]:port here
     listenPlain = [
-      "0.0.0.0@${kresdPort}"
-      "[::]@${kresdPort}"
+      "0.0.0.0:${kresdPort}"
+      "[::]:${kresdPort}"
     ];
 
     extraConfig = ''
-      -- enable useful modules
       modules.load('predict')
       modules.load('http')
 
-      -- big cache
       cache.size = 10024 * MB
 
-      -- don't auto-load root trust anchors (you explicitly removed '.')
       trust_anchors.remove('.')
 
-      -- expose webmgmt + Prometheus /metrics
+      -- Web management + Prometheus (/metrics) on kresdProm
       net.listen('0.0.0.0', ${kresdProm}, { kind = 'webmgmt' })
       http.prometheus.namespace = 'kresd_'
     '';
