@@ -1,4 +1,8 @@
-{service, ...}: let
+{
+  service,
+  config,
+  ...
+}: let
   ports = config.my.ports;
   ps = ports.postgres;
   promUser = "postgres-exporter";
@@ -6,7 +10,7 @@
   root = "admin";
   pass = "admin";
 in {
-  services.postgrsql.ensureUsers = [
+  services.postgresql.ensureUsers = [
     {
       name = root;
       ensureDBOwnership = true;
