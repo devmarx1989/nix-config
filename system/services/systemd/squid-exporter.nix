@@ -1,3 +1,4 @@
+# system/services/systemd/squid-exporter.nix
 {
   config,
   pkgs,
@@ -11,14 +12,19 @@ in {
   systemd.services.prometheus-squid-exporter = {
     description = "Prometheus Squid Exporter";
     wantedBy = ["multi-user.target"];
-    after = ["network.target" "squid.service"];
+    after = ["network-online.target" "squid.service"];
+    wants = ["network-online.target"];
+
     serviceConfig = {
       ExecStart = ''
-        ${pkgs.prometheus-squid-exporter}/bin/prometheus-squid-exporter \
+        ${pkgs.squid-exporter}/bin/squid-exporter \
           -squid-hostname 127.0.0.1 \
           -squid-port ${squidHttp} \
-          -listen ":${squidProm}" \
+          -listen ":${squidProm}"
       '';
+      # Optional: expose process_* FDs metric (see README)
+      # AmbientCapabilities = "CAP_DAC_READ_SEARCH";
+      # CapabilityBoundingSet = "CAP_DAC_READ_SEARCH";
       DynamicUser = true;
       Restart = "always";
     };
