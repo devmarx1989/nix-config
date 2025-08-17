@@ -190,11 +190,10 @@ in {
     };
   };
 
-  # Example for Grafana to point at Prometheus on port 4000:
-  # services.grafana.provision.datasources = [{
-  #   name = "Prometheus";
-  #   type = "prometheus";
-  #   url  = "http://localhost:4000";
-  #   isDefault = true;
-  # }];
+  systemd.services.prometheus.unitConfig.RequiresMountsFor = ["/store/prometheus"];
+
+  # Only create cache parents; no ssl/ssl_db anymore
+  systemd.tmpfiles.rules = [
+    "d /store/prometheus   0777 prometheus prometheus - -"
+  ];
 }

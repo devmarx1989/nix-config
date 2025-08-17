@@ -79,8 +79,13 @@ in {
     };
   };
 
+  systemd.services.loki.unitConfig.RequiresMountsFor = [config.services.loki.dataDir];
+
   systemd.tmpfiles.rules = [
     # add this alongside your other tmpfiles rules (if any)
+    "d ${config.services.loki.dataDir}       0777 loki loki - -"
     "d ${config.services.loki.dataDir}/rules 0777 loki loki - -"
+    "d ${config.services.loki.dataDir}/compactor 0777 loki loki - -"
+    "d ${config.services.loki.dataDir}/chunks 0777 loki loki - -"
   ];
 }

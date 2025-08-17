@@ -91,4 +91,10 @@ in {
       ];
     };
   };
+  systemd.services.grafana.unitConfig.RequiresMountsFor = ["/store/grafana"];
+
+  # Only create cache parents; no ssl/ssl_db anymore
+  systemd.tmpfiles.rules = [
+    "d /store/grafana   0777 grafana grafana - -"
+  ];
 }

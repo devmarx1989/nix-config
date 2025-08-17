@@ -15,11 +15,8 @@
     ./promtail.nix
     ./squid.nix
     ./systemd/default.nix
-    ./systemd-drive.nix
-    ./systemd-store.nix
   ];
 
-  security.rtkit.enable = true;
   services.desktopManager.gnome.enable = true;
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "dev-marx";

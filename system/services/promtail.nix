@@ -58,4 +58,10 @@ in {
   };
 
   users.users.promtail.extraGroups = ["systemd-journal"];
+  systemd.services.promtail.unitConfig.RequiresMountsFor = ["/store/promtail"];
+
+  # Only create cache parents; no ssl/ssl_db anymore
+  systemd.tmpfiles.rules = [
+    "d /store/promtail   0777 promtail promtail - -"
+  ];
 }

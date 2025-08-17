@@ -54,4 +54,5 @@ in {
   };
 
   users.groups.calibre = {};
+  systemd.services.calibre.unitConfig.RequiresMountsFor = ["/drive/Libs"];
 }

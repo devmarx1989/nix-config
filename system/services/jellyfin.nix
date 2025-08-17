@@ -15,4 +15,13 @@ in {
     logDir = "/store/jellyfin/log";
     cacheDir = "/store/jellyfin/cache";
   };
+
+  systemd.services.jellyfin.unitConfig.RequiresMountsFor = ["/store/jellyfin"];
+
+  # Only create cache parents; no ssl/ssl_db anymore
+  systemd.tmpfiles.rules = [
+    "d /store/jellyfin   0777 jellyfin jellyfin - -"
+    "d /store/jellyfin/log   0777 jellyfin jellyfin - -"
+    "d /store/jellyfin/cache   0777 jellyfin jellyfin - -"
+  ];
 }
