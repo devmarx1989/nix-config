@@ -33,4 +33,12 @@
     fsType = "xfs";
     options = ["noatime" "lazytime" "inode64" "nofail" "x-systemd.automount" "x-systemd.idle-timeout=600"];
   };
+
+  systemd.tmpfiles.rules = [
+    "d /drive/books 0755 dev-marx dev-marx -"
+    "d /drive/caches 0755 dev-marx dev-marx -"
+    "d /drive/cold 0755 dev-marx dev-marx -"
+    "d /drive/scratch 0755 dev-marx dev-marx -"
+    "d /drive/stage 0755 dev-marx dev-marx -"
+  ];
 }
