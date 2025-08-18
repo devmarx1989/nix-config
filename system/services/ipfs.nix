@@ -10,7 +10,7 @@
   p4 = toString config.my.ports.ipfs4;
 in {
   services.kubo = {
-    enable = enable;
+    enable = true;
     dataDir = "/drive/stage/ipfs";
 
     #pinnedFiles = [
