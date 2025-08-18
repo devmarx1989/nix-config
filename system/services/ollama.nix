@@ -96,4 +96,12 @@ in {
   # Belt-and-suspenders: if something elsewhere overrides the unit, force ExecStart.
   systemd.services.ollama.serviceConfig.ExecStart =
     lib.mkForce "${pkgs.ollama}/bin/ollama serve";
+
+  systemd.services.ollama.unitConfig.RequiresMountsFor = ["/drive/cold/models/ollama"];
+
+  systemd.tmpfiles.rules = [
+    "d /drive/cold/models/ollama         0777 ollama ollama -"
+    "d /drive/cold/models/ollama/.ollama 0777 ollama ollama -"
+    "d /drive/cold/models/ollama/models  0777 ollama ollama -"
+  ];
 }
