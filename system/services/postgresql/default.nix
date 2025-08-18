@@ -19,7 +19,7 @@ in {
     ./initialScript.nix
   ];
   services.postgresql = {
-    enable = true;
+    enable = false;
     package = pkgs.postgresql_17_jit;
     settings = {
       port = ps;

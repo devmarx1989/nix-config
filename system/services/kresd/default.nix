@@ -31,7 +31,7 @@
   };
 in {
   services.kresd = {
-    enable = true;
+    enable = false;
     package = kresdWrapped;
     instances = 1;
 

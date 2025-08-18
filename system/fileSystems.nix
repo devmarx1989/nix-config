@@ -20,12 +20,6 @@
     options = ["fmask=0077" "dmask=0077"];
   };
 
-  fileSystems."/drive" = {
-    device = "/dev/disk/by-label/drive";
-    fsType = "ntfs3";
-    options = ["rw" "uid=1000" "gid=100" "umask=0022"];
-  };
-
   fileSystems."/store" = {
     device = "/dev/disk/by-label/store";
     fsType = "ext4";
