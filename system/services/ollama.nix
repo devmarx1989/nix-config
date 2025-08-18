@@ -21,6 +21,7 @@ in {
 
     # Store Ollama models and config in a custom location
     home = "/drive/cold/models/ollama";
+    models = "/drive/cold/models/ollama/models";
 
     # Use CUDA (NVIDIA GPU acceleration)
     acceleration = "cuda";
@@ -82,15 +83,16 @@ in {
     };
   };
 
-  # Optional: Create the ollama user/group and ensure the directory exists
+  users.groups.ollama = {};
   users.users.ollama = {
     isSystemUser = true;
     group = "ollama";
+    extraGroups = ["video" "render"];
+    home = "/drive/cold/models/ollama";
+    createHome = true;
   };
 
-  users.groups.ollama = {};
-
-  # Optional: make sure the user has GPU access
-  # (assuming you're using the `video` or `render` group for your GPU)
-  users.users.ollama.extraGroups = ["video" "render"];
+  # Belt-and-suspenders: if something elsewhere overrides the unit, force ExecStart.
+  systemd.services.ollama.serviceConfig.ExecStart =
+    lib.mkForce "${pkgs.ollama}/bin/ollama serve";
 }
