@@ -93,4 +93,13 @@ in {
       };
     };
   };
+
+  systemd.services.ipfs.unitConfig.RequiresMountsFor = ["/drive/stage/ipfs"];
+
+  # Only create cache parents; no ssl/ssl_db anymore
+  systemd.tmpfiles.rules = [
+    "d /drive/stage/ipfs              0777 ipfs ipfs - -"
+    "d /drive/stage/ipfs/blocks/      0777 ipfs ipfs - -"
+    "d /drive/stage/ipfs/blocks/.temp 0777 ipfs ipfs - -"
+  ];
 }
