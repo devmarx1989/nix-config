@@ -8,7 +8,7 @@
   ollamaPort = ports.ollama;
 in {
   services.ollama = {
-    enable = false;
+    enable = true;
 
     # Run Ollama as its own user
     user = "ollama";
@@ -20,7 +20,7 @@ in {
     openFirewall = true;
 
     # Store Ollama models and config in a custom location
-    home = "/drive/AI/Apps/ollama";
+    home = "/drive/cold/models/ollama";
 
     # Use CUDA (NVIDIA GPU acceleration)
     acceleration = "cuda";
