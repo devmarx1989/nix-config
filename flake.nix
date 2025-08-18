@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     alejandra.url = "github:kamadorueda/alejandra";
     mathematica-flake.url = "github:devmarx1989/mathematica-flake";
   };
@@ -22,6 +27,7 @@
     nixpkgs,
     home-manager,
     nixvim,
+    disko,
     alejandra,
     mathematica-flake,
     ...
@@ -46,6 +52,7 @@
       inherit system;
 
       modules = [
+        disko.nixosModules.disko
         ./modules/options/ports.nix
         ./system/default.nix
         home-manager.nixosModules.home-manager

@@ -7,6 +7,7 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
+  boot.supportedFilesystems = ["btrfs" "xfs"];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

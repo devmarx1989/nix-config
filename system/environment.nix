@@ -17,6 +17,9 @@ in {
       ++ [
         ccache
         sccache
+        btrfs-progs
+        xfsprogs
+        e2fsprogs
       ]
   );
 
