@@ -5,6 +5,7 @@
     ./api.nix
     ./archive.nix
     ./c.nix
+    ./chat.nix
     ./crypto.nix
     ./db.nix
     ./docker.nix
