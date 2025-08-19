@@ -89,7 +89,7 @@ in {
     isSystemUser = true;
     group = "ollama";
     extraGroups = ["video" "render"];
-    home = "/drive/cold/models/ollama";
+    home = "/drive/ollama";
     createHome = true;
   };
 
@@ -97,11 +97,11 @@ in {
   systemd.services.ollama.serviceConfig.ExecStart =
     lib.mkForce "${pkgs.ollama}/bin/ollama serve";
 
-  systemd.services.ollama.unitConfig.RequiresMountsFor = ["/drive/cold/models/ollama"];
+  systemd.services.ollama.unitConfig.RequiresMountsFor = ["/drive/ollama"];
 
   systemd.tmpfiles.rules = [
-    "d /drive/cold/models/ollama         0777 ollama ollama -"
-    "d /drive/cold/models/ollama/.ollama 0777 ollama ollama -"
-    "d /drive/cold/models/ollama/models  0777 ollama ollama -"
+    "d /drive/ollama         0777 ollama ollama -"
+    "d /drive/ollama/.ollama 0777 ollama ollama -"
+    "d /drive/ollama/models  0777 ollama ollama -"
   ];
 }
