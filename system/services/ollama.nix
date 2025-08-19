@@ -21,8 +21,8 @@ in {
     openFirewall = true;
 
     # Store Ollama models and config in a custom location
-    home = "/drive/cold/models/ollama";
-    models = "/drive/cold/models/ollama/models";
+    home = "/drive/ollama";
+    models = "/drive/ollama/models";
 
     # Use CUDA (NVIDIA GPU acceleration)
     acceleration = "cuda";

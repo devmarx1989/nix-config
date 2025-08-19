@@ -1,4 +1,4 @@
-{disko, ...}: {
+{
   disko.devices = {
     disk.big18t = {
       device = "/dev/disk/by-id/ata-ST18000NM000J-2TV103_ZR5260QV"; # whole disk

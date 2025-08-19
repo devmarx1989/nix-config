@@ -11,7 +11,7 @@
 in {
   services.kubo = {
     enable = true;
-    dataDir = "/drive/stage/ipfs";
+    dataDir = "/drive/ipfs";
 
     #pinnedFiles = [
     #  "bafybeicxcbb23czpad3jvbqpeg6z3ozbrohljxq37bfmzsjzbr3c32q2t4"
