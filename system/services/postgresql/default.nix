@@ -52,6 +52,7 @@ in {
 
   # Only create cache parents; no ssl/ssl_db anymore
   systemd.tmpfiles.rules = [
-    "d /store/postgresql   0777 postgres postgres - -"
+    "d /store/postgresql 0700 postgres postgres - -"
+    "Z /store/postgresql 0700 postgres postgres - -"
   ];
 }

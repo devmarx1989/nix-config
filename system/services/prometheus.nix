@@ -115,18 +115,6 @@ in {
         ];
       }
       {
-        job_name = "kresd";
-        metrics_path = "/metrics";
-        static_configs = [
-          {
-            targets = ["127.0.0.1:${kresdProm}"];
-            labels = {
-              job = "kresd";
-            };
-          }
-        ];
-      }
-      {
         job_name = "postgres";
         static_configs = [
           {
