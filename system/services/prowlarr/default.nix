@@ -64,4 +64,10 @@ in {
     # mode uid      gid       age path
     "d /store/prowlarr 0750 prowlarr prowlarr -"
   ];
+
+  # Keep whatever services.prowlarr.* you already set (enable, settings, etc.)
+  # Then hard-override ExecStart so the -data flag uses /store/prowlarr.
+  systemd.services.prowlarr.serviceConfig.ExecStart =
+    lib.mkForce
+    "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/store/prowlarr";
 }
