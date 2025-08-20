@@ -7,5 +7,12 @@
     mold
     musl
     yasm
+    gcc
+    gnumake
+    pkg-config
+    zlib
+    openssl
+    libxml2
+    libxslt
   ];
 }
