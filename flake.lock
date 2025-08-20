@@ -250,22 +250,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1754651824,
-        "narHash": "sha256-aB7ft6njy9EJfuW+rdToNChfRrHNRw/yTg5cSEnG+HI=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b069b7c1e2fe1a3a24221428558bf44128d3d5c8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts",
@@ -319,8 +303,7 @@
         "home-manager": "home-manager",
         "mathematica-flake": "mathematica-flake",
         "nixpkgs": "nixpkgs_3",
-        "nixvim": "nixvim",
-        "z-lib": "z-lib"
+        "nixvim": "nixvim"
       }
     },
     "rust-analyzer-src": {
@@ -382,24 +365,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "z-lib": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_4"
-      },
-      "locked": {
-        "lastModified": 1755670332,
-        "narHash": "sha256-P8Wom9OgfKtUxnHjtmm9Y1SKMguHRkqd8zLDUVxsK5M=",
-        "owner": "devmarx1989",
-        "repo": "z-lib-deb-nix",
-        "rev": "d722f8f4e35b68c08164d6f5cfb1b80e1160327d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "devmarx1989",
-        "repo": "z-lib-deb-nix",
         "type": "github"
       }
     }
