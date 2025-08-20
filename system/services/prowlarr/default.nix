@@ -59,4 +59,9 @@ in {
     firewallRules = []; # confirmed option
     firewallFilter = null; # confirmed option
   };
+
+  systemd.tmpfiles.rules = [
+    # mode uid      gid       age path
+    "d /store/prowlarr 0750 prowlarr prowlarr -"
+  ];
 }
