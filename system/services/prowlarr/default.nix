@@ -1,4 +1,8 @@
-{services, ...}: let
+{
+  services,
+  pkgs,
+  ...
+}: let
   pt = 11000;
   pts = toString 11000;
   promPt = 11001;
