@@ -5,13 +5,12 @@
   ...
 }: let
   ports = config.my.ports;
+  db = "bitmagnet";
   pgPort = toString ports.postgres; # your running Postgres port
 
   # Script that checks/creates the DB using PG* env vars and psql/createdb.
   ensureBitmagnetDb = pkgs.writeShellScript "ensure-bitmagnet-db" ''
     set -Eeuo pipefail
-
-    db="bitmagnet"
 
     # Returns "1" if exists, empty otherwise
     if psql -h 127.0.0.1 -p ${pgPort} -U admin -d postgres -tA \
