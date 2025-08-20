@@ -45,7 +45,7 @@ in {
     openFirewall = false; # confirmed option
 
     # Point at your Prowlarr HTTP URL and supply API key via file
-    url = "http://127.0.0.1:${pt}"; # confirmed option
+    url = "http://127.0.0.1:${pts}"; # confirmed option
     apiKeyFile = "/run/secrets/prowlarr-api-key"; # confirmed option
 
     # Run-as user/group (defaults are fine; set explicitly if you like)
