@@ -14,7 +14,7 @@
     ./postgresql/default.nix
     ./prometheus.nix
     ./promtail.nix
-    ./prowlarr.nix
+    ./prowlarr/default.nix
     ./squid.nix
     ./systemd/default.nix
   ];
