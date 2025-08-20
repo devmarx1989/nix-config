@@ -6,8 +6,8 @@
 }: let
   stateDir = "/store/bitmagnet";
   ports = config.my.ports;
-  dhtPort = toString ports.bitmagnetDht; # choose any open UDP port you like
-  httpPort = toString ports.bitmagnetHttp; # <-- you asked to source this here
+  dhtPort = ports.bitmagnetDht; # choose any open UDP port you like
+  httpPort = ports.bitmagnetHttp; # <-- you asked to source this here
   pgPort = toString ports.postgres; # <-- your running Postgres port
 in {
   # Ensure the target exists with sane perms owned by the service user
