@@ -1,6 +1,8 @@
 [
   "alertmanager"
   "avahi"
+  "bitmagnetHttp"
+  "bitmagnetDht"
   "cadvisor"
   "calibreServer"
   "calibreWeb"

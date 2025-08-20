@@ -13,6 +13,7 @@
   ports = config.my.ports;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
+  bitHttp = toString ports.bitmagnetHttp;
   corednsProm = toString ports.corednsProm;
   ipfs = toString ports.ipfs3;
   kresdProm = toString ports.kresdProm;
@@ -143,6 +144,17 @@ in {
             targets = ["127.0.0.1:${squidProm}"];
             labels = {
               job = "squid";
+            };
+          }
+        ];
+      }
+      {
+        job_name = "bitmagnet";
+        static_configs = [
+          {
+            targets = ["127.0.0.1:${bitHttp}"];
+            labels = {
+              job = "bitmagnet";
             };
           }
         ];
