@@ -59,7 +59,7 @@ in {
 
       # services.bitmagnet.settings.http_server.port
       http_server = {
-        port = 3333; # Web UI / API / /metrics
+        port = "3333"; # Web UI / API / /metrics
       };
 
       # services.bitmagnet.settings.dht_server.port
