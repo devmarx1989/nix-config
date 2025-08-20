@@ -10,6 +10,7 @@
     typst-live
     typstfmt
     typstyle
+    zotero
     zed-editor
   ];
 }

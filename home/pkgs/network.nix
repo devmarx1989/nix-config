@@ -7,7 +7,6 @@
     expressvpn
     iroh
     lagrange
-    lagrange-tui
     localsend
     masscan
     nethogs
