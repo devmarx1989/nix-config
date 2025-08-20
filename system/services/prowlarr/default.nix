@@ -1,5 +1,6 @@
 {
   services,
+  lib,
   pkgs,
   ...
 }: let
