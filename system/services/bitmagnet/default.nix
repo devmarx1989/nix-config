@@ -18,6 +18,7 @@ in {
   systemd.services.bitmagnet = {
     requires = ["postgresql.service"];
     after = ["network-online.target" "postgresql.service"];
+    want = ["network-online.target" "postgresql.service"];
     # Optional: restart Bitmagnet if Postgres restarts (keeps a clean connection pool)
     partOf = ["postgresql.service"];
   };
