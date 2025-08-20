@@ -79,7 +79,7 @@ in {
       # If DB exists, systemd sees exit 0 and we skip creation
       ExecCondition = [
         # returns 0 if found, 1 if not found (we invert by using '!')
-        "${pkgs.bash}/bin/bash -lc '! ${pkgs.postgresql}/bin/psql -h 127.0.0.1 -p ${postgres} -U admin -d postgres -Atc \"SELECT 1 FROM pg_database WHERE datname = ''bitmagnet'';\" | ${pkgs.gnugrep}/bin/grep -q 1'"
+        "${pkgs.bash}/bin/bash -lc '! ${pkgs.postgresql}/bin/psql -h 127.0.0.1 -p ${pgPort} -U admin -d postgres -Atc \"SELECT 1 FROM pg_database WHERE datname = ''bitmagnet'';\" | ${pkgs.gnugrep}/bin/grep -q 1'"
       ];
 
       # Only runs when ExecCondition succeeds (i.e., DB missing)
