@@ -67,9 +67,12 @@ in {
     "d /store/prowlarr/Sentry 0777 prowlarr prowlarr -"
   ];
 
-  # Keep whatever services.prowlarr.* you already set (enable, settings, etc.)
-  # Then hard-override ExecStart so the -data flag uses /store/prowlarr.
-  systemd.services.prowlarr.serviceConfig.ExecStart =
-    lib.mkForce
-    "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/store/prowlarr";
+  # keep your ExecStart override OR switch to bind-mount (see note below)
+  systemd.services.prowlarr.serviceConfig = {
+    # You already set ExecStart; keep it:
+    ExecStart = lib.mkForce "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/store/prowlarr";
+
+    # THE IMPORTANT BIT: let the sandbox write to /store/prowlarr
+    ReadWritePaths = ["/store/prowlarr"];
+  };
 }
