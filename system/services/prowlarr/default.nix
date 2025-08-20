@@ -63,8 +63,8 @@ in {
 
   systemd.tmpfiles.rules = [
     # mode uid      gid       age path
-    "d /store/prowlarr 0750 prowlarr prowlarr -"
-    "d /store/prowlarr/Sentry 0750 prowlarr prowlarr -"
+    "d /store/prowlarr 0777 prowlarr prowlarr -"
+    "d /store/prowlarr/Sentry 0777 prowlarr prowlarr -"
   ];
 
   # Keep whatever services.prowlarr.* you already set (enable, settings, etc.)
