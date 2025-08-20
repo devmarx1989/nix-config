@@ -83,7 +83,7 @@ in {
       ];
 
       # Only runs when ExecCondition succeeds (i.e., DB missing)
-      ExecStart = "${pkgs.postgresql}/bin/createdb -h 127.0.0.1 -p ${toString config.my.postgres} -U admin bitmagnet";
+      ExecStart = "${pkgs.postgresql}/bin/createdb -h 127.0.0.1 -p ${pgPort} -U admin bitmagnet";
     };
   };
 }
