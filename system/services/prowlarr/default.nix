@@ -5,7 +5,7 @@
 }: let
   pt = 11000;
   pts = toString 11000;
-  promPt = 11001;
+  promPort = 11001;
 in {
   ############
   ## Prowlarr
