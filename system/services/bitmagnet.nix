@@ -5,9 +5,10 @@
   ...
 }: let
   stateDir = "/store/bitmagnet";
-  httpPort = config.my.bitmagnetHttp; # <-- you asked to source this here
-  pgPort = toString config.my.port.postgres; # <-- your running Postgres port
-  dhtPort = config.my.bitmagnetDht; # choose any open UDP port you like
+  ports = config.my.ports;
+  httpPort = ports.bitmagnetHttp; # <-- you asked to source this here
+  pgPort = toString ports.postgres; # <-- your running Postgres port
+  dhtPort = ports.bitmagnetDht; # choose any open UDP port you like
 in {
   # Ensure the target exists with sane perms owned by the service user
   systemd.tmpfiles.rules = [
