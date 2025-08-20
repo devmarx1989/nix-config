@@ -83,4 +83,13 @@ in {
     # Allow writes there despite ProtectSystem and friends.
     ReadWritePaths = ["/store/prowlarr"];
   };
+
+  users.groups.prowlarr = {};
+
+  users.users.prowlarr = {
+    isSystemUser = true;
+    group = "prowlarr";
+    description = "Prowlarr service user";
+    home = "/var/lib/prowlarr"; # fine to leave; dataDir is elsewhere
+  };
 }
