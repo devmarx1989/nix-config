@@ -7,7 +7,7 @@
   stateDir = "/store/bitmagnet";
   ports = config.my.ports;
   dhtPort = ports.bitmagnetDht; # choose any open UDP port you like
-  httpPort = toString ports.bitmagnetHttp; # <-- you asked to source this here
+  #httpPort = toString ports.bitmagnetHttp; # <-- you asked to source this here
   pgPort = toString ports.postgres; # <-- your running Postgres port
 in {
   # Ensure the target exists with sane perms owned by the service user
@@ -59,7 +59,7 @@ in {
 
       # services.bitmagnet.settings.http_server.port
       http_server = {
-        port = httpPort; # Web UI / API / /metrics
+        port = 3333; # Web UI / API / /metrics
       };
 
       # services.bitmagnet.settings.dht_server.port

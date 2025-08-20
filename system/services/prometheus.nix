@@ -13,7 +13,7 @@
   ports = config.my.ports;
   am = ports.alertmanager;
   ams = toString ports.alertmanager;
-  bitHttp = toString ports.bitmagnetHttp;
+  bitHttp = toString 3333;
   corednsProm = toString ports.corednsProm;
   ipfs = toString ports.ipfs3;
   kresdProm = toString ports.kresdProm;
