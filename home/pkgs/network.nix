@@ -6,7 +6,6 @@
     curl
     expressvpn
     iroh
-    lagrange
     localsend
     masscan
     nethogs

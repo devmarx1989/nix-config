@@ -4,6 +4,7 @@
     ./anime.nix
     ./api.nix
     ./archive.nix
+    ./browsers.nix
     ./c.nix
     ./chat.nix
     ./crypto.nix
@@ -12,6 +13,7 @@
     ./emoji.nix
     ./git.nix
     ./gnome.nix
+    ./go.nix
     ./media.nix
     ./myPkgs.nix
     ./mpv.nix
@@ -19,6 +21,8 @@
     ./nix.nix
     ./pkg.nix
     ./python.nix
+    ./ruby.nix
+    ./rust.nix
     ./sec.nix
     ./sim.nix
     ./terminal.nix

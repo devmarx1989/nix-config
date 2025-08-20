@@ -14,6 +14,7 @@
     helix
     htop
     jq
+    license-cli
     mcfly
     mcfly-fzf
     msitools

@@ -21,6 +21,7 @@
 
     alejandra.url = "github:kamadorueda/alejandra";
     mathematica-flake.url = "github:devmarx1989/mathematica-flake";
+    z-lib.url = "github:devmarx1989/z-lib-deb-nix";
   };
 
   outputs = {
@@ -30,13 +31,14 @@
     disko,
     alejandra,
     mathematica-flake,
+    z-lib,
     ...
   }: let
     system = "x86_64-linux";
     hostname = "house-of-marx";
     user = "dev-marx";
     myPkgs = {
-      inherit alejandra mathematica-flake;
+      inherit alejandra mathematica-flake z-lib;
     };
     myAttr = builtins.listToAttrs (builtins.map (name: {
       inherit name;
