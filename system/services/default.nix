@@ -1,7 +1,7 @@
 {services, ...}: {
   imports = [
     ./avahi.nix
-    ./bitmagnet.nix
+    ./bitmagnet/default.nix
     ./calibre-web.nix
     ./calibre.nix
     ./coredns.nix
