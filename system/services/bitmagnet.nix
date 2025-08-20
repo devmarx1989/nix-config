@@ -6,8 +6,8 @@
 }: let
   stateDir = "/store/bitmagnet";
   httpPort = config.my.bitmagnetHttp; # <-- you asked to source this here
-  pgPort = config.my.port.postgres; # <-- your running Postgres port
-  dhtPort = 3334; # choose any open UDP port you like
+  pgPort = toString config.my.port.postgres; # <-- your running Postgres port
+  dhtPort = config.my.bitmagnetDht; # choose any open UDP port you like
 in {
   # Ensure the target exists with sane perms owned by the service user
   systemd.tmpfiles.rules = [
@@ -46,7 +46,7 @@ in {
 
         # The upstream config also accepts a DSN. Including it here ensures the non-default port is used.
         # (It lives under services.bitmagnet.settings.postgres, which you listed.)
-        dsn = "postgres://admin:admin@127.0.0.1:${toString pgPort}/bitmagnet?sslmode=disable";
+        dsn = "postgres://admin:admin@127.0.0.1:${pgPort}/bitmagnet?sslmode=disable";
       };
 
       # services.bitmagnet.settings.http_server.port
