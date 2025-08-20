@@ -1,18 +1,17 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     clang
+    gnumake
+    libxml2
+    libxslt
     lld
     lldb
     llvm
     mold
     musl
-    yasm
-    gcc
-    gnumake
-    pkg-config
-    zlib
     openssl
-    libxml2
-    libxslt
+    pkg-config
+    yasm
+    zlib
   ];
 }
