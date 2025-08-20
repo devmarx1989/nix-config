@@ -61,4 +61,25 @@ in {
       };
     };
   };
+
+  ##############################################################################
+  # One-shot: make sure the "bitmagnet" DB exists on your external Postgres
+  ##############################################################################
+  systemd.services."bitmagnet-precreate-db" = {
+    description = "Ensure 'bitmagnet' database exists (external PostgreSQL)";
+    before = ["bitmagnet.service"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      Type = "oneshot";
+      Environment = ["PGPASSWORD=admin"];
+      ExecStart = ''
+        ${pkgs.postgresql}/bin/psql \
+          -h 127.0.0.1 -p ${toString pgPort} -U admin \
+          -tc "SELECT 1 FROM pg_database WHERE datname='bitmagnet';" \
+        | ${pkgs.gnugrep}/bin/grep -q 1 \
+        || ${pkgs.postgresql}/bin/createdb \
+             -h 127.0.0.1 -p ${toString pgPort} -U admin bitmagnet
+      '';
+    };
+  };
 }
