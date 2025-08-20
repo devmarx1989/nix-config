@@ -36,6 +36,7 @@ in {
     ];
 
     ensureDatabases = [
+      "bitmagnet"
       root
       promUser
       "data"

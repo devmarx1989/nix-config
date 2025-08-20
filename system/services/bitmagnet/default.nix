@@ -10,9 +10,6 @@
   httpPort = toString ports.bitmagnetHttp; # <-- you asked to source this here
   pgPort = toString ports.postgres; # <-- your running Postgres port
 in {
-  imports = [
-    ./precreate.nix
-  ];
   # Ensure the target exists with sane perms owned by the service user
   systemd.tmpfiles.rules = [
     "d ${stateDir} 0777 bitmagnet bitmagnet -"
