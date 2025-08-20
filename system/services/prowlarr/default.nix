@@ -64,15 +64,23 @@ in {
   systemd.tmpfiles.rules = [
     # mode uid      gid       age path
     "d /store/prowlarr 0777 prowlarr prowlarr -"
-    "d /store/prowlarr/Sentry 0777 prowlarr prowlarr -"
+    "z /store/prowlarr 0777 prowlarr prowlarr -"
   ];
 
-  # keep your ExecStart override OR switch to bind-mount (see note below)
+  ############################################
+  # Systemd hardening fixes for /store/prowlarr
+  ############################################
   systemd.services.prowlarr.serviceConfig = {
-    # You already set ExecStart; keep it:
+    # STOP using a random runtime UID; use the stable 'prowlarr' account.
+    DynamicUser = lib.mkForce false;
+    User = "prowlarr";
+    Group = "prowlarr";
+
+    # You already forced -data to /store/prowlarr; keep your override *or*
+    # let the module keep its ExecStart. Here we keep your override:
     ExecStart = lib.mkForce "${pkgs.prowlarr}/bin/Prowlarr -nobrowser -data=/store/prowlarr";
 
-    # THE IMPORTANT BIT: let the sandbox write to /store/prowlarr
+    # Allow writes there despite ProtectSystem and friends.
     ReadWritePaths = ["/store/prowlarr"];
   };
 }
