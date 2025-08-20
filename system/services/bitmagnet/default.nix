@@ -15,6 +15,13 @@ in {
     "d ${stateDir} 0777 bitmagnet bitmagnet -"
   ];
 
+  systemd.services.bitmagnet = {
+    requires = ["postgresql.service"];
+    after = ["network-online.target" "postgresql.service"];
+    # Optional: restart Bitmagnet if Postgres restarts (keeps a clean connection pool)
+    partOf = ["postgresql.service"];
+  };
+
   # Ensure service user/group exist (harmless if the module also creates them)
   users.groups.bitmagnet = {};
   users.users.bitmagnet = {
