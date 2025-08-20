@@ -5,14 +5,17 @@
     avahi
     curl
     expressvpn
+    iroh
+    lagrange
+    lagrange-tui
     localsend
     masscan
     nethogs
     newsboat
     nmap
     pup
-    sniffnet
     rustscan
+    sniffnet
     unixtools.netstat
     wget
     yt-dlp
