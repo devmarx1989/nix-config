@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    anystyle-cli
     lapce
     tectonic
     texliveFull
