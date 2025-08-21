@@ -4,6 +4,10 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./steam/default.nix
+  ];
+
   programs.dconf.enable = true;
   programs.ccache.enable = true;
   programs.nix-ld.enable = true;

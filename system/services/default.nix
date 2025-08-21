@@ -15,6 +15,7 @@
     ./prometheus.nix
     ./promtail.nix
     ./prowlarr/default.nix
+    ./steam/default.nix
     ./squid.nix
     ./systemd/default.nix
   ];

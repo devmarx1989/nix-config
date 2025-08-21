@@ -15,7 +15,7 @@
     ./network.nix
     ./nix.nix
     ./nixpkgs.nix
-    ./programs.nix
+    ./programs/default.nix
     ./security.nix
     ./services/default.nix
     ./systemd.nix
