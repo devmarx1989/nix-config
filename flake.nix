@@ -22,7 +22,7 @@
     alejandra.url = "github:kamadorueda/alejandra";
     mathematica-flake.url = "github:devmarx1989/mathematica-flake";
     doxx.url = "github:bgreenwell/doxx";
-    lstr.url = "github:bgreenwell/lstr";
+    #lstr.url = "github:bgreenwell/lstr";
     emacs-ng.url = "github:emacs-ng/emacs-ng";
     #z-lib.url = "github:devmarx1989/z-lib-deb-nix";
   };
@@ -35,7 +35,7 @@
     alejandra,
     mathematica-flake,
     doxx,
-    lstr,
+    #lstr,
     emacs-ng,
     #z-lib,
     ...
@@ -44,7 +44,7 @@
     hostname = "house-of-marx";
     user = "dev-marx";
     myPkgs = {
-      inherit alejandra mathematica-flake doxx lstr emacs-ng;
+      inherit alejandra mathematica-flake doxx emacs-ng;
     };
     myAttr = builtins.listToAttrs (builtins.map (name: {
       inherit name;
