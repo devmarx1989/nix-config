@@ -22,7 +22,7 @@ in {
     settings = {
       server = {
         bindAddress = "127.0.0.1";
-        port = readrrPort;
+        port = readarrPort;
       };
       log.analyticsEnabled = false;
       update.mechanism = "external";
