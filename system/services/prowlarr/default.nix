@@ -51,7 +51,7 @@ in {
 
     # Point at your Prowlarr HTTP URL and supply API key via file
     url = "http://127.0.0.1:${pts}"; # confirmed option
-    apiKeyFile = "/run/secrets/prowlarr-api-key"; # confirmed option
+    apiKeyFile = "/store/prowlarr/api-key"; # confirmed option
 
     # Run-as user/group (defaults are fine; set explicitly if you like)
     user = "exportarr-prowlarr-exporter"; # confirmed option (module supports this)
@@ -59,7 +59,10 @@ in {
 
     # Extra exporter flags (optional). Example: backfill historical stats.
     # extraFlags = [ "--backfill" "--log-level=INFO" ];
-    extraFlags = [];
+    extraFlags = [
+      "--backfill"
+      "--log-level=INFO"
+    ];
     environment = {}; # confirmed option
     firewallRules = []; # confirmed option
     firewallFilter = null; # confirmed option
@@ -96,4 +99,9 @@ in {
     description = "Prowlarr service user";
     home = "/var/lib/prowlarr"; # fine to leave; dataDir is elsewhere
   };
+
+  systemd.services.prometheus-exportarr-prowlarr-exporter.after = ["prowlarr.service"];
+  systemd.services.prometheus-exportarr-prowlarr-exporter.requires = ["prowlarr.service"];
+  systemd.services.prometheus-exportarr-readarr-exporter.after = ["readarr.service"];
+  systemd.services.prometheus-exportarr-readarr-exporter.requires = ["readarr.service"];
 }

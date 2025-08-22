@@ -30,13 +30,12 @@ in {
       postgres = {
         host = "127.0.0.1";
         port = postgresPort;
-        user = "readarr";
+        user = "admin";
+        pass = "admin";
         mainDb = "readarr";
         logDb = "readarr-log";
       };
     };
-
-    environmentFiles = ["/run/secrets/readarr.env"];
   };
 
   # Ensure dataDir exists with correct perms
@@ -57,14 +56,17 @@ in {
 
     # Point at your Readarr HTTP URL and supply API key via file
     url = "http://127.0.0.1:${readarrPortss}"; # confirmed option
-    apiKeyFile = "/run/secrets/readarr-api-key"; # confirmed option
+    apiKeyFile = "/store/readarr/api-key"; # confirmed option
 
     # Run-as user/group (kept separate from app user)
     user = "exportarr-readarr-exporter"; # confirmed option
     group = "exportarr-readarr-exporter"; # confirmed option
 
     # Extra exporter flags (optional)
-    extraFlags = []; # confirmed option
+    extraFlags = [
+      "--backfill"
+      "--log-level=INFO"
+    ]; # confirmed option
     environment = {}; # confirmed option
     # firewallRules = [ ];   # confirmed option
     # firewallFilter = "";   # confirmed option
