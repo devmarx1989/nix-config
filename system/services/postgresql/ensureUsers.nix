@@ -33,6 +33,7 @@ in {
       [
         "data"
         "readarr-cache"
+        "readarr-log"
       ]
       ++ users;
   };
