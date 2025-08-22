@@ -9,34 +9,23 @@
   pgPort = ports.promPostgres;
   root = "admin";
   pass = "admin";
-in {
-  services.postgresql.ensureUsers = [
-    {
-      name = root;
-      ensureDBOwnership = true;
-      ensureClauses = {
-        superuser = true;
-        createrole = true;
-        createdb = true;
-      };
-    }
-    {
-      name = promUser;
-      ensureDBOwnership = true;
-      ensureClauses = {
-        superuser = true;
-        createrole = true;
-        createdb = true;
-      };
-    }
-    {
-      name = "postgres";
-      ensureDBOwnership = true;
-      ensureClauses = {
-        superuser = true;
-        createrole = true;
-        createdb = true;
-      };
-    }
+  user = u: {
+    name = u;
+    ensureDBOwnership = true;
+    ensureClauses = {
+      superuser = true;
+      createrole = true;
+      createdb = true;
+    };
+  };
+  users = [
+    root
+    promUser
+    "postgres"
+    "bitmagnet"
+    "prowlarr"
+    "readarr"
   ];
+in {
+  services.postgresql.ensureUsers = map user users;
 }

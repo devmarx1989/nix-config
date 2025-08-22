@@ -7,7 +7,11 @@
   pt = 11000;
   pts = toString 11000;
   promPort = 11001;
+  readarrPort = 11002;
 in {
+  imports = [
+    ./readarr.nix
+  ];
   ############
   ## Prowlarr
   ############

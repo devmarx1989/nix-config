@@ -41,6 +41,7 @@ in {
       promUser
       "data"
       "postgres"
+      "readarr"
     ];
 
     enableTCPIP = true;
