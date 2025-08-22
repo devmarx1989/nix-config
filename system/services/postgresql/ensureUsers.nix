@@ -27,5 +27,12 @@
     "readarr"
   ];
 in {
-  services.postgresql.ensureUsers = map user users;
+  services.postgresql = {
+    ensureUsers = map user users;
+    ensureDatabases =
+      [
+        "data"
+      ]
+      ++ users;
+  };
 }
