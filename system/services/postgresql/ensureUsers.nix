@@ -32,6 +32,7 @@ in {
     ensureDatabases =
       [
         "data"
+        "readarr-cache"
       ]
       ++ users;
   };
