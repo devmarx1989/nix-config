@@ -39,6 +39,7 @@ in {
     MCFLY_FUZZY = "2";
     MCFLY_KEY_SCHEME = "vim";
     NIXPKGS_ALLOW_UNFREE = "1";
+    NIXPKGS_ACCEPT_ANDROID_SDK_LICENSE = "1";
     OLLAMA_HOST = "127.0.0.1:${ollama}";
     PAGER = "bat";
     PYTHONIOENCODING = "UTF-8";
