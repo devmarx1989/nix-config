@@ -5,5 +5,5 @@
     enableOnBoot = true;
   };
 
-  virtualisation.waydroid.enabled = true;
+  virtualisation.waydroid.enable = true;
 }
