@@ -19,6 +19,7 @@
     ./mpv.nix
     ./network.nix
     ./nix.nix
+    ./os.nix
     ./pkg.nix
     ./python.nix
     ./ruby.nix

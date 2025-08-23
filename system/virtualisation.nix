@@ -4,4 +4,6 @@
     enable = true;
     enableOnBoot = true;
   };
+
+  virtualisation.waydroid.enabled = true;
 }

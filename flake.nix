@@ -22,7 +22,6 @@
     alejandra.url = "github:kamadorueda/alejandra";
     mathematica-flake.url = "github:devmarx1989/mathematica-flake";
     doxx.url = "github:bgreenwell/doxx";
-    #lstr.url = "github:bgreenwell/lstr";
     emacs-ng.url = "github:emacs-ng/emacs-ng";
     #z-lib.url = "github:devmarx1989/z-lib-deb-nix";
   };
@@ -35,7 +34,6 @@
     alejandra,
     mathematica-flake,
     doxx,
-    #lstr,
     emacs-ng,
     #z-lib,
     ...
