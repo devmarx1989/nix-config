@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    qemu_full
+    qemu
     qemu-utils
     qemu-user
   ];
