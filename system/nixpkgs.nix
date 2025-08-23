@@ -12,6 +12,7 @@
       allowParallelBuilding = true;
       cudaSupport = true;
       cudaCapabilities = ["8.6"];
+      android_sdk.accept_license = true;
       ccache = {
         enable = true;
         cacheSize = "200G";
