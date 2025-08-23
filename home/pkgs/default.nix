@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./ai.nix
+    ./android.nix
     ./anime.nix
     ./api.nix
     ./archive.nix

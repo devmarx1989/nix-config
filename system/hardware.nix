@@ -13,4 +13,8 @@
   };
 
   hardware.nvidia-container-toolkit.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # helps some Android libs
+  };
 }
