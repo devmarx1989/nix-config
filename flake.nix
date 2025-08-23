@@ -21,7 +21,6 @@
 
     alejandra.url = "github:kamadorueda/alejandra";
     mathematica-flake.url = "github:devmarx1989/mathematica-flake";
-    emacs-ng.url = "github:emacs-ng/emacs-ng";
     #z-lib.url = "github:devmarx1989/z-lib-deb-nix";
   };
 
@@ -32,7 +31,6 @@
     disko,
     alejandra,
     mathematica-flake,
-    emacs-ng,
     #z-lib,
     ...
   }: let
@@ -40,7 +38,7 @@
     hostname = "house-of-marx";
     user = "dev-marx";
     myPkgs = {
-      inherit alejandra mathematica-flake emacs-ng;
+      inherit alejandra mathematica-flake;
     };
     myAttr = builtins.listToAttrs (builtins.map (name: {
       inherit name;
