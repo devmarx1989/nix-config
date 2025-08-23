@@ -31,6 +31,7 @@ in {
       "render"
       "squid"
       "video"
+      "waydroid"
       "wheel"
       "wireshark"
     ];
