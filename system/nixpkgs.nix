@@ -11,7 +11,7 @@
       allowUnfree = true;
       allowParallelBuilding = true;
       allowBroken = true;
-      cudaSupport = true;
+      cudaSupport = false;
       cudaCapabilities = ["8.6"];
       android_sdk.accept_license = true;
       ccache = {
