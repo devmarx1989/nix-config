@@ -10,7 +10,7 @@
     config = {
       allowUnfree = true;
       allowParallelBuilding = true;
-      allowBroken = true;
+      allowBroken = false;
       cudaSupport = false;
       cudaCapabilities = ["8.6"];
       android_sdk.accept_license = true;

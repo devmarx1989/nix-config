@@ -3,7 +3,6 @@
     ctranslate2
     deep-translator
     gtt
-    haskellPackages.translate-cli
     languagetool
     libretranslate
     translate-shell
