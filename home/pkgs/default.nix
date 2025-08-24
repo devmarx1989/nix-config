@@ -15,6 +15,7 @@
     ./git.nix
     ./gnome.nix
     ./go.nix
+    ./lang.nix
     ./media.nix
     ./myPkgs.nix
     ./mpv.nix
@@ -30,6 +31,7 @@
     ./terminal.nix
     ./text.nix
     ./torrents.nix
+    ./translate.nix
   ];
   home.packages = with pkgs; [
     cacert

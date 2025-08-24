@@ -8,15 +8,17 @@
     ./steam/default.nix
   ];
 
-  programs.dconf.enable = true;
-  programs.ccache.enable = true;
-  programs.nix-ld.enable = true;
-  programs.mtr.enable = true;
-  programs.fish.enable = true;
-  # Install firefox.
-  programs.firefox.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+  programs = {
+    adb.enable = true;
+    ccache.enable = true;
+    dconf.enable = true;
+    fish.enable = true;
+    mtr.enable = true;
+    nix-ld.enable = true;
+    firefox.enable = true;
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
   };
 }
