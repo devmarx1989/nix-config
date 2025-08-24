@@ -5,12 +5,6 @@
     hexyl
     lapce
     mdbook
-    mdbook-d2
-    mdbook-epub
-    mdbook-graphviz
-    mdbook-man
-    mdbook-pdf
-    mdbook-toc
     tectonic
     texliveFull
     topiary
