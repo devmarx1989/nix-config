@@ -12,6 +12,7 @@
     ./gnome/default.nix
     ./hardware.nix
     ./hardware-configuration.nix
+    ./mount/default.nix
     ./network.nix
     ./nix.nix
     ./nixpkgs.nix
